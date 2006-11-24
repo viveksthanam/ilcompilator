@@ -1,6 +1,8 @@
 CC= gcc
 EXEC= compilo
 UNAME=`uname`
+CFLAGS= -Wall 
+LFLAGS= -Wall
 
 ifeq ($(UNAME),Linux)
 #LINUX : BISON / FLEX
@@ -33,8 +35,15 @@ y.tab.o: 	y.tab.c
 lex.yy.o:	lex.yy.c
 	$(CC) -c lex.yy.c
 
+%.o: %.c
+	$(CC) $(CFLAGS)
+
 $(EXEC): y.tab.o lex.yy.o
-	$(CC) -o $(EXEC) y.tab.o lex.yy.o -ll
+	$(CC) $(LFLAGS) y.tab.o lex.yy.o -ll -o $(EXEC) 
 
 clean: 
 	rm -f compilateur y.output y.tab.h y.tab.c lex.yy.c *.o
+
+distclean: 
+	rm -f y.output y.tab.h y.tab.c lex.yy.c *.o
+

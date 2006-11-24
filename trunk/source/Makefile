@@ -16,7 +16,7 @@ LEX= lex
 
 endif
 
-all:	y.tab.h lex.yy.c y.tab.c a.out
+all:	y.tab.h lex.yy.c y.tab.c $(EXEC)
 
 y.tab.h :	projet.y
 	$(YACC) -d -v projet.y -o y.tab.c
@@ -33,7 +33,7 @@ y.tab.o: 	y.tab.c
 lex.yy.o:	lex.yy.c
 	$(CC) -c lex.yy.c
 
-$(EXEC):		y.tab.o lex.yy.o
+$(EXEC): y.tab.o lex.yy.o
 	$(CC) -o $(EXEC) y.tab.o lex.yy.o -ll
 
 clean: 

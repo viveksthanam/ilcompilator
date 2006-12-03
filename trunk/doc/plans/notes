@@ -1,0 +1,17 @@
+JD : Considération ULTRA SPECIFIQUE mais qui vient 
+de me heurter la tête :) :
+
+Il faut que le root de nos CL soient vide.
+
+Afin d'utiliser une fonction du type getNext( CLNode* )
+
+comme ça pour avoir le premier element on fait :
+
+node = getNext(root); et si ça ne convient pas : getNext(node).
+
+C'est le genre de truc qui rentre bien dans un while :
+
+while( ilEstPasVide( node = getNext(root) ) )
+{
+	if( ceNodeMeConvient( node ) ) break;
+}

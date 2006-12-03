@@ -42,7 +42,7 @@ $(EXEC): y.tab.o lex.yy.o
 	$(CC) $(LFLAGS) y.tab.o lex.yy.o -ll -o $(EXEC) 
 
 clean: 
-	rm -f compilateur y.output y.tab.h y.tab.c lex.yy.c *.o
+	rm -f $(EXEC) y.output y.tab.h y.tab.c lex.yy.c *.o
 
 distclean: 
 	rm -f y.output y.tab.h y.tab.c lex.yy.c *.o

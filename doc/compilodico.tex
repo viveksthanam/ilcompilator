@@ -1,7 +1,112 @@
-truc que je fais demain: une refcard du cours de compil en gros
-basé sur les questions du qcm
-... et en latex, de facon a pouvoir l'inclure ds un rapport en annexe.. enfin ptet !
+\documentclass[a4paper,11pt]{article}
+\usepackage[french]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
 
+%%%%%%%%%%%%%%%% Lengths %%%%%%%%%%%%%%%%
+\setlength{\textwidth}{15.5cm}
+\setlength{\evensidemargin}{0.5cm}
+\setlength{\oddsidemargin}{0.5cm}
 
-JL.
+\begin{document}
 
+\section{Glossaire}
+
+\subsection{Compilation}
+Traduction automatique des programmes d'un langage de programmation dans un autre, outil d'aide à la conception de programmes corrects.
+
+\subsection{Phases}
+\subsubsection{Ascendante/frontale}
+analyse du source: lexicale, syntaxique, sémantique
+\subsubsection{Descendante}
+production du code, optimisation
+
+\subsection{Analyse lexicale}
+Définit les mots clé du langage, ses unités lexicales. Elle est réalisée par Lex. L'analyseur lexical se traduit comme un automate d'états fini, il produit une suite de lexêmes.
+
+\subsection{Lex}
+Lex est un générateur d'automates d'états fini à partir d'items définis par des expressions rationnelles. Fichier *.l: lexique, spécifications de l'analyseur lexical (liste des unités lexicales, c'est à dire les terminaux de la grammaire, aussi appelés tokens).
+
+\subsection{Arbre de dérivation}
+Pour un programme C: représentation de sa structure syntaxique. La racine est étiquetée par le start symbol, les noeuds internes par des non terminaux, les feuilles par des terminaux. Les suites de dérivation gauche coïncident avec les parcours en profondeur à gauche des arbres de dérivation (réciproquement à droite).
+
+\subsection{Analyse syntaxique}
+Sert à structurer le programme en entrée. Réalisée par Yacc ou Bison. Se comporte comme un automate à pile. Consiste à construire une suite de dérivations du start-symbol vers la suite des lexèmes du programme, c'est l'explicitation de sa structure implicite. Production de la structure syntaxique de la suite des lexêmes $\rightarrow$ arbre. Utilise l'outil théorique appelé grammaires hors contexte. Fichier *.y: grammaire, spécification de l'analyseur syntaxique. Yytext est la valeur lexicale du token courant.
+
+\subsection{Analyse sémantique}
+L'analyse sémantique regroupe l'analyse des noms de symboles utilisés (la déclaration), l'analyse de la portée et de la visibilité des symboles et l'analyse des types explicitation des conversions. On construit un Direct Acyclic Graph à partir d'un arbre abstrait, en supprimant les identificateurs dupliqués. Le DAG produit par l'analyse de type comporte en plus les opérateurs de conversion. Lors de la conversion implicite le compilateur peut émettre un warning. Production d'un arbre syntaxique décoré.
+
+\subsection{Automate d'états fini}
+Un automate est constitué d'états et de transitions. Son comportement est dirigé par un mot fourni en entrée : l'automate passe d'état en état, suivant les transitions, à la lecture de chaque lettre de l'entrée. Un automate fini possède un nombre fini d'états distincts : il ne dispose donc que d'une mémoire bornée. Un automate fini forme naturellement un graphe orienté étiqueté, dont les états sont les sommets et les transitions les arêtes étiquetées. 
+\subsubsection{déterministe}
+La machine démarre dans l'état de départ et une séquence de symboles de son alphabet. Elle emploie la fonction de transition T pour déterminer le prochain état en utilisant l'état actuel et le symbole venant d'être lu. Si, à la fin de la lecture, elle est dans un état acceptant, on dit qu'elle accepte l'entrée, autrement on dit qu'elle la rejette. L'ensemble des entrées acceptées forme un langage, appelé langage reconnu par l'automate fini déterministe.
+\subsubsection{non déterministe}
+La machine M démarre dans l'état de départ et reçoit en entrée une séquence w de symboles de son alphabet. Elle emploie la relation de transition T pour déterminer le ou les prochains états atteignables en utilisant les états actuellement atteignables et le symbole venant d'être lu. On dit que l'automate non-déterministe M accepte l'entrée w si un des états acceptants est atteignable au terme de la lecture de l'entrée. Sinon, M rejette w. L'ensemble des entrées acceptées forme un langage dénoté généralement par L(M).
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.3]{img/etatsfini.jpg}
+\end{center}
+\caption{automate d'états fini reconnaissant les multiples de 3}
+\end{figure}
+
+\subsection{Automate à pile}
+Un automate à pile est semblable à un automate fini non-déterministe mais il dispose également d'une pile qui peut être utilisée pour stocker des informations pertinentes. La puissance de calcul des automates à piles correspond aux langages non-contextuels soit ceux qui peuvent être décrits par une grammaire hors-contexte. Les automates à pile utilisent une zone de mémoire organisée en pile, qui permet de sauver des informations. Le choix d'une transition peut dépendre de la valeur au sommet de la pile (pop). Une transition peut entraîner un ou plusieurs empilements (push).
+
+\subsection{Grammaire hors contexte}
+Génère les langages non contextuels, reconnus par des automates à pile. Une grammaire hors-contexte ou grammaire indépendante du contexte, grammaire de niveau 2 dans la hiérarchie de Chomsky, ou encore grammaire algébrique est une grammaire formelle dans laquelle chaque règle de production est de la forme V $\rightarrow$ w, où V est un symbole non terminal et w est une chaîne composée de terminaux et/ou de non-terminaux. Le terme « hors-contexte » provient du fait qu'un non-terminal V peut toujours être remplacé par w, sans prendre en compte son contexte. Un langage formel est hors-contexte s'il existe une grammaire hors-contexte qui le génère. Les analyses LR et les analyses LL sont des méthodes pour analyser des sous-ensembles plus restrictifs de grammaires hors-contexte.
+
+\subsection{Grammaire E $\rightarrow$ E + E $|$ E * E $|$ id $|$ (E), Ambiguïté }
+Grammaire ambigüe (pour certaines chaînes du langage d'une grammaire (ie: des mots), il y a plus d'un arbre syntaxique), récursive à gauche (c'est à dire qu'il existe une règle de dérivation de la forme X $\rightarrow$ X $\alpha$). L'ambiguïté d'une grammaire est indécidable.
+
+\subsection{Grammaire S $\rightarrow$ aSb$| \epsilon$}
+Définit le langage des mots ayant autant de a que de b, qui sont aussi dans a*.b*.
+
+\subsection{Grammaire ETF (définition: voir cours)}
+Grammaire non ambigüe.
+
+\subsection{Grammaire L'L$^{2}$(1)}
+Unique suite de dérivation gauche : Left$^{2}$ en choisissant la seule règle de dérivation applicable à l'aide du premier terminal (ou \#) restant à lire. On dit qu'elle est L'L$^{2}$(1), (1) signifiant qu'un seul terminal est lu à l'avance.
+\subsection{Terminal, non terminal}
+Le start symbol est un non terminal.
+
+\subsection{Langage rationnel}
+Langage de mots définis par des automates d'états fini, et des expressions rationelles. Langage reconnaissable par un automate d'états fini.
+
+\subsection{Langage algébrique}
+On dit qu'un langage est algébrique lorsqu'il existe une grammaire hors contexte le générant. Il est reconnaissable par un automate à pile.
+
+\subsection{Expressions rationnelles}
+TODO
+\subsection{Expressions arithmétiques}
+TODO
+
+\subsection{Grammaire infixe}
+opérateur situé au milieu.
+
+\subsection{Instruction 3 adresses}
+exemples:\\ x = (float) y\\if !x goto label\\
+opérations homogènes
+
+\subsection{Item}
+TODO, définition propre dans le cours
+
+\subsection{Transition}
+\subsubsection{Lecture}
+TODO
+\subsubsection{Expansion}
+TODO
+\subsubsection{Réduction}
+TODO
+
+\subsection{Analyse LR, LL, Automate des items}
+A partir de l'automate des items non déterministe, il existe deux méthodes pour lever le non déterminisme et obtenir des algorithmes d'analyse lexicale linéaires en la taille du programme d'entrée:
+\subsubsection{LL}
+Analyse lexicale descendante, LL, tente de deviner la règle de dérivation à utiliser pour chaque expansion en utilisant les premières lettres du mot d'entrée
+\subsubsection{LR}
+Analyse qui tente de déterminiser en procédant à toutes les expansions en parallèle, aussi loin que possible. Implémentée dans Yacc.
+
+\end{document}

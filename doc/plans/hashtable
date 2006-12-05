@@ -1,0 +1,71 @@
+HASHTABLE : 
+
+init : 0 -> 0
+clean : 0 -> 0
+getHashFromString: char* -> Hash
+getSIDFromString: char* -> SID
+getStringFromSID: SID -> char*
+
+TABLE : 
+tableau de k CLNODE*.
+
+DEPTHS :
+tableau de k int.
+
+----------------------------------------
+
+typedef int HASH;
+
+typedef struct _SID
+{
+	int depth; (N)
+	int hash; (h)
+
+}SID;
+
+-----------------------------------------
+
+getSIDFromString(string)
+{
+	if( h = CHECK(string) )
+	{
+		return h;
+	}
+	else
+	{
+		return AJOUT(string);
+	}
+}
+
+-----------------------------------------
+
+getStringFromSID( SID )
+{
+	return TABLE[SID.h][SID.N];
+}
+
+-----------------------------------------
+
+CHECK( string )
+
+h = HASH(string)
+
+Dépile jusqu'a ce que string == pop( TABLE[h] )
+
+Si on trouve alors on retourne (h,N)
+
+Sinon FALSE
+
+------------------------------------------
+
+AJOUT( string )
+
+h = HASH(string)
+
+DEPTHS[h]++;
+
+Ajoute (string, N) dans TABLE[h]
+
+Retourne (h,N)
+
+--------------------------------------------

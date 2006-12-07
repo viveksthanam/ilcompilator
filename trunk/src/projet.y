@@ -6,17 +6,16 @@
 #include <stdio.h>
 #include <iostream>
 #include "y.tab.h"
+#include "configuration.h"
 #include "process.h"
 #include "debug.h"
 #include "type.h"
 #include "hashtable.h"
 
-int yyerror(char *s);
-
 // Ajouté car ne compilait pas
 // avec g++
-int yylex(void);
-
+int yylex (void);
+int yyerror (char* s);
 using namespace std;
 
 /** \note Initialisation a NULL permettant d'effectuer des tests et de compiler
@@ -24,9 +23,17 @@ using namespace std;
 */
 CHashtable* HT_main = NULL;
 
-%}
+/** \brief Variable globale conservant le type des ou de la derniere variable a
+ * declarer, -1 voulant dire qu'il n'y a plus de variables a declarer pour
+ * l'instruction courante.
+*/ 
+int current_decl_type = -1; 
 
-%token VIR PV DP FP ID NUM NOT 
+%}
+ 
+%verbose
+
+%token VIR PV DP FP ID NUMI NUMF NOT 
 %token AND OR  
 %token PLUS MOINS 
 %token DIV STAR
@@ -58,19 +65,19 @@ pv : PV { debug_echo("PV"); }
 decl_list : decl_list decl { debug_echo("decl_list decl"); }
             | ;
 
-decl : type id_aff_list PV { process_declaration($1, $2); } ;
+decl : type id_aff_list PV { process_declaration_end(); } ;
 
-id_aff_list : id_aff_list VIR id_aff { $$ = $3; debug_echo("id_aff_list VIR id_aff"); }
-              | id_aff { $$ = $1; debug_echo("id_aff"); };
+id_aff_list : id_aff_list VIR id_aff { process_declaration(current_decl_type,$3); }
+              | id_aff { process_declaration(current_decl_type, $1); };
 
 id_aff : id { $$ = $1; debug_echo("id"); }
          | affect { $$ = $1; debug_echo("affect"); };
 
 id : ID { $$ = $1; debug_echo("ID"); };
 
-type : INT { $$ = T_INT;  debug_echo("INT"); }
-       | FLOAT { $$ = T_FLOAT; debug_echo("FLOAT"); } 
-       | BOOL { $$ = T_BOOL; debug_echo("BOOL"); }
+type : INT { $$ = T_INT; current_decl_type = T_INT; debug_echo("INT"); }
+       | FLOAT { $$ = T_FLOAT; current_decl_type = T_FLOAT; debug_echo("FLOAT"); } 
+       | BOOL { $$ = T_BOOL; current_decl_type = T_BOOL; debug_echo("BOOL"); }
        | type STAR { debug_echo("STAR"); };
 
 inst_list : inst_list PV inst { debug_echo("inst_list PV inst"); }
@@ -116,7 +123,8 @@ exp :  exp OR exp { process_or($1,$3); }
      | id { $$ = $1; debug_echo("id"); }
      | const { $$ = $1; debug_echo("const"); }; 
 
-const : NUM { $$ = $1; debug_echo("NUM"); }
+const : NUMI { $$ = $1; debug_echo("NUMI"); }
+        | NUMF { $$ = $1; debug_echo("NUMF"); }
         | TRUE { $$ = DEF_TRUE; debug_echo("TRUE"); }
         | FALSE { $$ = DEF_FALSE; debug_echo("FALSE"); };
 

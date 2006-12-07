@@ -16,5 +16,9 @@
 * */
 int debug_echo (char* string);
 
+/** \brief Idem debug_echo, mais avec passage d'un int en paramètre.
+ */
+int debug_echoi (char* string, int);
+
 #endif
 /*debug.h*/

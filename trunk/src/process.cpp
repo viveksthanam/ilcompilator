@@ -1,11 +1,14 @@
 /*code des routines de traitement*/
-using namespace std;
+//% vim: ts=2 tw=80
 #include <iostream>
 #include <cstdlib>
 #include "process.h"
 #include "debug.h"
 
-// vim: ts=2 tw=80
+using namespace std;
+
+extern int yyerror(char *s);
+extern int current_decl_type;
 
 /** \file process.cpp
 * \brief Corps des fonctions de traitement
@@ -16,12 +19,36 @@ using namespace std;
 
 int process_declaration(int arg1, int arg2) {
 
+	//current_decl_type = -1;
   debug_echo("declaration: type id_aff_list PV");
+
+	if (current_decl_type != -1) {
+		//code réalisant la declaration
+	 
+		debug_echoi( "type", arg1 );
+		debug_echoi( "id_aff", arg2 ); 
+
+	}
+	else {
+		yyerror("debut de déclaration inattendue");
+		return EXIT_FAILURE; 
+	}
   
-  cout << "type: "<< arg1 << ", id_aff_list: " << arg2 << endl;
-  /* la production de code "quasiment online" peut commencer :P */
-  
-  return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
+}
+
+int process_declaration_end() {
+
+	debug_echo("declaration_end, current_decl_type=-1");	
+	if (current_decl_type != -1)
+		current_decl_type = -1;
+	else { 
+		yyerror("fin de déclaration inattendue");
+		return EXIT_FAILURE;
+	}
+	
+	return EXIT_SUCCESS;
+		
 }
 
 int process_assignment(int arg1, int arg3) {

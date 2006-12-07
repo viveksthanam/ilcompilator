@@ -44,5 +44,6 @@ extern CHashtable HT_main;
 [a-zA-Z][a-zA-Z0-9]*         { /** \note Voir commentaires dans lex_process.h */ 
 			       yylval = lex_process_getTinyStringID( &HT_main, yytext ); 
 			       return(ID);}
-[0-9]+("."?)[0-9]*           {/** \todo  Retour NUM à gerer */ return(NUM);}
+[0-9]+(".")[0-9]*            {return(NUMF);}
+[0-9]			     {return(NUMI);}
 

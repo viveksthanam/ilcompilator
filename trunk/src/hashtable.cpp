@@ -13,6 +13,8 @@
 #include "hashtable.h"
 #include "stringid.h"
 
+#include <iostream>
+
 CHashtable::CHashtable()
 {
   return;
@@ -60,16 +62,18 @@ CStringID CHashtable::getStringIDFromString( string str )
   // en dépilant la liste jusqu'a tomber
   // sur la chaine qui nous interesse.
   // Si on tombe pas dessus alors on va la créer.
-  for( i=0; i< str.size(); i++)
+  for( i=0; i<(table[hash]).size(); i++)
   {
     if( str == (table[hash])[i] )
       return CStringID( hash, i );
   }
 
+
   // Création de l'entrée dans la table de hash.
+//  table[hash].insert( table[hash].begin(), str );
   table[hash].push_back( str );
 
   // Retourne le CStringID "qui va bien"(c)
-  return CStringID( hash, table[hash].size() );
+  return CStringID( hash, table[hash].size() - 1);
 }
 

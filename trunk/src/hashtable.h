@@ -13,12 +13,12 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
+#include "hashtable.h"
+
 #include "stringid.h"
 
 #include <string>
-#include <queue>
-
-#define HASHTABLE_SIZE 100
+#include <vector>
 
 using namespace std;
 

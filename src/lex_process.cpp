@@ -11,12 +11,18 @@
 #include "hashtable.h"
 #include "lex_process.h"
 #include "stringid.h"
-extern CHashtable HT_main;
+extern CHashtable HT_main; 
 
-/** \brief string correspond à yytext, ayant matché un ID. */ 
-int lex_process_getTinyStringID( char* string ) {
+/** \todo Regler le probleme de fuite memoire du a la non liberation de la
+ * memoire utilisee par tempStringID !
+ * */ 
+int lex_process_getTinyStringID( CHashtable* my_HT, char* string ) {
 
-	return HT_main.getStringIDFromString(string);	
+	CStringID tempStringID;
+
+	tempStringID = my_HT->getStringIDFromString(string);	
+
+	return tempStringID.toInt();
 	
 }
 

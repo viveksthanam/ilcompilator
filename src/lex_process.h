@@ -17,11 +17,12 @@
 * @{
 */
 
-/** \brief lex_process_getTinyStringID nous donne une version compacte d'une
+/** \brief lex_process_getTinyStringID nous donne une version 'compacte' d'une
  * instance de CStringID, puisque nous ne pouvons remonter que des entiers et
- * non pas des structures.
+ * non pas des structures. my_HT est un pointeur sur notre table de hash.
+ * string est yytext ayant 'matché' un ID.
  */
-int lex_process_getTinyStringID( char* string );
+int lex_process_getTinyStringID( CHashtable* my_HT, char* string );
 
 /** @} */
 

@@ -5,6 +5,15 @@ using namespace std;
 #include "process.h"
 #include "debug.h"
 
+// vim: ts=2 tw=80
+
+/** \file process.cpp
+* \brief Corps des fonctions de traitement
+* \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
+* \version
+* \date 07/12/2007
+*/
+
 int process_declaration(int arg1, int arg2) {
 
   debug_echo("declaration: type id_aff_list PV");

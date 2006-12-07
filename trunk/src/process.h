@@ -2,6 +2,21 @@
 #ifndef PROCESS_HEADER
 #define PROCESS_HEADER
 
+// vim: ts=2 tw=80
+
+/** \file process.h
+* \brief Header des fonctions de traitement
+* \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
+* \version
+* \date 07/12/2007
+*/
+
+/** \addtogroup Processing Functions
+* Appel lors d'un 'match' sur un token dans Yacc. Convention de nommage des
+* fonctions: process_[nom du token].
+* @{
+*/
+
 int process_declaration(int arg1, int arg2);
 int process_assignment(int arg1, int arg3);
 int process_while_end(int arg1, int arg2);
@@ -22,6 +37,8 @@ int process_grt(int arg1, int arg3);
 int process_low(int arg1, int arg3); 
 int process_neq(int arg1, int arg3); 
 int process_uop(int arg1, int arg2); 
+
+/** @} */
 
 #endif /*process.h*/
 

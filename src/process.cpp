@@ -7,6 +7,9 @@ using namespace std;
 int process_declaration() {
 
   cout << "declaration: type id_aff_list PV\n ";
+ 
+  /* la production de code "quasiment online" peut commencer :P */
+  
   return EXIT_SUCCESS;
 }
 

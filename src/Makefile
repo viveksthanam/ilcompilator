@@ -2,6 +2,7 @@
 
 CC= g++
 EXEC= compilo
+ALLEXEC= hashtable_test
 UNAME=`uname`
 CFLAGS= -Wall -g
 LDFLAGS= -Wall -ll -g
@@ -25,6 +26,9 @@ endif
 all: $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXEC)
 
+hashtable_test: hashtable.o
+	$(CC) -g hashtable.o hashtable_test.cpp -o hashtable_test
+
 %.o: %.cpp *.h
 	$(CC) $(CFLAGS) $< -c -o $@
 
@@ -47,7 +51,7 @@ lex.yy.o: lex.yy.c
 	$(CC) -c lex.yy.c
 
 clean: 
-	rm -f $(EXEC) y.output y.tab.h y.tab.c lex.yy.c *.o
+	rm -f $(EXEC) $(ALLEXEC) y.output y.tab.h y.tab.c lex.yy.c *.o
 
 distclean: 
 	rm -f y.output y.tab.h y.tab.c lex.yy.c *.o

@@ -12,6 +12,8 @@
 #ifndef STRINGID_H
 #define STRINGID_H
 
+#include "configuration.h"
+
 class CStringID
 {
 public:
@@ -27,14 +29,23 @@ public:
     this->hash = hash;
     this->depth = depth;
   }
-  
+ 
+  int tont()
+  {
+    return ((this->depth)*HASHTABLE_SIZE + this->hash);
+  }
+
+  void fromInt(int value)
+  {
+    this->depth = value/HASHTABLE_SIZE;
+    this->hash = value - this->depth*HASHTABLE_SIZE;
+  }
+
   bool isValid() { return ((hash != -1)
                         &&(depth != -1)); }
 
   int hash;
   int depth;
-
-
 };
 
 #endif/*STRINGID_H*/

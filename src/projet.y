@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "y.tab.h"
-#include "process.h" 
+#include "process.h"
+#include "debug.h"
 
 #define DEF_TRUE 1
 #define DEF_FALSE 0
@@ -42,39 +43,39 @@ int yylex(void);
 
 prog : decl_list inst_list pv ;
 
-pv : PV 
+pv : PV { debug_echo("PV"); }
      | ;
 
-decl_list : decl_list decl
+decl_list : decl_list decl { debug_echo("decl_list decl"); }
             | ;
 
 decl : type id_aff_list PV { process_declaration(); } ;
 
-id_aff_list : id_aff_list VIR id_aff { $$ = $1; }
-              | id_aff { $$ = $1; };
+id_aff_list : id_aff_list VIR id_aff { $$ = $1; debug_echo("id_aff_list VIR id_aff"); }
+              | id_aff { $$ = $1; debug_echo("id_aff"); };
 
-id_aff : id { $$ = $1; }
-         | affect { $$ = $1; };
+id_aff : id { $$ = $1; debug_echo("id"); }
+         | affect { $$ = $1; debug_echo("affect"); };
 
-id : ID { $$ = $1; };
+id : ID { $$ = $1; debug_echo("ID"); };
 
-type : INT {/* gestion de la remontee des types a faire */ }
-       | FLOAT 
-       | BOOL 
-       | type STAR ;
+type : INT {/* gestion de la remontee des types a faire */ debug_echo("INT"); }
+       | FLOAT { debug_echo("FLOAT"); } 
+       | BOOL { debug_echo("BOOL"); }
+       | type STAR { debug_echo("STAR"); };
 
-inst_list : inst_list PV inst
-            | inst ;
+inst_list : inst_list PV inst { debug_echo("inst_list PV inst"); }
+            | inst { debug_echo("inst"); };
 
-inst : affect
-       | cond
-       | loop
-       | bloc ;
+inst : affect { debug_echo("affect"); }
+       | cond { debug_echo("cond"); }
+       | loop { debug_echo("loop"); }
+       | bloc { debug_echo("bloc"); };
 
 affect : id EQ exp { $$ = process_assignment($1,$3); };
 
-cond : IF exp THEN inst 
-       | IF exp THEN inst ELSE inst;
+cond : IF exp THEN inst { debug_echo("IF exp THEN inst"); }
+       | IF exp THEN inst ELSE inst { debug_echo("IF exp THEN inst ELSE inst"); };
 
 loop : while exp_do inst { process_while_end($1,$2); }
        | repeat inst UNTIL exp { process_repeat_end($1,$4); };
@@ -85,7 +86,7 @@ exp_do: exp DO { $$ = process_exp_do_begin($1); };
 
 repeat: REPEAT { $$ = process_repeat_begin(); };
 
-bloc : da prog fa { $$=$2; };
+bloc : da prog fa { $$=$2; debug_echo("da prog fa"); };
 
 da : DA { process_context_open(); };
 
@@ -102,17 +103,17 @@ exp :  exp OR exp { process_or($1,$3); }
      | exp LOW exp { process_low($1,$3); }
      | exp NEQ exp { process_neq($1,$3); }
      | uop exp %prec MUNAIRE { process_uop($1,$2); }
-     | DP exp FP { $$ = $2; }
-     | id { $$ = $1; }
-     | const { $$ = $1; }; 
+     | DP exp FP { $$ = $2; debug_echo("DP exp FP"); }
+     | id { $$ = $1; debug_echo("id"); }
+     | const { $$ = $1; debug_echo("const"); }; 
 
-const : NUM { $$ = $1; }
-        | TRUE { $$ = DEF_TRUE; }
-        | FALSE { $$ = DEF_FALSE; };
+const : NUM { $$ = $1; debug_echo("NUM"); }
+        | TRUE { $$ = DEF_TRUE; debug_echo("TRUE"); }
+        | FALSE { $$ = DEF_FALSE; debug_echo("FALSE"); };
 
-uop : STAR { /*remonter star*/ }
-      | MOINS { /*idem moins*/ }
-      | NOT {/*idem not*/ };
+uop : STAR { /*remonter star*/ debug_echo("STAR"); }
+      | MOINS { /*idem moins*/ debug_echo("MOINS"); }
+      | NOT {/*idem not*/ debug_echo("NOT"); };
 
 %%
 
@@ -123,5 +124,7 @@ int yyerror(char *s)
    
 int main()
 {
+  debug_echo("appel yyparse");
   return yyparse();
+  debug_echo("fin de yyparse");
 }

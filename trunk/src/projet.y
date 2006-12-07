@@ -7,6 +7,7 @@
 #include "y.tab.h"
 #include "process.h"
 #include "debug.h"
+#include "type.h"
 
 #include <iostream>
 
@@ -67,7 +68,7 @@ id_aff : id { $$ = $1; debug_echo("id"); }
 
 id : ID { $$ = $1; debug_echo("ID"); };
 
-type : INT {/* gestion de la remontee des types a faire */ $$ = debug_echo("INT"); }
+type : INT { $$ = T_INT;  debug_echo("INT"); }
        | FLOAT { debug_echo("FLOAT"); } 
        | BOOL { debug_echo("BOOL"); }
        | type STAR { debug_echo("STAR"); };
@@ -132,11 +133,11 @@ int yyerror(char *s)
    
 int main()
 {
-  CHashtable ht;
 
-  CStringID sid = ht.getStringIDFromString("canard");
+  debug_echo("appel yyparse");
+  yyparse();
+  debug_echo("fin yyparse");
 
-  cerr<<"h="<<sid.hash<<" d="<<sid.depth<<endl;
+  return EXIT_SUCCESS;
 
-  return 0;
 }

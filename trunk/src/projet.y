@@ -4,9 +4,13 @@
 #include <stdio.h>
 #include "y.tab.h"
 
-  int yyerror(char *s);
+int yyerror(char *s);
 
-  %}
+// Ajouté car ne compilait pas
+// avec g++
+int yylex(void);
+
+%}
 
 
 

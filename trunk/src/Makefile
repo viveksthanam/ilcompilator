@@ -1,4 +1,4 @@
-CC= gcc
+CC= g++
 EXEC= compilo
 UNAME=`uname`
 CFLAGS= -Wall 

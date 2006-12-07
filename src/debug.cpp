@@ -22,4 +22,12 @@ int debug_echo (char* string) {
   return EXIT_SUCCESS;
 }
 
+int debug_echoi (char* string, int i) {
+#ifdef DEBUG_ECHO
+ cerr << "debug_echoi: " << string << ", parametre: " << i << endl;
+#endif
+
+  return EXIT_SUCCESS;
+}
+
 /*debug.c*/

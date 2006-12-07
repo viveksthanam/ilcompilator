@@ -17,7 +17,16 @@
 * @{
 */
 
+/** \brief Génère les déclarations de variables du contexte en utilisant le
+* type défini par current_decl_type et l'id_aff remonté par int arg2.
+*/
 int process_declaration(int arg1, int arg2);
+
+/** \brief Clôture une instruction de déclaration, repositionne 
+* current_decl_type à -1.
+*/
+int process_declaration_end();
+
 int process_assignment(int arg1, int arg3);
 int process_while_end(int arg1, int arg2);
 int process_repeat_end(int arg1, int arg4);

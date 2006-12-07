@@ -9,6 +9,9 @@
  *
  */
 
+#ifndef HEADER_CONFIG
+#define HEADER_CONFIG
+
 /** \brief Taille de la table de hash.
  */
 #define HASHTABLE_SIZE 100
@@ -23,3 +26,8 @@
 #define DEF_TRUE 1
 #define DEF_FALSE 0
 
+/** \note Mode verbeux de Yacc */
+#define YYERROR_VERBOSE
+
+#endif
+/*configuration.h*/

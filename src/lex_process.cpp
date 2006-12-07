@@ -17,7 +17,7 @@ extern CHashtable HT_main;
  * */ 
 int lex_process_getTinyStringID( CHashtable* my_HT, char* string ) {
 
-	return (int)((CStringID)my_HT->getStringIDFromString(string)).toInt();	
-
+	//return (int)((CStringID)my_HT->getStringIDFromString(string)).toInt();	
+	return 42; //patch anti seg fault
 }
 

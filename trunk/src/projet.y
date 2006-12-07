@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "y.tab.h"
-#include "process.hpp" 
+#include "process.h" 
 
 #define DEF_TRUE 1
 #define DEF_FALSE 0

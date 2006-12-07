@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "y.tab.h"
+#include "process.hpp" 
+
+#define DEF_TRUE 1
+#define DEF_FALSE 0
 
 int yyerror(char *s);
 
@@ -11,8 +15,6 @@ int yyerror(char *s);
 int yylex(void);
 
 %}
-
-
 
 %token VIR PV DP FP ID NUM NOT 
 %token AND OR  
@@ -24,7 +26,6 @@ int yylex(void);
 %token TRUE FALSE 
 %token INT FLOAT BOOL 
 %token IF THEN ELSE REPEAT DO WHILE UNTIL
-
 
 %start prog
 
@@ -41,60 +42,77 @@ int yylex(void);
 
 prog : decl_list inst_list pv ;
 
-pv : PV | ;
+pv : PV 
+     | ;
 
 decl_list : decl_list decl
-| ;
+            | ;
 
-decl : type id_aff_list PV;
+decl : type id_aff_list PV { process_declaration(); } ;
 
-id_aff_list : id_aff_list VIR id_aff
-| id_aff ;
+id_aff_list : id_aff_list VIR id_aff { $$ = $1; }
+              | id_aff { $$ = $1; };
 
-id_aff : id | affect ;
+id_aff : id { $$ = $1; }
+         | affect { $$ = $1; };
 
-id : ID ;
+id : ID { $$ = $1; };
 
-type : INT | FLOAT | BOOL | type STAR ;
+type : INT {/* gestion de la remontee des types a faire */ }
+       | FLOAT 
+       | BOOL 
+       | type STAR ;
 
 inst_list : inst_list PV inst
-| inst ;
+            | inst ;
 
 inst : affect
        | cond
        | loop
        | bloc ;
 
-affect : id EQ exp ;
+affect : id EQ exp { $$ = process_assignment($1,$3); };
 
 cond : IF exp THEN inst 
-| IF exp THEN inst ELSE inst;
+       | IF exp THEN inst ELSE inst;
 
-loop : WHILE exp DO inst
-| REPEAT inst UNTIL exp ;
+loop : while exp_do inst { process_while_end($1,$2); }
+       | repeat inst UNTIL exp { process_repeat_end($1,$4); };
 
-bloc : DA prog FA ;
+while: WHILE { $$ = process_while_begin(); };
 
-exp :  exp OR exp
-     | exp AND exp
-     | exp PLUS exp
-     | exp MOINS exp
-     | exp STAR exp
-     | exp DIV exp
-     | exp EQL exp
-     | exp GRT exp
-     | exp LOW exp
-     | exp NEQ exp
-     | uop exp %prec MUNAIRE
-     | DP exp FP
-     | id
-     | const ; 
+exp_do: exp DO { $$ = process_exp_do_begin($1); };
 
-const : NUM | TRUE | FALSE ;
+repeat: REPEAT { $$ = process_repeat_begin(); };
 
-uop : STAR | MOINS | NOT;
+bloc : da prog fa { $$=$2; };
 
+da : DA { process_context_open(); };
 
+fa : FA { process_context_save(); };
+
+exp :  exp OR exp { process_or($1,$3); }
+     | exp AND exp { process_and($1,$3); }
+     | exp PLUS exp { process_plus($1,$3); }
+     | exp MOINS exp { process_moins($1,$3); }
+     | exp STAR exp { process_star($1,$3); }
+     | exp DIV exp { process_div($1,$3); }
+     | exp EQL exp { process_eql($1,$3); }
+     | exp GRT exp { process_grt($1,$3); }
+     | exp LOW exp { process_low($1,$3); }
+     | exp NEQ exp { process_neq($1,$3); }
+     | uop exp %prec MUNAIRE { process_uop($1,$2); }
+     | DP exp FP { $$ = $2; }
+     | id { $$ = $1; }
+     | const { $$ = $1; }; 
+
+const : NUM { $$ = $1; }
+        | TRUE { $$ = DEF_TRUE; }
+        | FALSE { $$ = DEF_FALSE; };
+
+uop : STAR { /*remonter star*/ }
+      | MOINS { /*idem moins*/ }
+      | NOT {/*idem not*/ };
 
 %%
 

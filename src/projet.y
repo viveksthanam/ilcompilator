@@ -1,29 +1,23 @@
-// vim:
+//% vim: tw=80 ts=2
 
 %{
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <iostream>
 #include "y.tab.h"
 #include "process.h"
 #include "debug.h"
 #include "type.h"
-
-#include <iostream>
-
 #include "hashtable.h"
 
-#define DEF_TRUE 1
-#define DEF_FALSE 0
+	int yyerror(char *s);
 
-int yyerror(char *s);
+	// Ajouté car ne compilait pas
+	// avec g++
+	int yylex(void);
 
-// Ajouté car ne compilait pas
-// avec g++
-int yylex(void);
-
-using namespace std;
-
+	using namespace std;
 %}
 
 %token VIR PV DP FP ID NUM NOT 
@@ -133,10 +127,17 @@ int yyerror(char *s)
    
 int main()
 {
-
-  debug_echo("appel yyparse");
+ 
+	debug_echo("creation HT principale");
+  CHashtable* HT_main;
+  HT_main = new CHashtable;
+ 
+	debug_echo("appel yyparse");
   yyparse();
   debug_echo("fin yyparse");
+	
+	debug_echo("libération HT principale");
+	delete HT_main;
 
   return EXIT_SUCCESS;
 

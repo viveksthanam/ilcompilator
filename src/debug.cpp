@@ -3,7 +3,7 @@ using namespace std;
 #include <iostream>
 #include <cstdlib>
 #include "debug.h"
-
+#include "configuration.h"
 
 // vim: ts=2 tw=80
 

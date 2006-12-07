@@ -11,7 +11,7 @@
  * \date 07/12/2007
  */
 
-/** \brief Simple fonction d'affichage sur stdout aidant au debug
+/** \brief Simple fonction d'affichage sur stderr aidant au debug
 *   \note Aucun effet si DEBUG_ECHO n'est pas positionnée (dans configuration.h).
 * */
 int debug_echo (char* string);

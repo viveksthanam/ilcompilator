@@ -1,3 +1,5 @@
+// vim:
+
 %{
 
 #include <stdlib.h>
@@ -5,6 +7,10 @@
 #include "y.tab.h"
 #include "process.h"
 #include "debug.h"
+
+#include <iostream>
+
+#include "hashtable.h"
 
 #define DEF_TRUE 1
 #define DEF_FALSE 0
@@ -14,6 +20,8 @@ int yyerror(char *s);
 // Ajouté car ne compilait pas
 // avec g++
 int yylex(void);
+
+using namespace std;
 
 %}
 
@@ -124,7 +132,11 @@ int yyerror(char *s)
    
 int main()
 {
-  debug_echo("appel yyparse");
-  return yyparse();
-  debug_echo("fin de yyparse");
+  CHashtable ht;
+
+  CStringID sid = ht.getStringIDFromString("canard");
+
+  cerr<<"h="<<sid.hash<<" d="<<sid.depth<<endl;
+
+  return 0;
 }

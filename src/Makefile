@@ -3,8 +3,8 @@
 CC= g++
 EXEC= compilo
 UNAME=`uname`
-CFLAGS= -Wall 
-LDFLAGS= -Wall -ll
+CFLAGS= -Wall -g
+LDFLAGS= -Wall -ll -g
 
 OBJECTS = y.tab.o lex.yy.o hashtable.o process.o debug.o
 

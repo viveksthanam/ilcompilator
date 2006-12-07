@@ -28,8 +28,13 @@ public:
     this->depth = depth;
   }
   
+  bool isValid() { return ((hash != -1)
+                        &&(depth != -1)); }
+
   int hash;
   int depth;
+
+
 };
 
 #endif/*STRINGID_H*/

@@ -44,25 +44,32 @@ int CHashtable::getHashFromString( const char* str )
 
 string CHashtable::getStringFromStringID( CStringID sid )
 {
-
-  return string("");
+  if( !(sid.isValid()) ) return string("ERROR");
+  
+  return (table[sid.hash])[sid.depth];
 }
 
 CStringID CHashtable::getStringIDFromString( string str )
 {
   int hash;
-  int i;
+  unsigned int i;
   
   hash = getHashFromString( str.c_str() );
   
+  // Cherche dans la table à l'indice 'hash'
+  // en dépilant la liste jusqu'a tomber
+  // sur la chaine qui nous interesse.
+  // Si on tombe pas dessus alors on va la créer.
   for( i=0; i< str.size(); i++)
   {
-    if( str == (lists[hash])[i] )
-    {
-    }
-      
+    if( str == (table[hash])[i] )
+      return CStringID( hash, i );
   }
 
-  return CStringID();
+  // Création de l'entrée dans la table de hash.
+  table[hash].push_back( str );
+
+  // Retourne le CStringID "qui va bien"(c)
+  return CStringID( hash, table[hash].size() );
 }
 

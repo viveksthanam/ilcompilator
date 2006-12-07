@@ -26,7 +26,7 @@ class CHashtable
 {
 private:
 
-  vector<string> lists[HASHTABLE_SIZE];
+  vector<string> table[HASHTABLE_SIZE];
   
   int getHashFromString( const char* );
 

@@ -13,16 +13,11 @@
 #include "stringid.h"
 extern CHashtable HT_main; 
 
-/** \todo Regler le probleme de fuite memoire du a la non liberation de la
- * memoire utilisee par tempStringID !
+/** \todo Regler le probleme de fuite memoire !
  * */ 
 int lex_process_getTinyStringID( CHashtable* my_HT, char* string ) {
 
-	CStringID tempStringID;
+	return (int)((CStringID)my_HT->getStringIDFromString(string)).toInt();	
 
-	tempStringID = my_HT->getStringIDFromString(string);	
-
-	return tempStringID.toInt();
-	
 }
 

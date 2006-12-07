@@ -69,8 +69,8 @@ id_aff : id { $$ = $1; debug_echo("id"); }
 id : ID { $$ = $1; debug_echo("ID"); };
 
 type : INT { $$ = T_INT;  debug_echo("INT"); }
-       | FLOAT { debug_echo("FLOAT"); } 
-       | BOOL { debug_echo("BOOL"); }
+       | FLOAT { $$ = T_FLOAT; debug_echo("FLOAT"); } 
+       | BOOL { $$ = T_BOOL; debug_echo("BOOL"); }
        | type STAR { debug_echo("STAR"); };
 
 inst_list : inst_list PV inst { debug_echo("inst_list PV inst"); }

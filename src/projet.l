@@ -39,6 +39,6 @@ extern int yylval;
 "int"                        {return(INT);}
 "float"                      {return(FLOAT);}
 "bool"                       {return(BOOL);}
-[a-zA-Z][a-zA-Z0-9]*         {/* a gerer */ yylval=0; return(ID);}
+[a-zA-Z][a-zA-Z0-9]*         { static int id_count = 0; yylval= id_count; id_count++; return(ID);}
 [0-9]+("."?)[0-9]*           {/* a gerer */ return(NUM);}
 

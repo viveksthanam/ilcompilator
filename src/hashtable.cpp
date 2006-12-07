@@ -13,8 +13,6 @@
 #include "hashtable.h"
 #include "stringid.h"
 
-#include <iostream>
-
 CHashtable::CHashtable()
 {
   return;

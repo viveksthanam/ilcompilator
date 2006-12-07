@@ -11,13 +11,15 @@
 #include "type.h"
 #include "hashtable.h"
 
-	int yyerror(char *s);
+int yyerror(char *s);
 
-	// Ajouté car ne compilait pas
-	// avec g++
-	int yylex(void);
+// Ajouté car ne compilait pas
+// avec g++
+int yylex(void);
 
-	using namespace std;
+using namespace std;
+
+CHashtable* HT_main;
 %}
 
 %token VIR PV DP FP ID NUM NOT 
@@ -129,7 +131,6 @@ int main()
 {
  
 	debug_echo("creation HT principale");
-  CHashtable* HT_main;
   HT_main = new CHashtable;
  
 	debug_echo("appel yyparse");

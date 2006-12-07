@@ -1,7 +1,6 @@
 /* protos des fonctions de debug */
 #ifndef DEBUG_HEADER
 #define DEBUG_HEADER
-#define DEBUG_ECHO
 
 // vim: ts=2 tw=80
 
@@ -13,7 +12,7 @@
  */
 
 /** \brief Simple fonction d'affichage sur stdout aidant au debug
-*   \note Aucun effet si DEBUG_ECHO n'est pas positionnée (dans debug.h).
+*   \note Aucun effet si DEBUG_ECHO n'est pas positionnée (dans configuration.h).
 * */
 int debug_echo (char* string);
 

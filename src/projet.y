@@ -60,7 +60,7 @@ decl_list : decl_list decl { debug_echo("decl_list decl"); }
 
 decl : type id_aff_list PV { process_declaration($1, $2); } ;
 
-id_aff_list : id_aff_list VIR id_aff { $$ = $1; debug_echo("id_aff_list VIR id_aff"); }
+id_aff_list : id_aff_list VIR id_aff { $$ = $3; debug_echo("id_aff_list VIR id_aff"); }
               | id_aff { $$ = $1; debug_echo("id_aff"); };
 
 id_aff : id { $$ = $1; debug_echo("id"); }

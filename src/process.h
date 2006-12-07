@@ -11,7 +11,7 @@
 * \date 07/12/2007
 */
 
-/** \addtogroup Processing Functions
+/** \addtogroup "Processing Functions"
 * Appel lors d'un 'match' sur un token dans Yacc. Convention de nommage des
 * fonctions: process_[nom du token].
 * @{

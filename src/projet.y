@@ -49,7 +49,7 @@ pv : PV { debug_echo("PV"); }
 decl_list : decl_list decl { debug_echo("decl_list decl"); }
             | ;
 
-decl : type id_aff_list PV { process_declaration(); } ;
+decl : type id_aff_list PV { process_declaration($1, $2); } ;
 
 id_aff_list : id_aff_list VIR id_aff { $$ = $1; debug_echo("id_aff_list VIR id_aff"); }
               | id_aff { $$ = $1; debug_echo("id_aff"); };
@@ -59,7 +59,7 @@ id_aff : id { $$ = $1; debug_echo("id"); }
 
 id : ID { $$ = $1; debug_echo("ID"); };
 
-type : INT {/* gestion de la remontee des types a faire */ debug_echo("INT"); }
+type : INT {/* gestion de la remontee des types a faire */ $$ = debug_echo("INT"); }
        | FLOAT { debug_echo("FLOAT"); } 
        | BOOL { debug_echo("BOOL"); }
        | type STAR { debug_echo("STAR"); };

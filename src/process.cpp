@@ -5,10 +5,11 @@ using namespace std;
 #include "process.h"
 #include "debug.h"
 
-int process_declaration() {
+int process_declaration(int arg1, int arg2) {
 
   debug_echo("declaration: type id_aff_list PV");
- 
+  
+  cout << "type: "<< arg1 << ", id_aff_list: " << arg2 << endl;
   /* la production de code "quasiment online" peut commencer :P */
   
   return EXIT_SUCCESS;

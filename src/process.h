@@ -2,7 +2,7 @@
 #ifndef PROCESS_HEADER
 #define PROCESS_HEADER
 
-int process_declaration();
+int process_declaration(int arg1, int arg2);
 int process_assignment(int arg1, int arg3);
 int process_while_end(int arg1, int arg2);
 int process_repeat_end(int arg1, int arg4);

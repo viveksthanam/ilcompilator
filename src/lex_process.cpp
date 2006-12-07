@@ -13,7 +13,7 @@
 #include "stringid.h"
 extern CHashtable HT_main; 
 
-/** \todo Regler le probleme de fuite memoire !
+/** \todo Regler le probleme de fuite memoire (du a getstringidfrom string ?) !
  * */ 
 int lex_process_getTinyStringID( CHashtable* my_HT, char* string ) {
 

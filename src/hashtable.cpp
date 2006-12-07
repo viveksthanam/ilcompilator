@@ -68,7 +68,7 @@ CStringID CHashtable::getStringIDFromString( string str )
 
 
   // Création de l'entrée dans la table de hash.
-//  table[hash].insert( table[hash].begin(), str );
+  //  table[hash].insert( table[hash].begin(), str );
   table[hash].push_back( str );
 
   // Retourne le CStringID "qui va bien"(c)

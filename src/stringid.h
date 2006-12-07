@@ -29,10 +29,8 @@ public:
     this->hash = hash;
     this->depth = depth;
   }
-  
-  /** \todo tont() : nom de fonction à éclaircir ... remplacé par toInt!
- 	*/ 
-  int toInt()
+
+ int toInt()
   {
     return ((this->depth)*HASHTABLE_SIZE + this->hash);
   }

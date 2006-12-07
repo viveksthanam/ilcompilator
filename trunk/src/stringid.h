@@ -39,8 +39,8 @@ public:
 
   void fromInt(int value)
   {
-    this->depth = value/HASHTABLE_SIZE;
-    this->hash = value - this->depth*HASHTABLE_SIZE;
+    this->depth = value / HASHTABLE_SIZE;
+    this->hash =  value % HASHTABLE_SIZE;
   }
 
   bool isValid() { return ((hash != -1)

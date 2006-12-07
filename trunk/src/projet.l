@@ -3,16 +3,11 @@
 %{
 
 #include "y.tab.h"
+#include "hashtable.h"
+#include "lex_process.h"
 extern int yylval;
-
-int stringid_fake ( char* string ) {
- 
-  static int id_count = 0;
-  id_count ++;
-  return (id_count);
- 
-}
-
+extern CHashtable HT_main;
+extern int lex_process_getTinyStringID( char* string );
 %}
 
 %%
@@ -47,6 +42,8 @@ int stringid_fake ( char* string ) {
 "int"                        {return(INT);}
 "float"                      {return(FLOAT);}
 "bool"                       {return(BOOL);}
-[a-zA-Z][a-zA-Z0-9]*         { yylval = stringid_fake(yytext); return(ID);}
-[0-9]+("."?)[0-9]*           {/* a gerer */ return(NUM);}
+[a-zA-Z][a-zA-Z0-9]*         { /** \note Voir commentaires dans lex_process.h */ 
+			       yylval = lex_process_getTinyStringID( yytext ); 
+			       return(ID);}
+[0-9]+("."?)[0-9]*           {/** \todo  Retour NUM à gerer */ return(NUM);}
 

@@ -7,8 +7,6 @@ extern int yylval;
 
 %}
 
-
-
 %%
 
 "{"                          {return(DA);}
@@ -41,8 +39,6 @@ extern int yylval;
 "int"                        {return(INT);}
 "float"                      {return(FLOAT);}
 "bool"                       {return(BOOL);}
-[a-zA-Z][a-zA-Z0-9]*         {yylval=0; return(ID);}
-[0-9]+("."?)[0-9]*           {return(NUM);}
-
-
+[a-zA-Z][a-zA-Z0-9]*         {/* a gerer */ yylval=0; return(ID);}
+[0-9]+("."?)[0-9]*           {/* a gerer */ return(NUM);}
 

@@ -6,7 +6,7 @@ UNAME=`uname`
 CFLAGS= -Wall 
 LDFLAGS= -Wall -ll
 
-OBJECTS = y.tab.o lex.yy.o
+OBJECTS = y.tab.o lex.yy.o process.o
 
 ifeq ($(UNAME),Linux)
 #LINUX : BISON / FLEX

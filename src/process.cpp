@@ -2,7 +2,7 @@
 using namespace std;
 #include <iostream>
 #include <cstdlib>
-#include "process.hpp"
+#include "process.h"
 
 int process_declaration() {
 

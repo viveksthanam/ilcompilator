@@ -1,4 +1,4 @@
-// vim: ts=2 tw=80
+//% vim: ts=2 tw=80
 
 /** \file 
  * \brief 

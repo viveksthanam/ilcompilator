@@ -43,7 +43,7 @@ extern int lex_process_getTinyStringID( char* string );
 "float"                      {return(FLOAT);}
 "bool"                       {return(BOOL);}
 [a-zA-Z][a-zA-Z0-9]*         { /** \note Voir commentaires dans lex_process.h */ 
-			       yylval = lex_process_getTinyStringID( yytext ); 
+			       yylval = lex_process_getTinyStringID( &HT_main, yytext ); 
 			       return(ID);}
 [0-9]+("."?)[0-9]*           {/** \todo  Retour NUM à gerer */ return(NUM);}
 

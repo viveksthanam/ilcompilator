@@ -19,7 +19,11 @@ int yylex(void);
 
 using namespace std;
 
-CHashtable* HT_main;
+/** \note Initialisation a NULL permettant d'effectuer des tests et de compiler
+ * sans erreur, allocation dynamique au debut de main().
+*/
+CHashtable* HT_main = NULL;
+
 %}
 
 %token VIR PV DP FP ID NUM NOT 
@@ -131,11 +135,11 @@ int main()
 {
  
 	debug_echo("creation HT principale");
-  HT_main = new CHashtable;
+	HT_main = new CHashtable;
  
 	debug_echo("appel yyparse");
-  yyparse();
-  debug_echo("fin yyparse");
+	yyparse();
+	debug_echo("fin yyparse");
 	
 	debug_echo("libération HT principale");
 	delete HT_main;

@@ -7,7 +7,6 @@
 #include "lex_process.h"
 extern int yylval;
 extern CHashtable HT_main;
-extern int lex_process_getTinyStringID( char* string );
 %}
 
 %%

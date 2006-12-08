@@ -4,7 +4,11 @@ using namespace std;
 #include <cstdlib>
 #include "debug.h"
 #include "configuration.h"
+#include "hashtable.h"
+#include "contextstack.h"
 
+extern CHashtable* HT_main;
+extern CContextStack* CS_main;
 extern int debug_level;
 extern int argc;
 extern char** argv;
@@ -24,6 +28,29 @@ void debug_set_level (int* argc, char** argv) {
   debug_level = 1;	
   
   return;	 
+}
+
+void debug_critical_exit( char* str ) {
+  
+  cerr << "debug_critical_exit: " << str << endl;
+  sanitizer();
+  exit(EXIT_FAILURE);
+  return; // inutile, mais bon tant pis ..
+
+}
+
+void debug_critical( char* str ) {
+
+  cerr << "debug_critical: " << str << endl;
+  return;
+
+}
+
+void sanitizer (void) {
+
+delete CS_main;
+delete HT_main;
+
 }
 
 int debug_echo (char* str) {
@@ -48,6 +75,12 @@ float debug_echof (char* str, float f) {
     cerr << "debug_echof: " << str << ", parametre: " << f << endl;
 
   return EXIT_SUCCESS;
+}
+
+int yyerror (char* str) {
+
+  debug_critical( str );
+  return EXIT_SUCCESS;	
 }
 
 /*debug.c*/

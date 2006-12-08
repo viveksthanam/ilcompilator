@@ -11,13 +11,14 @@
 #include "debug.h"
 #include "type.h"
 #include "hashtable.h"
+#include "contextstack.h"
 
 // Ajouté car ne compilait pas
 // avec g++
 int yylex (void);
-int yyerror (char* s);
-int yylval_int=0;
-float yylval_float=0.0;
+int yyval=0;
+int yyval_int=0;
+float yyval_float=0.0;
 
 using namespace std;
 
@@ -25,6 +26,10 @@ using namespace std;
  * sans erreur, allocation dynamique au debut de main().
 */
 CHashtable* HT_main = NULL;
+
+/** \note Idem HT_main.
+*/
+CContextStack* CS_main = NULL;
 
 /** \brief Variable globale conservant le type des ou de la derniere variable a
  * declarer, -1 voulant dire qu'il n'y a plus de variables a declarer pour
@@ -81,7 +86,7 @@ id_aff_list : id_aff_list VIR id_aff { process_declaration(current_decl_type,$3)
 id_aff : id { $$ = $1; debug_echo("id"); }
          | affect { $$ = $1; debug_echo("affect"); };
 
-id : ID { $$ = $1; debug_echo("ID"); };
+id : ID { $$ = yylval; debug_echo("ID"); };
 
 type : INT { $$ = T_INT; current_decl_type = T_INT; debug_echo("INT"); }
        | FLOAT { $$ = T_FLOAT; current_decl_type = T_FLOAT; debug_echo("FLOAT"); } 
@@ -141,12 +146,7 @@ uop : STAR { $$ = $1; debug_echo("STAR"); }
       | NOT { $$ = $1; debug_echo("NOT"); };
 
 %%
-
-int yyerror(char *s)
-{ 
-  return printf("%s\n",s);
-}
-   
+  
 int main( int argc, char** argv )
 {
 	
@@ -155,12 +155,15 @@ int main( int argc, char** argv )
 	debug_echo("creation HT principale");
 	HT_main = new CHashtable;
 
+ 	debug_echo("création CS principale");
+	CS_main = new CContextStack;
+
 	debug_echo("appel yyparse, Ctrl+D pour arrêter la saisie");
 	yyparse();
 	debug_echo("fin yyparse");
 	
-	debug_echo("libération HT principale");
-	delete HT_main;
+	debug_echo("libérations et fin...");
+	sanitizer();
 
   return EXIT_SUCCESS;
 

@@ -4,11 +4,14 @@
 #include <cstdlib>
 #include "process.h"
 #include "debug.h"
+#include "contextstack.h"
+#include "stringid.h"
 
 using namespace std;
 
 extern int yyerror(char *s);
 extern int current_decl_type;
+extern CContextStack* CS_main;
 
 /** \file process.cpp
 * \brief Corps des fonctions de traitement
@@ -23,14 +26,18 @@ int process_declaration(int arg1, int arg2) {
   debug_echo("declaration: type id_aff_list PV");
 
 	if (current_decl_type != -1) {
-		//code réalisant la declaration
-	 
-		debug_echoi( "type", arg1 );
-		debug_echoi( "id_aff", arg2 ); 
-
+  
+		debug_echoi( "type symbole", arg1 );
+		debug_echoi( "id_aff (string id du symbole)", arg2 ); 
+		
+		if ( !CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 , 0 ) ) ) {
+			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
+			return EXIT_FAILURE;
+		}
+	
 	}
 	else {
-		yyerror("debut de déclaration inattendue");
+		debug_critical("debut de déclaration inattendue");
 		return EXIT_FAILURE; 
 	}
   
@@ -43,7 +50,7 @@ int process_declaration_end() {
 	if (current_decl_type != -1)
 		current_decl_type = -1;
 	else { 
-		yyerror("fin de déclaration inattendue");
+		debug_critical("fin de déclaration inattendue");
 		return EXIT_FAILURE;
 	}
 	

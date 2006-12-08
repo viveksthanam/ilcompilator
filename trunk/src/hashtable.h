@@ -20,10 +20,17 @@
 
 using namespace std;
 
+
+/** \brief Classe contenant la table de hashage permettant d'allouer
+  * à une chaîne de caractères un identifiant unique et de stocker
+  * la chaîne de caractère pour y acceder par la suite avec une complexité
+  * convenable.
+  */
 class CHashtable
 {
 private:
 
+  /** \brief Table contenant les chaînes */
   vector<string> table[HASHTABLE_SIZE];
  
   /** \brief Retourne le hash (int) de la chaine passée en paramètre.*/

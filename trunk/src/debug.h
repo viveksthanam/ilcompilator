@@ -2,6 +2,8 @@
 #ifndef DEBUG_HEADER
 #define DEBUG_HEADER
 
+#define DEBUG(str) fprintf(stderr,"%s:%d in %s(), info: %s\n",__FILE__, __LINE__, __FUNCTION__, str)
+
 // vim: ts=2 tw=80
 
 /** \file debug.h

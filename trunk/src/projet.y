@@ -150,10 +150,12 @@ uop : STAR { $$ = $1; debug_echo("STAR"); }
 int main( int argc, char** argv )
 {
 	
-  about();
+  about(); 
 	debug_set_level( &argc, argv );
- 
-	debug_echo("creation HT principale");
+
+	DEBUG("gla");
+		
+  debug_echo("creation HT principale");
 	HT_main = new CHashtable;
 
  	debug_echo("création CS principale");

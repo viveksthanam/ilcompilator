@@ -19,7 +19,7 @@ CInstruction::CInstruction()
 CInstruction::CInstruction( CSymbol* source, CSymbol* target )
 {
 
-  if( !source->type.canConvertTo( target->type ) )
+  if( !source->getType().canConvertTo( target->getType() ) )
   {
     /**\todo Ajouter l'affichage du #warning : perte de données 
       * probable ici.*/

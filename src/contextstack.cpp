@@ -14,7 +14,8 @@
 
 CContextStack::CContextStack()
 {
-
+  // Initialise la numérotation des symboles.
+  n = 0;
 }
 
 CContextStack::~CContextStack()
@@ -25,6 +26,18 @@ CContextStack::~CContextStack()
   {
     delete (symbols[i]);
   }
+
+  return;
+}
+
+void CContextStack::addSymbol( CStringID sid, CType type )
+{
+  CSymbol* p_symbol = new CSymbol(this->n, sid, type);
+
+  /** \todo Ajouter une gestion d'erreur */
+  if(!p_symbol) return;
+  
+  pushSymbol( p_symbol );
 
   return;
 }

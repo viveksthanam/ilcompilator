@@ -16,6 +16,9 @@
  */
 #define HASHTABLE_SIZE 100
 
+/** \brief Définit le niveau maximum de référencement.*/
+#define MAX_REFERENCE_LEVEL 128
+
 /** \brief Parametre déclenchant le mode debug.
  */
 #define DEBUG_FLAG "-d"

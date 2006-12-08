@@ -52,5 +52,9 @@ void sanitizer (void);
  */
 int yyerror (char* str);
 
+/** \brief Affiche la date de compilation au lancement du compilateur.
+ */
+void about(void);
+
 #endif
 /*debug.h*/

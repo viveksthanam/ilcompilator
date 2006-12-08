@@ -22,6 +22,12 @@ extern char** argv;
 * \date 07/12/2007
 */
 
+void about (void) {
+  printf("ilCompilator - compilé le \
+"__DATE__"\n<brossill@enseirb.fr><lerouxj@enseirb.fr>\n");
+  return;
+}
+
 void debug_set_level (int* argc, char** argv) {
 
   if ( (*argc > 1) && ( strcmp(argv[DEBUG_FLAG_POSITION],DEBUG_FLAG) ) )

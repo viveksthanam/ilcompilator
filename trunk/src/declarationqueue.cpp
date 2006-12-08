@@ -11,7 +11,7 @@
 
 #include "declarationqueue.h"
 
-void CDeclarationStack::addDeclaration( SymbolID id, CType type )
+void CDeclarationQueue::addDeclaration( SymbolID id, CType type )
 {
   
   declarations.push( DECLARATION(id,type) );

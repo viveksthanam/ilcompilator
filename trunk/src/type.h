@@ -15,8 +15,9 @@ typedef enum _TYPEVAL
 {
   T_BOOL = 0,
   T_INT,
-  T_FLOAT
+  T_FLOAT,
 
+  T_INVALID = 255
 }TYPEVAL;
 
 class CType
@@ -29,6 +30,18 @@ private:
 
 public:
 
+  CType()
+  {
+    this->typeval = T_INVALID;
+    this->deref_level = -1;
+  }
+
+  CType(TYPEVAL typeval, int deref_level)
+  {
+    this->typeval = typeval;
+    this->deref_level = deref_level;
+  }
+  
   TYPEVAL getTypeVal() { return this->typeval; };
 
   int getDeref() { return this->deref_level; };

@@ -5,7 +5,9 @@ using namespace std;
 #include "debug.h"
 #include "configuration.h"
 
-// vim: ts=2 tw=80
+extern int debug_level;
+
+//% vim: ts=2 tw=80
 
 /** \file debug.c
 * \brief Corps des fonctions de debug
@@ -15,17 +17,17 @@ using namespace std;
 */
 
 int debug_echo (char* string) {
-#ifdef DEBUG_ECHO
- cerr << "debug_echo: " << string << endl;
-#endif
+	
+  if ( 1 == debug_level )
+    cerr << "debug_echo: " << string << endl;
 
   return EXIT_SUCCESS;
 }
 
 int debug_echoi (char* string, int i) {
-#ifdef DEBUG_ECHO
- cerr << "debug_echoi: " << string << ", parametre: " << i << endl;
-#endif
+
+  if ( 1 == debug_level )
+    cerr << "debug_echoi: " << string << ", parametre: " << i << endl;
 
   return EXIT_SUCCESS;
 }

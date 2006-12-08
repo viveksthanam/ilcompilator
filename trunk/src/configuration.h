@@ -16,9 +16,12 @@
  */
 #define HASHTABLE_SIZE 100
 
-/** \brief Pour activer le verbose.
+/** \brief Parametre declenchant le mode debug.
  */
-#define DEBUG_ECHO
+#define DEBUG_FLAG "-d"
+
+/* Fonctionnement interne, ne devrait pas être touché... <fear!> */
+#define DEBUG_FLAG_POSITION 0
 
 /** \brief Valeurs retournée dans Yacc ($$) lorsque un token TRUE
  * ou FALSE est rencontré.

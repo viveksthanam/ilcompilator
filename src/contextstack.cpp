@@ -35,11 +35,11 @@ CSymbol* CContextStack::addSymbol( CStringID sid, CType type )
   CSymbol* p_symbol = new CSymbol(this->n, sid, type);
 
   /** \todo Ajouter une gestion d'erreur */
-  if(!p_symbol) return;
+  if(!p_symbol) return NULL;
   
   pushSymbol( p_symbol );
 
-  return;
+  return p_symbol;
 }
 
 void CContextStack::pushSymbol( CSymbol* symbol )

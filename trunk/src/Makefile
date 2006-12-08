@@ -1,13 +1,12 @@
-# vim: tw=80 noexpandtab
+# vim: noexpandtab
 
 CC= g++
 EXEC= compilo
 ALLEXEC= hashtable_test
 UNAME=`uname`
-CFLAGS= -Wall -g 
-LDFLAGS= -Wall -ll -g 
-
-OBJECTS = y.tab.o lex.yy.o hashtable.o lex_process.o process.o debug.o
+CFLAGS= -Wall -g
+LDFLAGS= -Wall -ll -g
+OBJECTS = y.tab.o lex.yy.o hashtable.o lex_process.o process.o debug.o contextstack.o
 
 ifeq ($(UNAME),Linux)
 #LINUX : BISON / FLEX

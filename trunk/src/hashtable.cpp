@@ -13,15 +13,10 @@
 #include "hashtable.h"
 #include "stringid.h"
 
+#include <iostream>
+
 CHashtable::CHashtable()
 {
-  return;
-}
-
-CHashtable::~CHashtable()
-{
-
-  return;
 }
 
 int CHashtable::getHashFromString( const char* str )
@@ -65,7 +60,6 @@ CStringID CHashtable::getStringIDFromString( string str )
     if( str == (table[hash])[i] )
       return CStringID( hash, i );
   }
-
 
   // Création de l'entrée dans la table de hash.
   //  table[hash].insert( table[hash].begin(), str );

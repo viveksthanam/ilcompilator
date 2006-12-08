@@ -22,7 +22,7 @@
  * non pas des structures. my_HT est un pointeur sur notre table de hash.
  * string est yytext ayant 'matché' un ID.
  */
-int lex_process_getTinyStringID( CHashtable* my_HT, char* string );
+int lex_process_getTinyStringID( CHashtable* my_HT, char* str );
 
 /** @} */
 

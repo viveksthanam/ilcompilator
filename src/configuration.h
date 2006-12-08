@@ -29,7 +29,7 @@
 #define DEF_TRUE 1
 #define DEF_FALSE 0
 
-/** \note Mode verbeux de Yacc */
+/** \brief Mode verbeux de Yacc */
 #define YYERROR_VERBOSE
 
 #endif

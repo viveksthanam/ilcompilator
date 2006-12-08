@@ -17,7 +17,9 @@ typedef enum _TYPEVAL
   T_INT,
   T_FLOAT,
 
-  T_INVALID = 255
+  // Sert à définir un type invalide et donne un renseignement
+  // sur la taille de l'enum.
+  T_INVALID
 
 }TYPEVAL;
 
@@ -27,25 +29,25 @@ private:
 
   TYPEVAL typeval;
 
-  int deref_level;
+  int ref_level;
 
 public:
 
   CType()
   {
     this->typeval = T_INVALID;
-    this->deref_level = -1;
+    this->ref_level = -1;
   }
 
   CType(TYPEVAL typeval, int deref_level)
   {
     this->typeval = typeval;
-    this->deref_level = deref_level;
+    this->ref_level = ref_level;
   }
   
   TYPEVAL getTypeVal() { return this->typeval; };
 
-  int getDeref() { return this->deref_level; };
+  int getRef() { return this->ref_level; };
 };
 
 #endif/*TYPE_H*/

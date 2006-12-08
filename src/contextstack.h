@@ -40,7 +40,7 @@ private:
   /**\brief Pile des tailles des contextes */
   stack<int> size_stack;
 
-  /**\brief Indice du prochain SymbolID à allouer */
+  /**\brief Indices du prochain SymbolID à allouer */
   int n;
 
 public:

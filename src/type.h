@@ -18,6 +18,7 @@ typedef enum _TYPEVAL
   T_FLOAT,
 
   T_INVALID = 255
+
 }TYPEVAL;
 
 class CType

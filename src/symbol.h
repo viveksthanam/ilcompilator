@@ -15,6 +15,8 @@
 #include "stringid.h"
 #include "type.h"
 
+#define INVALID_SYMBOL (SymbolID)(-1)
+
 typedef int SymbolID;
 
 class CSymbol

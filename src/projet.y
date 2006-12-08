@@ -150,6 +150,7 @@ uop : STAR { $$ = $1; debug_echo("STAR"); }
 int main( int argc, char** argv )
 {
 	
+  about();
 	debug_set_level( &argc, argv );
  
 	debug_echo("creation HT principale");

@@ -29,6 +29,11 @@ CHashtable* HT_main = NULL;
 */ 
 int current_decl_type = -1; 
 
+/** \brief Etat du debug: 0 (défaut), ou 1 pour activer. Deux niveaux par
+ * défaut, on pourra étendre par la suite.
+*/
+int debug_level = 0;
+
 %}
  
 %verbose
@@ -139,9 +144,13 @@ int yyerror(char *s)
   return printf("%s\n",s);
 }
    
-int main()
+int main( int argc, char** argv )
 {
- 
+	
+	/* positionnement du debug level */
+	if ( (argc > 1) && ( strcmp(argv[DEBUG_FLAG_POSITION],DEBUG_FLAG) ) )
+		debug_level = 1;	
+	 
 	debug_echo("creation HT principale");
 	HT_main = new CHashtable;
  

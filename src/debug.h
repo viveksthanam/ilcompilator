@@ -12,8 +12,9 @@
  */
 
 /** \brief Simple fonction d'affichage sur stderr aidant au debug
-*   \note Aucun effet si DEBUG_ECHO n'est pas positionnée (dans configuration.h).
-* */
+*   \note Compilé par défaut, activation sur passage du paramètre DEBUG_FLAG
+*   (défini dans configuration.h).
+*/
 int debug_echo (char* string);
 
 /** \brief Idem debug_echo, mais avec passage d'un int en paramètre.

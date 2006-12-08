@@ -17,6 +17,7 @@
 #include <stack>
 
 #include "symbol.h"
+#include "type.h"
 
 using namespace std;
 
@@ -27,10 +28,14 @@ private:
   vector<CSymbol*> symbols;
   stack<int> size_stack;
 
+  int n;
+
 public:
 
   CContextStack();
   ~CContextStack();
+
+  void addSymbol( CStringID, CType );
 
   void pushSymbol( CSymbol* );
   

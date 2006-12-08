@@ -12,31 +12,94 @@
 
 #include "contextstack.h"
 
+CContextStack::CContextStack()
+{
+
+}
+
+CContextStack::~CContextStack()
+{
+  unsigned int i;
+
+  for(i=0;i<symbols.size();i++)
+  {
+    delete (symbols[i]);
+  }
+
+  return;
+}
+
 void CContextStack::pushSymbol( CSymbol* symbol )
 {
+  symbols.push_back(symbol);
+
   return;
 }
  
-CSymbol* CContextStack::getSymbolInContext( SymbolID )
+CSymbol* CContextStack::getSymbolInContext( SymbolID id )
 {
+  int i;
+  int min = 0;
+
+  if( size_stack.size() > 0 )
+    min = size_stack.top();
+
+  for( i= symbols.size() - 1; i>=min; i-- )
+  {
+    if( (symbols[i])->getID() == id )
+    {
+      return (symbols[i]);
+    }
+  }
 
   return NULL;
 }
 
-CSymbol* CContextStack::getSymbolInContext( CStringID )
+CSymbol* CContextStack::getSymbolInContext( CStringID sid )
 {
+  int i;
+  int min;
+  
+  if( size_stack.size() > 0 )
+    min = size_stack.top();
+
+  for( i= symbols.size() - 1; i>=min; i-- )
+  {
+    if( (symbols[i])->getSID() == sid )
+    {
+      return (symbols[i]);
+    }
+  }
 
   return NULL;
 }
 
-CSymbol* CContextStack::getSymbol( SymbolID )
+CSymbol* CContextStack::getSymbol( SymbolID id )
 {
+  int i;
+
+  for( i = symbols.size() - 1; i>0; i-- )
+  {
+    if( (symbols[i])->getID() == id )
+    {
+      return (symbols[i]);
+    }
+  }
 
   return NULL;
 }
 
-CSymbol* CContextStack::getSymbol( CStringID )
+CSymbol* CContextStack::getSymbol( CStringID sid )
 {
+  int i;
+
+  for( i= symbols.size() - 1; i>0; i-- )
+  {
+    if( (symbols[i])->getSID() == sid )
+    {
+      return (symbols[i]);
+    }
+  }
 
   return NULL;
 }
@@ -44,10 +107,17 @@ CSymbol* CContextStack::getSymbol( CStringID )
 
 void CContextStack::saveContext(void)
 {
+
+  size_stack.push( symbols.size() );
+
   return;
 }
 
 void CContextStack::restoreContext(void)
 {
+  symbols.resize( size_stack.top() );
+
+  size_stack.pop();
+
   return;
 }

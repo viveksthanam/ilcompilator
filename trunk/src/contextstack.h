@@ -14,6 +14,7 @@
 #define CONTEXTSTACK_H
 
 #include <vector>
+#include <stack>
 
 #include "symbol.h"
 
@@ -23,7 +24,8 @@ class CContextStack
 {
 private:
 
-//  vector<CSymbol*> 
+  vector<CSymbol*> symbols;
+  stack<int> size_stack;
 
 public:
 

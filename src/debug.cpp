@@ -6,6 +6,8 @@ using namespace std;
 #include "configuration.h"
 
 extern int debug_level;
+extern int argc;
+extern char** argv;
 
 //% vim: ts=2 tw=80
 
@@ -16,18 +18,34 @@ extern int debug_level;
 * \date 07/12/2007
 */
 
-int debug_echo (char* string) {
+void debug_set_level (int* argc, char** argv) {
+
+  if ( (*argc > 1) && ( strcmp(argv[DEBUG_FLAG_POSITION],DEBUG_FLAG) ) )
+  debug_level = 1;	
+  
+  return;	 
+}
+
+int debug_echo (char* str) {
 	
   if ( 1 == debug_level )
-    cerr << "debug_echo: " << string << endl;
+    cerr << "debug_echo: " << str << endl;
 
   return EXIT_SUCCESS;
 }
 
-int debug_echoi (char* string, int i) {
+int debug_echoi (char* str, int i) {
 
   if ( 1 == debug_level )
-    cerr << "debug_echoi: " << string << ", parametre: " << i << endl;
+    cerr << "debug_echoi: " << str << ", parametre: " << i << endl;
+
+  return EXIT_SUCCESS;
+}
+
+float debug_echof (char* str, float f) {
+
+  if ( 1 == debug_level )
+    cerr << "debug_echof: " << str << ", parametre: " << f << endl;
 
   return EXIT_SUCCESS;
 }

@@ -8,19 +8,30 @@
  *
  */
 
+#include <stdlib.h>
 #include "hashtable.h"
 #include "lex_process.h"
 #include "stringid.h"
 #include "debug.h"
 
-/** \todo Regler le probleme de fuite memoire (du a getstringidfrom string ?) !
- * */ 
 int lex_process_getTinyStringID( CHashtable* my_HT, char* str ) {
+	
+	return (int)((CStringID)my_HT->getStringIDFromString(str)).toInt();	 
 
-	int ret = (int)((CStringID)my_HT->getStringIDFromString(str)).toInt();	 
-  debug_echoi("hash:",ret);
-
-  return ret;
-//	return 42; //patch anti seg fault
 }
 
+int lex_process_atoi ( char* str  ) {
+
+	int i = (int)strtol(str,NULL,0);	
+	debug_echoi("lex_process_atoi sur NUM_I",i);
+	return (i);
+
+}
+
+float lex_process_atof ( char* str ) {
+		
+	float f =  (float)strtof(str,NULL);
+	debug_echof("lex_process_atof sur NUM_F",f);
+	return (f);
+
+}

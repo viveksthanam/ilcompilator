@@ -11,15 +11,23 @@
  * \date 07/12/2007
  */
 
+/** \brief Positionne le niveau de debug debug_level.
+ */
+void debug_set_level(int*, char**);
+
 /** \brief Simple fonction d'affichage sur stderr aidant au debug
 *   \note Compilé par défaut, activation sur passage du paramètre DEBUG_FLAG
 *   (défini dans configuration.h).
 */
-int debug_echo (char* string);
+int debug_echo (char* str);
 
 /** \brief Idem debug_echo, mais avec passage d'un int en paramètre.
  */
-int debug_echoi (char* string, int);
+int debug_echoi (char* str, int);
+
+/** \Brief Idem debug_echoi, mais avec float.
+ */
+float debug_echof (char* str, float);
 
 #endif
 /*debug.h*/

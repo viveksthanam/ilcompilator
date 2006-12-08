@@ -24,6 +24,11 @@ public:
     depth = -1;
   }
 
+  CStringID( int value )
+  {
+    this->fromInt(value);
+  }
+
   CStringID( int hash, int depth )
   {
     this->hash = hash;

@@ -9,7 +9,7 @@
  *
  */
 
-#include "declarationstack.h"
+#include "declarationqueue.h"
 
 void CDeclarationStack::addDeclaration( SymbolID id, CType type )
 {

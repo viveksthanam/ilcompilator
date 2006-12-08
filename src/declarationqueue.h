@@ -1,6 +1,6 @@
 //% vim: ts=2 tw=80
 
-/** \file declarationstack.h
+/** \file declarationqueue.h
  * \brief Déclare la classe qui stocke les 
  * déclarations des variables.
  * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
@@ -9,25 +9,25 @@
  *
  */
 
-#ifndef DECLARATIONSTACK_H
-#define DECLARATIONSTACK_H
+#ifndef DECLARATIONQUEUE_H
+#define DECLARATIONQUEUE_H
 
 #include "configuration.h"
 #include "symbol.h"
 #include "type.h"
 
 
-#include <stack>
+#include <queue>
 
 using namespace std;
 
-/**\brief Classe implémentant la pile des déclarations.
+/**\brief Classe implémentant la file des déclarations.
   *
-  * En réalité cette classe n'implémente pas réellement une
-  * pile mais du point de vue de l'utilisateur le résultat
-  * est le même.
+  * Au fur et a mesure que le compilateur lit le code source
+  * il va empiler les instructions du code cible dans cette file.
+  * Cette file sera par la suite vidée afin
   */
-class CDeclarationStack
+class CDeclarationQueue
 {
 private:
 
@@ -45,7 +45,7 @@ private:
 
   }DECLARATION;
 
-  stack<DECLARATION> declarations;
+  queue<DECLARATION> declarations;
 
 public:
 
@@ -55,4 +55,4 @@ public:
 
 };
 
-#endif/*DECLARATIONSTACK_H*/
+#endif/*DECLARATIONQUEUE_H*/

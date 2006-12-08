@@ -41,8 +41,15 @@ public:
     this->hash =  value % HASHTABLE_SIZE;
   }
 
-  bool isValid() { return ((hash != -1)
-                        &&(depth != -1)); }
+  bool isValid()
+  { 
+    return ((hash != -1)&&(depth != -1)); 
+  }
+
+  bool operator == ( const CStringID& sid)
+  {
+    return ((hash == sid.hash)&&(depth == sid.depth));
+  }
 
   int hash;
   int depth;

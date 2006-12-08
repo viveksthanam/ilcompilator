@@ -27,6 +27,13 @@ private:
 
 public:
 
+  CSymbol( SymbolID id, CStringID sid, CType type )
+  {
+    this->id = id;
+    this->sid = sid;
+    this->type = type;
+  }
+
   SymbolID getID() { return this->id; };
   CStringID getSID() { return this->sid; };
   CType getType() { return this->type; };

@@ -29,5 +29,28 @@ int debug_echoi (char* str, int);
  */
 float debug_echof (char* str, float);
 
+/** \brief Fonction appelée sur erreur critique du compilateur (en autre dûe au
+ * système sur lequel il s'exécute), ou lors de l'analyse du source. Tente de
+ * désallouer 'proprement' les ressources utilisées avec sanitize(), puis quitte
+ * en flushant les buffers, si on a pas planté d'ici là. Affiche un certain
+ * nombre d'informations sur l'état de l'exécution du compilateur.
+ */
+void debug_critical_exit (char* str);
+
+/** \brief Idem debug_critical_exit mais ne quitte pas, seulement utile lors du
+ * développement, où les crash abrupts sont tolérés.
+ */
+void debug_critical (char* str);
+
+/** \brief Sauve les meubles et quitte, si possible. Mouton noir de ce header
+ * debug.h puisque il n'y a pas de rapport direct avec le debug, plutôt un lien
+ * cause-conséquence.
+ */
+void sanitizer (void);
+
+/** \brief Deprecated.
+ */
+int yyerror (char* str);
+
 #endif
 /*debug.h*/

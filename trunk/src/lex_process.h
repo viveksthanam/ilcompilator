@@ -13,7 +13,8 @@
 
 /** \addtogroup LexProcessingFunctions
 * Header des fonctions uniquement appelées dans Lex. Celles ci formatent les
-* valeurs yyvalue et/ou yytext qui servent dans l'interface avec Yacc.
+* valeurs yyvalue, yytext, yylval_float (etc) qui servent dans l'interface avec
+* Yacc. Convention de nommage des fonctions : [lex_process][utilisation]().
 * @{
 */
 
@@ -23,6 +24,14 @@
  * string est yytext ayant 'matché' un ID.
  */
 int lex_process_getTinyStringID( CHashtable* my_HT, char* str );
+
+/** \brief Alias de atoi, mode verbeux.
+ */
+int lex_process_atoi ( char* str );
+
+/** \brief Alias de atof (qui est deprecated), mode verbeux.
+ */
+float lex_process_atof ( char* str ); 
 
 /** @} */
 

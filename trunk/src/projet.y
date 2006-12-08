@@ -16,6 +16,9 @@
 // avec g++
 int yylex (void);
 int yyerror (char* s);
+int yylval_int=0;
+float yylval_float=0.0;
+
 using namespace std;
 
 /** \note Initialisation a NULL permettant d'effectuer des tests et de compiler
@@ -38,7 +41,7 @@ int debug_level = 0;
  
 %verbose
 
-%token VIR PV DP FP ID NUMI NUMF NOT 
+%token VIR PV DP FP ID NUM_I NUM_F NOT 
 %token AND OR  
 %token PLUS MOINS 
 %token DIV STAR
@@ -128,14 +131,14 @@ exp :  exp OR exp { process_or($1,$3); }
      | id { $$ = $1; debug_echo("id"); }
      | const { $$ = $1; debug_echo("const"); }; 
 
-const : NUMI { $$ = $1; debug_echo("NUMI"); }
-        | NUMF { $$ = $1; debug_echo("NUMF"); }
+const : NUM_I { $$ = $1; debug_echo("NUM_I"); }
+        | NUM_F { $$ = $1; debug_echo("NUM_F"); }
         | TRUE { $$ = DEF_TRUE; debug_echo("TRUE"); }
         | FALSE { $$ = DEF_FALSE; debug_echo("FALSE"); };
 
-uop : STAR { /*remonter star*/ debug_echo("STAR"); }
-      | MOINS { /*idem moins*/ debug_echo("MOINS"); }
-      | NOT {/*idem not*/ debug_echo("NOT"); };
+uop : STAR { $$ = $1; debug_echo("STAR"); }
+      | MOINS { $$ = $1; debug_echo("MOINS"); }
+      | NOT { $$ = $1; debug_echo("NOT"); };
 
 %%
 
@@ -147,14 +150,12 @@ int yyerror(char *s)
 int main( int argc, char** argv )
 {
 	
-	/* positionnement du debug level */
-	if ( (argc > 1) && ( strcmp(argv[DEBUG_FLAG_POSITION],DEBUG_FLAG) ) )
-		debug_level = 1;	
-	 
+	debug_set_level( &argc, argv );
+ 
 	debug_echo("creation HT principale");
 	HT_main = new CHashtable;
 
-	debug_echo("appel yyparse");
+	debug_echo("appel yyparse, Ctrl+D pour arrêter la saisie");
 	yyparse();
 	debug_echo("fin yyparse");
 	

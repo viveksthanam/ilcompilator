@@ -16,7 +16,7 @@
  */
 #define HASHTABLE_SIZE 100
 
-/** \brief Parametre declenchant le mode debug.
+/** \brief Parametre déclenchant le mode debug.
  */
 #define DEBUG_FLAG "-d"
 

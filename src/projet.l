@@ -6,7 +6,7 @@
 #include "hashtable.h"
 #include "lex_process.h"
 extern int yylval;
-extern CHashtable HT_main;
+extern CHashtable* HT_main;
 %}
 
 %%
@@ -42,7 +42,7 @@ extern CHashtable HT_main;
 "float"                      {return(FLOAT);}
 "bool"                       {return(BOOL);}
 [a-zA-Z][a-zA-Z0-9]*         { /** \note Voir commentaires dans lex_process.h */ 
-			       yylval = lex_process_getTinyStringID( &HT_main, yytext ); 
+			       yylval = lex_process_getTinyStringID( HT_main, yytext ); 
 			       return(ID);}
 [0-9]+(".")[0-9]*            {return(NUMF);}
 [0-9]			     {return(NUMI);}

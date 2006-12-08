@@ -25,16 +25,22 @@ class CHashtable
 private:
 
   vector<string> table[HASHTABLE_SIZE];
-  
+ 
+  /** \brief Retourne le hash (int) de la chaine passée en paramètre.*/
   int getHashFromString( const char* );
 
 public:
 
   CHashtable();
-  ~CHashtable();
 
+  /** \brief Retourne la chaine associée 
+    * au CStringID passée en paramètre
+    */
   string getStringFromStringID( CStringID );
   
+ /** \brief Retourne le CStringID associé
+    * à la chaine passée en paramètre
+    */
   CStringID getStringIDFromString( string );
   
 };

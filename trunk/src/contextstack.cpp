@@ -30,7 +30,7 @@ CContextStack::~CContextStack()
   return;
 }
 
-void CContextStack::addSymbol( CStringID sid, CType type )
+CSymbol* CContextStack::addSymbol( CStringID sid, CType type )
 {
   CSymbol* p_symbol = new CSymbol(this->n, sid, type);
 

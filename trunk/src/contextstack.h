@@ -35,7 +35,7 @@ public:
   CContextStack();
   ~CContextStack();
 
-  void addSymbol( CStringID, CType );
+  CSymbol* addSymbol( CStringID, CType );
 
   void pushSymbol( CSymbol* );
   

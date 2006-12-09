@@ -1,6 +1,6 @@
 //% vim: ts=2 tw=80
 
-/** \file instructionstack.h
+/** \file instructionqueue.h
  * \brief Définit la classe CInstructionStack chargée
  * de stocker les instructions code 3@.
  * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>

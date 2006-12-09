@@ -27,7 +27,7 @@ int debug_echo (char* str);
  */
 int debug_echoi (char* str, int);
 
-/** \Brief Idem debug_echoi, mais avec float.
+/** \brief Idem debug_echoi, mais avec float.
  */
 float debug_echof (char* str, float);
 

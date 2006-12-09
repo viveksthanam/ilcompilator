@@ -19,6 +19,9 @@
 /** \brief Définit le niveau maximum de référencement.*/
 #define MAX_REFERENCE_LEVEL 128
 
+/** \brief Nom par défault du fichier de sortie par défault.*/
+#define DEFAULT_OUTPUT_FILENAME "output.3a"
+
 /** \brief Parametre déclenchant le mode debug.
  */
 #define DEBUG_FLAG "-d"

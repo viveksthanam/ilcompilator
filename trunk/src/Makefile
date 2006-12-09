@@ -6,7 +6,7 @@ ALLEXEC= hashtable_test contextstack_test
 UNAME=`uname`
 CFLAGS= -Wall -g
 LDFLAGS= -Wall -ll -g
-OBJECTS = y.tab.o lex.yy.o hashtable.o lex_process.o process.o debug.o contextstack.o declarationqueue.o instructionqueue.o instruction.o
+OBJECTS = y.tab.o lex.yy.o hashtable.o lex_process.o process.o debug.o contextstack.o declarationqueue.o instructionqueue.o instruction.o codewriter.o
 
 ifeq ($(UNAME),Linux)
 #LINUX : BISON / FLEX

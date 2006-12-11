@@ -20,7 +20,7 @@
   * Dans OPx_<operateur> x détermine le nombre d'opérandes utilisés
   * par l'opérateur. Il ne s'agit en aucun d'une notation active
   * mais d'une norme d'écriture.
-  * \warning L'opérateur OP3_CAST prend en réalité 3 paramètre :
+  * \warning L'opérateur OP3_CAST prend en réalité 3 paramètres :
   * la variable de gauche, celle de droite et le type vers lequel
   * le cast est effectué.
   */
@@ -36,7 +36,7 @@ typedef enum _Operator
   OP3_CAST,
 
   OP0_INVALID //Définit l'opérateur invalide et est utilisé
-              //  pour compter la taille de l'énum.
+              //  pour mesurer la taille de l'énum.
 
 }Operator;
 

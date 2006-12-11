@@ -9,6 +9,7 @@
  *
  */
 
+#include "debug.h"
 #include "instruction.h"
 
 CInstruction::CInstruction()
@@ -21,12 +22,8 @@ CInstruction::CInstruction( CSymbol* source, CSymbol* target )
 
   if( !source->getType().canConvertTo( target->getType() ) )
   {
-    /**\todo Ajouter l'affichage du #warning : perte de données 
-      * probable ici.*/
+    debug_critical("Cast forcé: probable perte de données.");
   }
   
-  
-  
-
   return;
 }

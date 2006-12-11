@@ -17,8 +17,8 @@
 #include "type.h"
 
 /**\brief Classe décrivant une instruction du code 3@.
-  *
   */
+
 class CInstruction
 {
 private:
@@ -46,7 +46,7 @@ private:
 
 public:
 
-  /**\brief Constructeur vide, place toutes les membres dans 
+  /**\brief Constructeur vide, place tous les membres dans 
     *un état invalide
     */
   CInstruction();
@@ -60,7 +60,7 @@ public:
     */
   CInstruction(CSymbol* source, CSymbol* target);
 
-  /**\brief Constructeur "faites le vous même"(c) qui ne fait
+  /**\brief Constructeur DIY qui ne fait
     *qu'assigner les arguments aux membres.
     *\param op Opérateur de l'instruction.
     *\param s1 SymbolID du premier argument.

@@ -23,13 +23,15 @@ using namespace std;
 
 /**\brief Classe implémentant la file des déclarations.
   *
-  * Au fur et a mesure que le compilateur lit le code source
+  * Au fur et à mesure que le compilateur lit le code source
   * il va empiler les instructions du code cible dans cette file.
-  * Cette file sera par la suite vidée afin
+  * Cette file sera par la suite vidée afin d'obtenir la liste 
+  * des déclarations en tête de code 3@.
   */
 class CDeclarationQueue
 {
-public:
+private:
+
   typedef struct _DECLARATION
   {
 
@@ -44,21 +46,13 @@ public:
 
   }DECLARATION;
 
-private:
-
   queue<DECLARATION> declarations;
 
 public:
 
-  /**\brief Ajoute une déclaration dans la file.
+  /**\todo Doc à faire .. 
     */
   void addDeclaration( SymbolID id, CType type );
-
-  bool empty() { return declarations.empty(); };
-
-  DECLARATION* front() { return &(declarations.front()); };
-
-  void pop() { declarations.pop(); };
 
 };
 

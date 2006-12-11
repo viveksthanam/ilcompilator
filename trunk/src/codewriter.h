@@ -27,12 +27,12 @@ private:
 
 public:
 
-  /**\brief Constructeur par défault, ouvre le fichier
+  /**\brief Constructeur par défaut, ouvre le fichier
     *DEFAULT_OUTPUT_FILENAME en écriture.
     */
   CCodeWriter();
 
-  /**\brief Constructeur par défault, ouvre le fichier
+  /**\brief Constructeur par défaut, ouvre le fichier
     *passé en argument en écriture.
     *\param filename Fichier à ouvrir.
     */
@@ -41,7 +41,7 @@ public:
   ~CCodeWriter();
 
   /**\brief Ecrit dans le fichier les instructions de déclaration.
-    *\param declarations Pile des déclarations à vider 
+    *\param declarations Pile des déclarations à dépiler 
     *pour remplir le fichier de sortie.
     */
   int writeDeclarations( CDeclarationQueue* declarations );

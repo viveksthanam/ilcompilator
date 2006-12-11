@@ -17,7 +17,7 @@
   *car on suppose que la conversion en entier de l'enumerate
   *permet de définir la règle suivante :
   *Si TYPEA > TYPEB alors on peut convertir TYPEA en TYPEB 
-  *mais celà se fera avec perte de données.
+  *mais cela sera fait avec perte de données.
   *Si TYPEA < TYPEB alors la conversion de TYPEA vers TYPEB
   * s'effectuera sans pertes.
   *

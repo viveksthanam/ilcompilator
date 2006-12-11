@@ -27,31 +27,27 @@ int debug_echo (char* str);
  */
 int debug_echoi (char* str, int);
 
-/** \brief Idem debug_echoi, mais avec float.
+/** \brief Idem debug_echoi, mais avec un float.
  */
 float debug_echof (char* str, float);
 
 /** \brief Fonction appelée sur erreur critique du compilateur (en autre dûe au
- * système sur lequel il s'exécute), ou lors de l'analyse du source. Tente de
- * désallouer 'proprement' les ressources utilisées avec sanitize(), puis quitte
- * en flushant les buffers, si on a pas planté d'ici là. Affiche un certain
- * nombre d'informations sur l'état de l'exécution du compilateur.
+ * système sur lequel il s'exécute), ou lors de l'analyse du source. 
+ * \param str Chaine affichée
+ * \param void(*sanitizer)(void) Tente de désallouer 'proprement' les ressources
+ * utilisées avec la fonction passée en paramètre, puis quitte en flushant les
+ * buffers. 
  */
-void debug_critical_exit (char* str);
+void debug_critical_exit (char* str, void(*sanitizer)(void)); 
 
 /** \brief Idem debug_critical_exit mais ne quitte pas, seulement utile lors du
  * développement, où les crash abrupts sont tolérés.
  */
 void debug_critical (char* str);
 
-
-/** \brief Affiche un message censé exprimer toute la détresse
-  *actuellement ressentie par le programme, sauve les meubles en
-  *appellant une fonction fournie par l'utilisateur et quitte avec
-  *pertes et fracas (explosions, flammes et musique fournis sur
-  *demande)
-  */
-void debug_critical_exit( char* str, void(*sanitizer)(void)  );
+/** \brief Sauve les meubles et quitte, si possible. 
+ */
+void sanitizer (void);
 
 /** \brief Deprecated.
  */

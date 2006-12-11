@@ -17,12 +17,11 @@
 * @{
 */
 
-/** \brief Génère les déclarations de variables du contexte en utilisant le
-* type défini par current_decl_type et l'id_aff remonté par int arg2. En
-* d'autres termes, alloue dynamiquement un symbole et empile un pointeur vers
-* celui-ci sur la CS courante. addSymbol() retourne un CSymbol*, mais ce n'est
-* pas utile pour le moment, cela sert juste a tester si NULL est retourné (appel
-* de yyerror).
+/** \brief Génère les déclarations de variables du contexte. Alloue dynamiquement 
+* un symbole et empile un pointeur vers celui-ci sur la CS courante.
+* \param int arg2 Correspond à l'id_aff.
+* \return addSymbol() retourne un CSymbol*, mais ce n'est pas utile pour le moment,
+* cela sert juste a tester s'il y a eu erreur d'allocation (NULL). 
 */
 int process_declaration(int arg1, int arg2);
 

@@ -46,9 +46,8 @@ extern CContextStack* CS_main;
 "int"                        {return(INT);}
 "float"                      {return(FLOAT);}
 "bool"                       {return(BOOL);}
-[a-zA-Z][a-zA-Z0-9]*         { /** \note Voir commentaires dans lex_process.h */ 
-			       yyval = lex_process_getTinyStringID( HT_main, yytext ); 
-			       return(ID);}
+[a-zA-Z][a-zA-Z0-9]*         {  yyval = lex_process_getTinyStringID( HT_main, yytext ); 
+			       										return(ID);}
 [0-9]+(".")[0-9]*            { yyval_float = lex_process_atof(yytext); return(NUM_F);}
-[0-9]			     { yyval_int = lex_process_atoi(yytext); return(NUM_I);}
+[0-9]			     							 { yyval_int = lex_process_atoi(yytext); return(NUM_I);}
 

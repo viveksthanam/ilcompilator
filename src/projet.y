@@ -22,18 +22,6 @@ float yyval_float=0.0;
 
 using namespace std;
 
-
-/** \brief Sauve les meubles et quitte, si possible.
- */
-void sanitizer (void) {
-
-delete CS_main;
-delete HT_main;
-
-}
-
-
-
 /** \note Initialisation a NULL permettant d'effectuer des tests et de compiler
  * sans erreur, allocation dynamique au debut de main().
 */
@@ -53,6 +41,15 @@ int current_decl_type = -1;
  * défaut, on pourra étendre par la suite.
 */
 extern int debug_level;
+
+/** \brief Sauve les meubles et quitte, si possible.
+ */
+void sanitizer (void) {
+
+delete CS_main;
+delete HT_main;
+
+}
 
 %}
  
@@ -165,8 +162,6 @@ int main( int argc, char** argv )
   about(); 
 	debug_set_level( &argc, argv );
 
-	DEBUG("gla");
-		
   debug_echo("creation HT principale");
 	HT_main = new CHashtable;
 

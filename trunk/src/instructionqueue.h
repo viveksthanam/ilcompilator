@@ -36,6 +36,12 @@ public:
 
   void pushInstruction( CInstruction* );
 
+  bool empty() { return instructions.empty(); };
+
+  CInstruction* front() { return (instructions.front()); };
+
+  void pop() { instructions.pop(); };
+
 };
 
 #endif/*INSTRUCTIONQUEUE_H*/

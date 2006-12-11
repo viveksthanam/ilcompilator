@@ -33,7 +33,10 @@ typedef enum _Operator
 
   OP2_EQU,
   
-  OP3_CAST
+  OP3_CAST,
+
+  OP0_INVALID //Définit l'opérateur invalide et est utilisé
+              //  pour compter la taille de l'énum.
 
 }Operator;
 

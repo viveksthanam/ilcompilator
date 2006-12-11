@@ -29,8 +29,7 @@ using namespace std;
   */
 class CDeclarationQueue
 {
-private:
-
+public:
   typedef struct _DECLARATION
   {
 
@@ -45,13 +44,21 @@ private:
 
   }DECLARATION;
 
+private:
+
   queue<DECLARATION> declarations;
 
 public:
 
-  /**\brief 
+  /**\brief Ajoute une déclaration dans la file.
     */
   void addDeclaration( SymbolID id, CType type );
+
+  bool empty() { return declarations.empty(); };
+
+  DECLARATION* front() { return &(declarations.front()); };
+
+  void pop() { declarations.pop(); };
 
 };
 

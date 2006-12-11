@@ -2,20 +2,27 @@
 
 CC= g++
 EXEC= compilo
-ALLEXEC= hashtable_test contextstack_test
+ALLEXEC= hashtable_test contextstack_test codewriter_test
 UNAME=`uname`
 CFLAGS= -Wall -g
 LDFLAGS= -Wall -ll -g
-OBJECTS = y.tab.o lex.yy.o hashtable.o lex_process.o process.o debug.o contextstack.o declarationqueue.o instructionqueue.o instruction.o codewriter.o
+
+OBJECTS = y.tab.o lex.yy.o lex_process.o process.o $(OBJECTS_WITHOUT_LY)
+
+OBJECTS_WITHOUT_LY = hashtable.o debug.o contextstack.o declarationqueue.o instructionqueue.o instruction.o codewriter.o
+
 
 all: $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXEC)
 
-contextstack_test: contextstack.o
-	$(CC) -g contextstack.o contextstack_test.cpp -o contextstack_test
+contextstack_test: $(OBJECTS_WITHOUT_LY) contextstack_test.cpp
+	$(CC) -g contextstack_test.cpp $(OBJECTS_WITHOUT_LY) -o contextstack_test
 
-hashtable_test: hashtable.o
-	$(CC) -g hashtable_test.cpp -o hashtable_test
+hashtable_test: $(OBJECTS_WITHOUT_LY) hashtable_test.cpp
+	$(CC) -g hashtable_test.cpp $(OBJECTS_WITHOUT_LY) -o hashtable_test
+
+codewriter_test: $(OBJECTS_WITHOUT_LY) codewriter_test.cpp
+	$(CC) -g codewriter_test.cpp $(OBJECTS_WITHOUT_LY) -o codewriter_test
 
 %.o: %.cpp *.h
 	$(CC) $(CFLAGS) $< -c -o $@

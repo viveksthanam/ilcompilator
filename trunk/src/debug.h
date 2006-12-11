@@ -44,11 +44,14 @@ void debug_critical_exit (char* str);
  */
 void debug_critical (char* str);
 
-/** \brief Sauve les meubles et quitte, si possible. Mouton noir de ce header
- * debug.h puisque il n'y a pas de rapport direct avec le debug, plutôt un lien
- * cause-conséquence.
- */
-void sanitizer (void);
+
+/** \brief Affiche un message censé exprimer toute la détresse
+  *actuellement ressentie par le programme, sauve les meubles en
+  *appellant une fonction fournie par l'utilisateur et quitte avec
+  *pertes et fracas (explosions, flammes et musique fournis sur
+  *demande)
+  */
+void debug_critical_exit( char* str, void(*sanitizer)(void)  );
 
 /** \brief Deprecated.
  */

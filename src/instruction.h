@@ -60,6 +60,25 @@ public:
     */
   CInstruction(CSymbol* source, CSymbol* target);
 
+  /**\brief Constructeur "faites le vous même"(c) qui ne fait
+    *qu'assigner les arguments aux membres.
+    *\param op Opérateur de l'instruction.
+    *\param s1 SymbolID du premier argument.
+    *\param s2 SymbolID du deuxieme argument.
+    *\param s3 SymbolID du troisieme argument.
+    *\param type CType décrivant le type du cast si l'opérateur
+    *est un cast.
+    */
+  CInstruction( Operator op, SymbolID s1, SymbolID s2,
+                SymbolID s3, CType type )
+  {
+      this->op = op;
+      this->operand_1 = s1;
+      this->operand_2 = s2;
+      this->operand_3 = s3;
+      this->cast_type = type;
+  }
+
   Operator getOperator() {return op;};
 
   SymbolID getOperand_1() {return operand_1; };

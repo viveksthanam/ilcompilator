@@ -22,6 +22,18 @@ float yyval_float=0.0;
 
 using namespace std;
 
+
+/** \brief Sauve les meubles et quitte, si possible.
+ */
+void sanitizer (void) {
+
+delete CS_main;
+delete HT_main;
+
+}
+
+
+
 /** \note Initialisation a NULL permettant d'effectuer des tests et de compiler
  * sans erreur, allocation dynamique au debut de main().
 */
@@ -40,7 +52,7 @@ int current_decl_type = -1;
 /** \brief Etat du debug: 0 (défaut), ou 1 pour activer. Deux niveaux par
  * défaut, on pourra étendre par la suite.
 */
-int debug_level = 0;
+extern int debug_level;
 
 %}
  

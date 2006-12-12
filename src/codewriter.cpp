@@ -117,6 +117,33 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
                   INSTRUCTION_SEPARATOR);
          break;
 
+       case OP2_EQU_CONST_RVALUE_BOOL:
+
+         fprintf( foutput, string_operators[p_instr->getOperator()],
+                  INSTRUCTION_BASE_NAME,
+                  p_instr->getOperand_1(),
+                  p_instr->getBoolConstValue(),
+                  INSTRUCTION_SEPARATOR);
+         break;
+
+       case OP2_EQU_CONST_RVALUE_INT:
+
+         fprintf( foutput, string_operators[p_instr->getOperator()],
+                  INSTRUCTION_BASE_NAME,
+                  p_instr->getOperand_1(),
+                  (int)p_instr->getIntConstValue(),
+                  INSTRUCTION_SEPARATOR);
+         break;
+
+       case OP2_EQU_CONST_RVALUE_FLOAT:
+
+         fprintf( foutput, string_operators[p_instr->getOperator()],
+                  INSTRUCTION_BASE_NAME,
+                  p_instr->getOperand_1(),
+                  p_instr->getFloatConstValue(),
+                  INSTRUCTION_SEPARATOR);
+         break;
+
        default:
 
          fprintf( foutput, string_operators[p_instr->getOperator()],

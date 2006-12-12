@@ -1,5 +1,3 @@
-/* specifications des tokens */
-
 %{
 
 #include "hashtable.h"
@@ -12,7 +10,7 @@
 */
 #define yyterminate() yy_delete_buffer(YY_CURRENT_BUFFER); return YY_NULL 
 
-/** \brief Nous n'avons pas besoin de cette fonction, cela évite une erreur en
+/** \brief Nous n'avons pas besoin de la fonction unput, cela évite une erreur en
 * -Wall.
 */
 #define YY_NO_UNPUT
@@ -21,6 +19,29 @@ extern int yyval_int;
 extern float yyval_float;
 extern CHashtable* HT_main;
 extern CContextStack* CS_main;
+
+/** \brief Dépile la pile des buffers de Lex, détruit chaque élément. Détruit 
+* ensuite la pile.
+*/
+/*
+int yylex_destroy (void)
+{
+	
+	while (YY_CURRENT_BUFFER){
+		yy_delete_buffer (YY_CURRENT_BUFFER );
+		YY_CURRENT_BUFFER_LVALUE = NULL;
+		yypop_buffer_state();
+	}
+	
+	yyfree(yy_buffer_stack);
+	yy_buffer_stack=NULL;
+	yyfree(yy_start_stack);
+	yy_start_stack=NULL;
+	
+	return(0);
+
+}*/
+
 %}
 
 %%

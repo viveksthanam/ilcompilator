@@ -16,6 +16,8 @@ CContextStack::CContextStack()
 {
   // Initialise la numérotation des symboles.
   n = 0;
+
+  size_stack.push(0);
 }
 
 CContextStack::~CContextStack()

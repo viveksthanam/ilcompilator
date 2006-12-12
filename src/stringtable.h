@@ -1,6 +1,6 @@
 //% vim: ts=2 tw=80
 
-/** \file stringtable
+/** \file stringtable.h
  * \brief Contient les correspondances entre les 
  * types, les opérateurs et les instructions 3@.
  * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>

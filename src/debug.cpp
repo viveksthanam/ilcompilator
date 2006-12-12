@@ -13,7 +13,7 @@ extern char** argv;
 
 //% vim: ts=2 tw=80
 
-/** \file debug.c
+/** \file debug.cpp
 * \brief Corps des fonctions de debug
 * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
 * \version
@@ -61,7 +61,7 @@ int debug_echo (char* str) {
 int debug_echoi (char* str, int i) {
 
   if ( 1 == debug_level )
-    cerr << "debug_echoi: " << str << ", parametre: " << i << endl;
+    cerr << "debug_echoi: " << str << ", paramètre: " << i << endl;
 
   return EXIT_SUCCESS;
 }
@@ -69,7 +69,7 @@ int debug_echoi (char* str, int i) {
 float debug_echof (char* str, float f) {
 
   if ( 1 == debug_level )
-    cerr << "debug_echof: " << str << ", parametre: " << f << endl;
+    cerr << "debug_echof: " << str << ", paramètre: " << f << endl;
 
   return EXIT_SUCCESS;
 }

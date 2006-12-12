@@ -1,6 +1,6 @@
 // vim: ts=2 tw=80
 
-/** \file context.h
+/** \file contextstack.h
  * \brief Définit la classe CContextStack qui contiendra
  * les différents symboles et ajoutera une information
  * sur le context du dit symbole.
@@ -74,27 +74,27 @@ public:
   /**\brief Retourne un pointeur vers le premier symbole dans
     * la pile ayant pour CStringID le CStringID passé en paramètre
     * et étant présent dans le contexte courant.
-    *\param id SymbolID à rechercher.
+    *\param csid CStringID à rechercher.
     *\return Pointeur vers le SymbolID ainsi trouvé. Retourne
     * NULL si le symbole n'est pas trouvé dans la pile.
     */
-  CSymbol* getSymbolInContext( CStringID );
+  CSymbol* getSymbolInContext( CStringID csid );
 
   /**\brief Retourne un pointeur vers le symbole ayant
     * pour SymbolID le SymbolID passé en paramètre.
-    *\param id SymbolID à rechercher.
+    *\param sid SymbolID à rechercher.
     *\return Pointeur vers le SymbolID ainsi trouvé. Retourne
     * NULL si le symbole n'est pas trouvé dans la pile.
     */
-  CSymbol* getSymbol( SymbolID );
+  CSymbol* getSymbol( SymbolID sid );
 
   /**\brief Retourne un pointeur vers le premier symbole dans
     * la pile ayant pour CStringID le CStringID passé en paramètre.
-    *\param id SymbolID à rechercher.
+    *\param csid CStringID à rechercher.
     *\return Pointeur vers le SymbolID ainsi trouvé. Retourne
     * NULL si le symbole n'est pas trouvé dans la pile.
     */
-  CSymbol* getSymbol( CStringID );
+  CSymbol* getSymbol( CStringID csid );
 
   /**\brief Sauvegarde le contexte courant et en empile un nouveau
     */

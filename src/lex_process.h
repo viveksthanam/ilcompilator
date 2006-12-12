@@ -21,8 +21,8 @@
 /** \brief lex_process_getTinyStringID nous donne une version 'compacte' d'une
  * instance de CStringID, puisque nous ne pouvons pas encore remonter des entiers et
  * des structures. 
- * \param CHashtable* my_HT Pointeur sur notre table de hash.
- * \param char* string Correspond à yytext ayant 'matché' un ID.
+ * \param my_HT Pointeur sur notre table de hash.
+ * \param str Correspond à yytext ayant 'matché' un ID.
  * \return Entier représentant un CStringID.
  */
 int lex_process_getTinyStringID( CHashtable* my_HT, char* str );

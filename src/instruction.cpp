@@ -49,7 +49,7 @@ CInstruction::CInstruction( CSymbol* lvalue, float rvalue )
       break;
 
     default:
-      /**\todo Mettre une erreur.*/
+      /**\todo Ajouter gestion d'erreur.*/
       break;
   }
 

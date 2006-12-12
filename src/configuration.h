@@ -22,6 +22,9 @@
 /** \brief Nom par défault du fichier de sortie.*/
 #define DEFAULT_OUTPUT_FILENAME "output.3a"
 
+#define INSTRUCTION_BASE_NAME "var"
+#define INSTRUCTION_SEPARATOR ";\n"
+
 /** \brief Paramètre déclenchant le mode debug.
  */
 #define DEBUG_FLAG "-d"

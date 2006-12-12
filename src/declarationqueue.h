@@ -54,6 +54,14 @@ public:
     */
   void addDeclaration( SymbolID id, CType type );
 
+
+  bool empty() { return declarations.empty(); };
+
+  DECLARATION* front() { return &(declarations.front()); };
+
+  void pop() { declarations.pop(); };
+
+
 };
 
 #endif/*DECLARATIONQUEUE_H*/

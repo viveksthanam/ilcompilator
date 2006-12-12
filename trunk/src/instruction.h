@@ -38,11 +38,20 @@ private:
     *\note INVALID_SYMBOL si inutilisé.*/
   SymbolID operand_3;
 
-  /**\brief Troisième opérande dans le cas du cast, à savoir le type
+  /**\brief Opérande dans le cas du cast, à savoir le type
     * du cast.
     */
   CType cast_type;
   
+  /**\brief Opérande dans le cas de l'assignation simple
+    * d'un constante à une variable
+    */
+  union
+  { 
+    bool bool_const_value;
+    int int_const_value;
+    float float_const_value;
+  };
 
 public:
 
@@ -59,6 +68,9 @@ public:
     * de l'opération.
     */
   CInstruction(CSymbol* source, CSymbol* target);
+
+  
+  CInstruction(CSymbol* lvalue, float rvalue );
 
   /**\brief Constructeur DIY qui ne fait
     *qu'assigner les arguments aux membres.
@@ -88,6 +100,10 @@ public:
   SymbolID getOperand_3() {return operand_3; };
 
   CType getCastType() {return cast_type; };
+
+  bool getBoolConstValue() {return bool_const_value; };
+  int getIntConstValue() {return int_const_value; };
+  float getFloatConstValue() {return float_const_value; };
 };
 
 #endif/*INSTRUCTION_H*/

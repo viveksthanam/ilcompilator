@@ -27,3 +27,33 @@ CInstruction::CInstruction( CSymbol* source, CSymbol* target )
   
   return;
 }
+
+CInstruction::CInstruction( CSymbol* lvalue, float rvalue )
+{
+
+  switch(lvalue->getType().getTypeVal())
+  {
+    case T_BOOL:
+      this->op = OP2_EQU_CONST_RVALUE_BOOL;
+      this->bool_const_value = (rvalue != 0);
+      break;
+
+    case T_INT:
+      this->op = OP2_EQU_CONST_RVALUE_INT;
+      this->int_const_value = (int)rvalue;
+      break;
+
+    case T_FLOAT:
+      this->op = OP2_EQU_CONST_RVALUE_FLOAT;
+      this->float_const_value = rvalue;
+      break;
+
+    default:
+      /**\todo Mettre une erreur.*/
+      break;
+  }
+
+  this->operand_1 = lvalue->getID();
+
+  return;
+}

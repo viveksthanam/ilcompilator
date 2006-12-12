@@ -93,7 +93,7 @@ CSymbol* CContextStack::getSymbol( SymbolID id )
 {
   int i;
 
-  for( i = symbols.size() - 1; i>0; i-- )
+  for( i = symbols.size() - 1; i>=0; i-- )
   {
     if( (symbols[i])->getID() == id )
     {
@@ -108,7 +108,7 @@ CSymbol* CContextStack::getSymbol( CStringID sid )
 {
   int i;
 
-  for( i= symbols.size() - 1; i>0; i-- )
+  for( i= symbols.size() - 1; i>=0; i-- )
   {
     if( (symbols[i])->getSID() == sid )
     {

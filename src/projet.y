@@ -45,7 +45,7 @@ int current_decl_type = -1;
 */
 extern int debug_level;
 
-/** \brief Sauve les meubles et quitte, si possible.
+/** \brief Libère les ressources utilisées par nos piles.
  */
 void sanitizer (void) {
 

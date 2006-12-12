@@ -35,7 +35,7 @@ CCodeWriter::CCodeWriter( char* filename )
     return;
   }
 
-  debug_echo("Début de l'écriture du code de sortie dans le fichier :");
+  debug_echo("Instanciation d'un module CodeWriter. Production de code cible dans:");
   debug_echo(filename);
 }
 
@@ -68,7 +68,7 @@ int CCodeWriter::writeDeclarations( CDeclarationQueue* declarations )
     typeval = (int)( (declarations->front())->type.getTypeVal() );
 
     fprintf(foutput, "%s %s%d%s",
-            string_types[typeval],       // La chaine associée au type
+            string_types[typeval],  // La chaine associée au type
             INSTRUCTION_BASE_NAME,  // Le nom de base
             id,                     // L'id
             INSTRUCTION_SEPARATOR); // Le séparateur d'instructions

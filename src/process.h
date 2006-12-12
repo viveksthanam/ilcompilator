@@ -63,8 +63,9 @@ int process_context_save();
 /** \brief Appel sur match d'un NUM_I. Procède à la déclaration d'un symbole, à
  * la production d'une instruction (affectation de val au symbole créé) et
  * retourne le pointeur sur le symbole associé.
- * \warning Pas de vérification de type, on teste juste la remontée du pointeur pour le
- * moment!
+ * \warning Pas de vérification de type pour le moment, donc le C réalise un
+ * cast, qui (si la valeur a été corrompue depuis le strtoi ou strtol) peut
+ * conduire à une perte d'information.
  * \todo Prévoir le passage d'information au SymbolManager pour pointer les symboles
  * non réutilisables dans le contexte courant.
  * \param val Entier remonté le Lex par yyval_int
@@ -75,8 +76,9 @@ int process_int ( int val );
 /** \brief Appel sur match d'un NUM_F. Procède à la déclaration d'un symbole, à
  * la production d'une instruction (affectation de val au symbole créé) et
  * retourne le pointeur sur le symbole associé.
- * \warning Pas de vérification de type, on teste juste la remontée du pointeur pour le
- * moment!
+ * \warning Pas de vérification de type pour le moment, donc le C réalise un
+ * cast, qui (si la valeur a été corrompue depuis le strtoi ou strtol) peut
+ * conduire à une perte d'information.
  * \todo Prévoir le passage d'information au SymbolManager pour pointer les symboles
  * non réutilisables dans le contexte courant. 
  * \param val Entier remonté le Lex par yyval_float
@@ -88,8 +90,9 @@ int process_float ( float val );
 /** \brief Appel sur match d'un TRUE ou FALSE. Procède à la déclaration d'un symbole, à
  * la production d'une instruction (affectation de val au symbole créé) et
  * retourne le pointeur sur le symbole associé.
- * \warning Pas de vérification de type, on teste juste la remontée du pointeur pour le
- * moment!
+ * \warning Pas de vérification de type pour le moment, donc le C réalise un
+ * cast, qui (si la valeur a été corrompue depuis le strtoi ou strtol) peut
+ * conduire à une perte d'information. 
  * \todo Prévoir le passage d'information au SymbolManager pour pointer les symboles
  * non réutilisables dans le contexte courant. 
  * \param val Entier remonté le Lex (DEF_TRUE ou DEF_FALSE) 

@@ -5,13 +5,18 @@
 #include "contextstack.h"
 #include "y.tab.h"
 
+/** \addtogroup LexInitInstructions
+* Fonctions, variables et commandes du préprocesseur paramétrant Lex.
+* @{
+*/
+
 /** \brief Afin que Lex termine proprement en vidant ses buffers, sans fuite
 * mémoire, nous redéfinissons yyterminate().
 */
 #define yyterminate() yy_delete_buffer(YY_CURRENT_BUFFER); return YY_NULL 
 
 /** \brief Nous n'avons pas besoin de la fonction unput, cela évite une erreur en
-* -Wall.
+* compilation -Wall du compilateur.
 */
 #define YY_NO_UNPUT
 
@@ -41,6 +46,8 @@ int yylex_destroy (void)
 	return(0);
 
 }*/
+
+/** @} */
 
 %}
 

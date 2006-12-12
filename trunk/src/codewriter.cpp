@@ -30,7 +30,7 @@ CCodeWriter::CCodeWriter( char* filename )
 
   if( !foutput )
   {
-    /**\todo Ajouter l'erreur quand debug sera nettoyé */
+    /**\todo Ajouter gestion d'erreur */
     debug_critical_exit("Impossible d'écrire le fichier de sortie.",NULL);
     return;
   }

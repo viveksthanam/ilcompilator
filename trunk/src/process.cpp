@@ -6,12 +6,16 @@
 #include "debug.h"
 #include "contextstack.h"
 #include "stringid.h"
+#include "type.h"
 
 using namespace std;
 
+extern int current_decl_type;
 extern int yyerror(char *s);
 extern int current_decl_type;
 extern CContextStack* CS_main;
+
+extern void sanitizer (void);
 
 /** \file process.cpp
 * \brief Corps des fonctions de traitement
@@ -22,15 +26,15 @@ extern CContextStack* CS_main;
 
 int process_declaration(int arg1, int arg2) {
 
-	//current_decl_type = -1;
+   CSymbol* retval = NULL;
+
   debug_echo("declaration: type id_aff_list PV");
 
 	if (current_decl_type != -1) {
   
-		debug_echoi( "type symbole", arg1 );
-		debug_echoi( "id_aff (string id du symbole)", arg2 ); 
+    retval = CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 , 0 ) );
 		
-		if ( !CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 , 0 ) ) ) {
+    if ( !retval ) {
 			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
 			return EXIT_FAILURE;
 		}
@@ -41,14 +45,17 @@ int process_declaration(int arg1, int arg2) {
 		return EXIT_FAILURE; 
 	}
   
-	return EXIT_SUCCESS;
+  debug_echoi( "Symbole créé à l'adresse:", (int)retval );
+	return ((int)retval);
+
 }
 
 int process_declaration_end() {
 
-	debug_echo("declaration_end, current_decl_type=-1");	
-	if (current_decl_type != -1)
-		current_decl_type = -1;
+	if (current_decl_type != -1) {
+		debug_echo("declaration_end, current_decl_type=-1");	
+	  current_decl_type = -1;
+  }
 	else { 
 		debug_critical("fin de déclaration inattendue");
 		return EXIT_FAILURE;
@@ -58,9 +65,146 @@ int process_declaration_end() {
 		
 }
 
+int process_type ( int type ) {
+
+  if ( -1 == current_decl_type ) {
+    debug_echoi( "Type du symbole:", type );
+    current_decl_type = type;
+    return (type);
+  }
+  else {
+    debug_critical("type inattendu");
+    return EXIT_FAILURE;
+  }
+
+}
+
+int process_id ( int tinystrid, CContextStack* current_CS ) {
+
+  CSymbol* retval = NULL;
+
+  if ( (!tinystrid) || (!current_CS) )
+    debug_critical_exit("TinyStringID vide ou pointeur sur CS nul", sanitizer );
+
+  //on se trouve dans les déclarations
+  if ( current_decl_type != -1 ) {
+    debug_echoi("ID, son TinyStringID vaut:", tinystrid);
+    return tinystrid; 
+  }
+
+  //on se trouve dans les instructions
+  else {
+
+    retval = current_CS->getSymbolInContext( CStringID( tinystrid ) );
+
+    if ( !retval )  
+      debug_critical_exit( "Symbole non trouvé dans le contexte.", sanitizer );   
+    else {
+      debug_echoi( "Symbole trouvé dans le contexte à l'adresse:", (int)retval );  
+      return ((int)retval);
+    }
+
+  }
+
+  return EXIT_FAILURE; //should not happen <fear!>
+
+}
+
+int process_context_open() {
+
+  debug_echo("context_open: DA");
+  CS_main->saveContext();
+
+  return EXIT_SUCCESS;
+}
+
+int process_context_save() {
+
+  debug_echo("context_save: FA");
+  CS_main->saveContext();
+
+  return EXIT_SUCCESS;
+}
+
+int process_int ( int val ) {
+ 
+  CSymbol* retval = NULL;
+
+  retval = CS_main->addSymbol( CStringID(), CType( T_INT , 0 ) );
+		
+    if ( !retval ) {
+			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
+			return EXIT_FAILURE;
+		}
+	
+  debug_echoi( "Symbole INT créé à l'adresse:", (int)retval );
+
+  //creation instruction affectation
+    
+  return ((int)retval);
+}
+
+int process_float ( float val ) {
+  
+  CSymbol* retval = NULL;
+
+  retval = CS_main->addSymbol( CStringID(), CType( T_FLOAT , 0 ) );
+		
+    if ( !retval ) {
+			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
+			return EXIT_FAILURE;
+		}
+	
+  debug_echoi( "Symbole FLOAT créé à l'adresse:", (int)retval );
+
+  //creation instruction affectation
+    
+  return ((int)retval);
+}
+
+int process_bool ( int val ) {
+   
+  CSymbol* retval = NULL;
+
+  retval = CS_main->addSymbol( CStringID(), CType( T_BOOL , 0 ) );
+		
+    if ( !retval ) {
+			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
+			return EXIT_FAILURE;
+		}
+	
+  debug_echoi( "Symbole BOOL créé à l'adresse:", (int)retval );
+
+  //creation instruction affectation
+    
+  return ((int)retval);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*A traiter:*/
+
 int process_assignment(int arg1, int arg3) {
 
-  debug_echo("assignment: id EQ exp");
+  debug_echo("assignment: ID EQ exp");
+  debug_echoi("assign $1",arg1);
+  debug_echoi("assign $3",arg3); 
   return EXIT_SUCCESS;
 }
 
@@ -94,17 +238,6 @@ int process_repeat_begin() {
   return EXIT_SUCCESS;
 }
 
-int process_context_open() {
-
-  debug_echo("context_open: DA");
-  return EXIT_SUCCESS;
-}
-
-int process_context_save() {
-
-  debug_echo("context_save: FA");
-  return EXIT_SUCCESS;
-}
 
 int process_or(int arg1, int arg3) {
 

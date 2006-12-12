@@ -50,7 +50,7 @@ private:
 
 public:
 
-  /**\todo Doc à faire .. 
+  /**\todo Documentation à faire. 
     */
   void addDeclaration( SymbolID id, CType type );
 

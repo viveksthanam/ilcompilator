@@ -8,7 +8,7 @@
  *
  */
 
-#ifndef
-#define
+#ifndef HEAD
+#define HEAD
 
-#endif/**/
+#endif

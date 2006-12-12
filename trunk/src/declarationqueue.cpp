@@ -1,6 +1,6 @@
 //% vim: ts=2 tw=80
 
-/** \file declarationstack.h
+/** \file declarationqueue.h
  * \brief Implémente la classe qui stocke les 
  * déclarations des variables.
  * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>

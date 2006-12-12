@@ -34,7 +34,7 @@ float debug_echof (char* str, float);
 /** \brief Fonction appelée sur erreur critique du compilateur (en autre dûe au
  * système sur lequel il s'exécute), ou lors de l'analyse du source. 
  * \param str Chaine affichée
- * \param void(*sanitizer)(void) Tente de désallouer 'proprement' les ressources
+ * \param sanitizer Tente de désallouer 'proprement' les ressources
  * utilisées avec la fonction passée en paramètre, puis quitte en flushant les
  * buffers. 
  */

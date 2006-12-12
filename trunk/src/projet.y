@@ -16,6 +16,9 @@
 // Ajouté car ne compilait pas
 // avec g++
 int yylex (void);
+
+/** \brief Variables globales servant d'interface entre Lex et Yacc.
+*/
 int yyval=0;
 int yyval_int=0;
 float yyval_float=0.0;
@@ -31,7 +34,7 @@ CHashtable* HT_main = NULL;
 */
 CContextStack* CS_main = NULL;
 
-/** \brief Variable globale conservant le type des ou de la derniere variable a
+/** \brief Variable globale conservant le type des ou de la dernière variable à 
  * declarer, -1 voulant dire qu'il n'y a plus de variables a declarer pour
  * l'instruction courante.
 */ 
@@ -79,28 +82,28 @@ delete HT_main;
 
 %%
 
-prog : decl_list inst_list pv ;
+prog : decl_list inst_list pv ; // OKOKOK
 
-pv : PV { debug_echo("PV"); }
+pv : PV { debug_echo("PV"); } // OKOKOK
      | ;
 
-decl_list : decl_list decl { debug_echo("decl_list decl"); }
+decl_list : decl_list decl { debug_echo("decl_list decl"); } // OKOKOK
             | ;
 
-decl : type id_aff_list PV { process_declaration_end(); } ;
+decl : type id_aff_list PV { process_declaration_end(); } ; // OKOKOK
 
-id_aff_list : id_aff_list VIR id_aff { process_declaration(current_decl_type,$3); }
-              | id_aff { process_declaration(current_decl_type, $1); };
+id_aff_list : id_aff_list VIR id_aff { $$ = process_declaration(current_decl_type,$3); } 
+              | id_aff { $$ = process_declaration(current_decl_type, $1); }
 
 id_aff : id { $$ = $1; debug_echo("id"); }
          | affect { $$ = $1; debug_echo("affect"); };
 
-id : ID { $$ = yylval; debug_echo("ID"); };
+id : ID { $$ = process_id( $1, CS_main ); }; // OKOKOK
 
-type : INT { $$ = T_INT; current_decl_type = T_INT; debug_echo("INT"); }
-       | FLOAT { $$ = T_FLOAT; current_decl_type = T_FLOAT; debug_echo("FLOAT"); } 
-       | BOOL { $$ = T_BOOL; current_decl_type = T_BOOL; debug_echo("BOOL"); }
-       | type STAR { debug_echo("STAR"); };
+type : INT { $$ = process_type(T_INT); }
+       | FLOAT { $$ = process_type(T_FLOAT); } 
+       | BOOL { $$ = process_type(T_BOOL); }
+       | type STAR { debug_echo("STAR matched"); };
 
 inst_list : inst_list PV inst { debug_echo("inst_list PV inst"); }
             | inst { debug_echo("inst"); };
@@ -125,7 +128,6 @@ exp_do: exp DO { $$ = process_exp_do_begin($1); };
 repeat: REPEAT { $$ = process_repeat_begin(); };
 
 bloc : da prog fa { $$=$2; debug_echo("da prog fa"); };
-
 da : DA { process_context_open(); };
 
 fa : FA { process_context_save(); };
@@ -145,10 +147,10 @@ exp :  exp OR exp { process_or($1,$3); }
      | id { $$ = $1; debug_echo("id"); }
      | const { $$ = $1; debug_echo("const"); }; 
 
-const : NUM_I { $$ = $1; debug_echo("NUM_I"); }
-        | NUM_F { $$ = $1; debug_echo("NUM_F"); }
-        | TRUE { $$ = DEF_TRUE; debug_echo("TRUE"); }
-        | FALSE { $$ = DEF_FALSE; debug_echo("FALSE"); };
+const : NUM_I { $$ = process_int( yyval_int ); }
+        | NUM_F { $$ = process_float( yyval_float ); }
+        | TRUE { $$ =  process_bool( DEF_TRUE ); }
+        | FALSE { $$ = process_bool( DEF_FALSE ); };
 
 uop : STAR { $$ = $1; debug_echo("STAR"); }
       | MOINS { $$ = $1; debug_echo("MOINS"); }
@@ -168,9 +170,8 @@ int main( int argc, char** argv )
  	debug_echo("création CS principale");
 	CS_main = new CContextStack;
 
-	debug_echo("appel yyparse, Ctrl+D pour arrêter la saisie");
+	debug_echo("appel yyparse(), Ctrl+D pour arrêter la saisie");
 	yyparse();
-	debug_echo("fin yyparse");
 	
 	debug_echo("libérations et fin...");
 	sanitizer();

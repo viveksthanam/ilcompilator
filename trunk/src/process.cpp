@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include "process.h"
 #include "debug.h"
+#include "declarationqueue.h"
+#include "instructionqueue.h"
 #include "contextstack.h"
 #include "stringid.h"
 #include "type.h"
@@ -14,6 +16,8 @@ extern int current_decl_type;
 extern int yyerror(char *s);
 extern int current_decl_type;
 extern CContextStack* CS_main;
+extern CDeclarationQueue* DQ_main;
+extern CInstructionQueue* IQ_main;
 
 extern void sanitizer (void);
 
@@ -28,32 +32,38 @@ int process_declaration(int arg1, int arg2) {
 
    CSymbol* retval = NULL;
 
-  debug_echo("declaration: type id_aff_list PV");
+  //debug_echo("declaration: type id_aff_list PV");
 
 	if (current_decl_type != -1) {
   
+    //empilement du symbole sur la CS
     retval = CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 , 0 ) );
 		
     if ( !retval ) {
 			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
 			return EXIT_FAILURE;
 		}
-	
+	  
+     debug_echoi( "Symbole créé à l'adresse:", (int)retval );
+    
+    //instruction de déclaration 
+    DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)arg1 , 0 ) ); 
+    debug_echo("déclaration du symbole empilée");
+
 	}
 	else {
 		debug_critical("debut de déclaration inattendue");
 		return EXIT_FAILURE; 
 	}
   
-  debug_echoi( "Symbole créé à l'adresse:", (int)retval );
-	return ((int)retval);
+  	return ((int)retval);
 
 }
 
 int process_declaration_end() {
 
 	if (current_decl_type != -1) {
-		debug_echo("declaration_end, current_decl_type=-1");	
+		debug_echo("Fin de déclaration, repositionne current_decl_type à -1");	
 	  current_decl_type = -1;
   }
 	else { 
@@ -112,7 +122,7 @@ int process_id ( int tinystrid, CContextStack* current_CS ) {
 
 int process_context_open() {
 
-  debug_echo("context_open: DA");
+  debug_echo("contexte ouvert");
   CS_main->saveContext();
 
   return EXIT_SUCCESS;
@@ -120,7 +130,7 @@ int process_context_open() {
 
 int process_context_save() {
 
-  debug_echo("context_save: FA");
+  debug_echo("contexte sauvé");
   CS_main->saveContext();
 
   return EXIT_SUCCESS;
@@ -129,6 +139,7 @@ int process_context_save() {
 int process_int ( int val ) {
  
   CSymbol* retval = NULL;
+  CInstruction* instr = NULL;
 
   retval = CS_main->addSymbol( CStringID(), CType( T_INT , 0 ) );
 		
@@ -139,15 +150,23 @@ int process_int ( int val ) {
 	
   debug_echoi( "Symbole INT créé à l'adresse:", (int)retval );
 
-  //creation instruction affectation
-    
+  //creation declaration + instruction affectation
+  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_INT , 0 ) ); 
+  debug_echo("déclaration du symbole empilée");
+  
+  instr = new CInstruction( retval, (float)val );
+  IQ_main->pushInstruction( instr );
+  debug_echo("instruction d'affectation empilée");
+
   return ((int)retval);
+
 }
 
 int process_float ( float val ) {
   
   CSymbol* retval = NULL;
-
+  CInstruction* instr = NULL;
+  
   retval = CS_main->addSymbol( CStringID(), CType( T_FLOAT , 0 ) );
 		
     if ( !retval ) {
@@ -157,15 +176,22 @@ int process_float ( float val ) {
 	
   debug_echoi( "Symbole FLOAT créé à l'adresse:", (int)retval );
 
-  //creation instruction affectation
-    
+  //creation declaration + instruction affectation
+  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_FLOAT , 0 ) ); 
+  debug_echo("déclaration du symbole empilée");
+  
+  instr = new CInstruction( retval, val );
+  IQ_main->pushInstruction( instr );
+  debug_echo("instruction d'affectation empilée");
+ 
   return ((int)retval);
 }
 
 int process_bool ( int val ) {
    
   CSymbol* retval = NULL;
-
+  CInstruction* instr = NULL;
+  
   retval = CS_main->addSymbol( CStringID(), CType( T_BOOL , 0 ) );
 		
     if ( !retval ) {
@@ -175,10 +201,28 @@ int process_bool ( int val ) {
 	
   debug_echoi( "Symbole BOOL créé à l'adresse:", (int)retval );
 
-  //creation instruction affectation
-    
+  //creation declaration + instruction affectation
+  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_BOOL , 0 ) ); 
+  debug_echo("déclaration du symbole empilée");
+
+  instr = new CInstruction( retval, (float)val );
+  IQ_main->pushInstruction( instr );
+  debug_echo("instruction d'affectation empilée");
+
   return ((int)retval);
 }
+
+int process_assignment(int arg1, int arg3) {
+
+  debug_echo("assignment!");
+  debug_echoi("$1",arg1);
+  debug_echoi("$3",arg3); 
+  return EXIT_SUCCESS;
+}
+
+
+
+
 
 
 
@@ -199,14 +243,6 @@ int process_bool ( int val ) {
 
 
 /*A traiter:*/
-
-int process_assignment(int arg1, int arg3) {
-
-  debug_echo("assignment: ID EQ exp");
-  debug_echoi("assign $1",arg1);
-  debug_echoi("assign $3",arg3); 
-  return EXIT_SUCCESS;
-}
 
 int process_while_end(int arg1, int arg2) {
 

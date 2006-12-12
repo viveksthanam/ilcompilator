@@ -22,8 +22,9 @@ int lex_process_getTinyStringID( CHashtable* my_HT, char* str ) {
 
 int lex_process_atoi ( char* str  ) {
 
+  //paramètres 'par défaut' du strtol, idem ci-dessous pour strtof
 	int i = (int)strtol(str,NULL,0);	
-	debug_echoi("lex_process_atoi sur NUM_I",i);
+	debug_echoi("tentative de conversion strtoi sur NUM_I",i);
 	return (i);
 
 }
@@ -31,7 +32,7 @@ int lex_process_atoi ( char* str  ) {
 float lex_process_atof ( char* str ) {
 		
 	float f =  (float)strtof(str,NULL);
-	debug_echof("lex_process_atof sur NUM_F",f);
+	debug_echof("tentative de conversion strtof sur NUM_F",f);
 	return (f);
 
 }

@@ -187,25 +187,26 @@ int main( int argc, char** argv )
   about(); 
 	debug_set_level( &argc, argv );
 
-  debug_echo("creation HashTable principale");
+  debug_echo("instanciation de la HashTable principale");
 	HT_main = new CHashtable;
 
- 	debug_echo("création ContextStack principale");
+ 	debug_echo("instanciation de la ContextStack principale");
 	CS_main = new CContextStack;
 
-	debug_echo("création DeclarationQueue principale");
+	debug_echo("instanciation de la DeclarationQueue principale");
 	DQ_main = new CDeclarationQueue;
 
-  debug_echo("création InstructionQueue principale");
+  debug_echo("instanciation de la InstructionQueue principale");
   IQ_main = new CInstructionQueue;
-
-  debug_echo("création CodeWriter principal");
-  CW_main = new CCodeWriter(NULL);
 
 	debug_echo("appel yyparse(), Ctrl+D pour arrêter la saisie");
 	yyparse();
-
-  debug_echo("production des déclarations");
+	debug_echo("yyparse() a terminé");
+		
+	debug_echo("instanciation du CodeWriter principal");
+  CW_main = new CCodeWriter(NULL);
+  
+	debug_echo("production des déclarations");
   CW_main->writeDeclarations( DQ_main ); 
 
   debug_echo("production des instructions");

@@ -17,14 +17,41 @@ CInstruction::CInstruction()
   return;
 }
 
-CInstruction::CInstruction( CSymbol* source, CSymbol* target )
+CInstruction::CInstruction( CSymbol* lsymbol, CSymbol* rsymbol,
+                            bool& warning )
 {
 
-  if( !source->getType().canConvertTo( target->getType() ) )
+  if( rsymbol->getType() == lsymbol->getType() )
   {
-    debug_critical("Cast forcé: probable perte de données.");
+    warning = false;
+
+    this->op = OP2_EQU;
+    this->operand_1 = lsymbol->getID();
+    this->operand_2 = rsymbol->getID();
+
+    return;
   }
-  
+
+
+  // Peut on convertir du rsymbol vers du lsymbol ?
+  if( !rsymbol->getType().canConvertTo( lsymbol->getType() ) )
+  {
+    // On convertit de R vers L avec pertes donc:
+    // (int) = (double)
+    warning = true;
+  }
+  else
+  {
+    // On convertit de R vers L sans pertes donc : 
+    // (double) = (int)  (par exemple)
+    warning = false;
+  }
+ 
+  this->op = OP3_CAST;
+  this->operand_1 = lsymbol->getID();
+  this->operand_2 = rsymbol->getID();
+  this->cast_type = lsymbol->getType();
+
   return;
 }
 

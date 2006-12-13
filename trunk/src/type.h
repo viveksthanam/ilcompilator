@@ -80,7 +80,14 @@ public:
     else
       return false;
   }
-  
+ 
+  bool operator == (const CType& type)
+  {
+    return ((this->typeval == type.typeval)
+          &&(this->ref_level == type.ref_level));
+    
+  }
+
 };
 
 #endif/*TYPE_H*/

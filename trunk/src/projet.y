@@ -158,7 +158,7 @@ fa : FA           { process_context_save(); };
 
 exp :  exp OR exp              { process_or($1,$3); }
      | exp AND exp             { process_and($1,$3); }
-     | exp PLUS exp            { process_plus($1,$3); }
+     | exp PLUS exp            { $$ = process_plus($1,$3); }
      | exp MOINS exp           { process_moins($1,$3); }
      | exp STAR exp            { process_star($1,$3); }
      | exp DIV exp             { process_div($1,$3); }

@@ -69,7 +69,7 @@ public:
     *\param warning met le booleen à vrai si un perte de données
     * résulte de l'opération.
     */
-  CInstruction(CSymbol* lsymbol, CSymbol* rsymbol, bool& warning);
+  CInstruction(CSymbol* lsymbol, CSymbol* rsymbol);
 
   /**\brief ...
     */

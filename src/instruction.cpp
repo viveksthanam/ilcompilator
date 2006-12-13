@@ -17,8 +17,7 @@ CInstruction::CInstruction()
   return;
 }
 
-CInstruction::CInstruction( CSymbol* lsymbol, CSymbol* rsymbol,
-                            bool& warning )
+CInstruction::CInstruction( CSymbol* lsymbol, CSymbol* rsymbol)
 {
 
   if( rsymbol->getType() == lsymbol->getType() )

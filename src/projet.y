@@ -132,10 +132,10 @@ type : INT         { $$ = process_type(T_INT); }
 inst_list : inst_list PV inst { }
             | inst            { };
 
-inst : affect { debug_echo("affect"); }
+inst : affect { }
        | cond { debug_echo("cond"); }
        | loop { debug_echo("loop"); }
-       | bloc { debug_echo("bloc"); };
+       | bloc { };
 
 affect : id EQ exp { $$ = process_assignment($1,$3); };
 
@@ -145,11 +145,11 @@ cond : IF exp THEN inst             { }
 loop : while exp_do inst       { process_while_end($1,$2); }
        | repeat inst UNTIL exp { process_repeat_end($1,$4); };
 
-while: WHILE { $$ = process_while_begin(); };
+while: WHILE { process_while_begin(); };
 
-exp_do: exp DO { $$ = process_exp_do_begin($1); };
+exp_do: exp DO { process_exp_do_begin($1); };
 
-repeat: REPEAT { $$ = process_repeat_begin(); };
+repeat: REPEAT { process_repeat_begin(); };
 
 bloc : da prog fa { $$=$2; };
 da : DA           { process_context_open(); };
@@ -199,7 +199,7 @@ int main( int argc, char** argv )
   debug_echo("création InstructionQueue principale");
   IQ_main = new CInstructionQueue;
 
-  debug_echo("création CodeWriterprincipal");
+  debug_echo("création CodeWriter principal");
   CW_main = new CCodeWriter(NULL);
 
 	debug_echo("appel yyparse(), Ctrl+D pour arrêter la saisie");

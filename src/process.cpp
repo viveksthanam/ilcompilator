@@ -155,6 +155,7 @@ int process_int ( int val ) {
   debug_echo("déclaration du symbole empilée");
   
   instr = new CInstruction( retval, (float)val );
+  if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
   IQ_main->pushInstruction( instr );
   debug_echo("instruction d'affectation empilée");
 
@@ -181,6 +182,7 @@ int process_float ( float val ) {
   debug_echo("déclaration du symbole empilée");
   
   instr = new CInstruction( retval, val );
+  if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
   IQ_main->pushInstruction( instr );
   debug_echo("instruction d'affectation empilée");
  
@@ -206,6 +208,7 @@ int process_bool ( int val ) {
   debug_echo("déclaration du symbole empilée");
 
   instr = new CInstruction( retval, (float)val );
+  if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
   IQ_main->pushInstruction( instr );
   debug_echo("instruction d'affectation empilée");
 
@@ -213,10 +216,26 @@ int process_bool ( int val ) {
 }
 
 int process_assignment(int arg1, int arg3) {
+  
+  CInstruction* instr = NULL;
 
-  debug_echo("assignment!");
-  debug_echoi("$1",arg1);
-  debug_echoi("$3",arg3); 
+  if ( !(arg1) || !(arg3) )
+    debug_critical_exit("assignation avec (au moins) un symbole invalide sur deux ", sanitizer);
+  
+  debug_echoi("assigne à $1, situé à",arg1);
+  debug_echoi("la donnée dans $3, située à",arg3); 
+  
+  instr = new CInstruction( (Operator)OP2_EQU, \
+                            (SymbolID)( ((CSymbol*)arg1)->getID() ), \
+                            (SymbolID)( ((CSymbol*)arg3)->getID() ), \
+                            INVALID_SYMBOL, \
+                            CType( (TYPEVAL)T_INVALID , 0 ) \
+                          );
+  
+  if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
+  IQ_main->pushInstruction( instr );
+  debug_echo("instruction d'assignement empilée");
+    
   return EXIT_SUCCESS;
 }
 

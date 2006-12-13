@@ -61,15 +61,18 @@ public:
   CInstruction();
 
   /**\brief Constructeur de cast, renvoie l'instruction correcte
-    * permettant de caster le symbole source en symbole target.
-    *\param source type de base actuel.
-    *\param target type de base souhaité.
-    *\note Affiche un warning si une perte de données résulte 
-    * de l'opération.
+    * permettant de caster le symbole rsymbol en symbole lsymbol.
+    * Si les deux symboles sont de même type alors l'opérateur
+    * sera un OP2_EQU.
+    *\param lsymbol symbole de gauche.
+    *\param rsymbol symbole de droite.
+    *\param warning met le booleen à vrai si un perte de données
+    * résulte de l'opération.
     */
-  CInstruction(CSymbol* source, CSymbol* target);
+  CInstruction(CSymbol* lsymbol, CSymbol* rsymbol, bool& warning);
 
-  
+  /**\brief ...
+    */
   CInstruction(CSymbol* lvalue, float rvalue );
 
   /**\brief Constructeur DIY qui ne fait

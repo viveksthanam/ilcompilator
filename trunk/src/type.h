@@ -88,14 +88,15 @@ public:
     
   }
 
-  CType operator , (const CType& type)
-  {
-    if( this->canConvertTo( type ) )
-      return (*this);
-    else
-      return type;
-  }
-
 };
+
+TYPEVAL returnCompatibleBase( TYPEVAL a, TYPEVAL b )
+{
+  if( (int)a > (int)b )
+    return a;
+  else
+    return b;
+}
+    
 
 #endif/*TYPE_H*/

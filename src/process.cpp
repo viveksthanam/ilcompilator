@@ -218,6 +218,7 @@ int process_bool ( int val ) {
 int process_assignment(int arg1, int arg3) {
   
   CInstruction* instr = NULL;
+  bool cast_state;
 
   if ( !(arg1) || !(arg3) )
     debug_critical_exit("assignation avec (au moins) un symbole invalide sur deux ", sanitizer);
@@ -225,17 +226,26 @@ int process_assignment(int arg1, int arg3) {
   debug_echoi("assigne à $1, situé à",arg1);
   debug_echoi("la donnée dans $3, située à",arg3); 
   
-  instr = new CInstruction( (Operator)OP2_EQU, \
-                            (SymbolID)( ((CSymbol*)arg1)->getID() ), \
-                            (SymbolID)( ((CSymbol*)arg3)->getID() ), \
-                            INVALID_SYMBOL, \
-                            CType( (TYPEVAL)T_INVALID , 0 ) \
-                          );
-  
+  /*instr = new CInstruction( (Operator)OP2_EQU, 
+                            (SymbolID)( ((CSymbol*)arg1)->getID() ), 
+                            (SymbolID)( ((CSymbol*)arg3)->getID() ), 
+                            INVALID_SYMBOL, 
+                            CType( (TYPEVAL)T_INVALID , 0 ) 
+                          );*/
+ 
+  instr = new CInstruction( (CSymbol*)arg1, (CSymbol*)arg3, cast_state );
+
   if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
   IQ_main->pushInstruction( instr );
   debug_echo("instruction d'assignement empilée");
     
+  return EXIT_SUCCESS;
+}
+
+int process_plus(int arg1, int arg3) {
+
+  debug_echo("PLUS");
+ 
   return EXIT_SUCCESS;
 }
 
@@ -306,12 +316,6 @@ int process_and(int arg1, int arg3) {
   return EXIT_SUCCESS;
 }
 
-int process_plus(int arg1, int arg3) {
-
-  debug_echo("plus: exp PLUS exp");
-  return EXIT_SUCCESS;
-}
-
 int process_moins(int arg1, int arg3) {
 
   debug_echo("moins: exp MOINS exp");
@@ -354,9 +358,21 @@ int process_neq(int arg1, int arg3) {
   return EXIT_SUCCESS;
 }
  
-int process_uop(int arg1, int arg2) {
+int process_uop_moins(int arg1, int arg2) {
 
-  debug_echo("uop: uop exp %prec MUNAIRE");
+  debug_echo("MOINS exp %prec MUNAIRE");
+  return EXIT_SUCCESS;
+}
+
+int process_uop_not(int arg1, int arg2) {
+
+  debug_echo("NOT exp %prec MUNAIRE");
+  return EXIT_SUCCESS;
+}
+
+int process_uop_star(int arg1, int arg2) {
+
+  debug_echo("STAR exp %prec MUNAIRE");
   return EXIT_SUCCESS;
 }
 

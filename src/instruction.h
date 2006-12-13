@@ -23,6 +23,10 @@ class CInstruction
 {
 private:
 
+  /**\brief Booléen indiquant que l'instruction est valide
+    *et peut être empilé sur la file des instruction.*/
+  bool isvalid;
+
   /**\brief Opérateur utilisé lors dans l'instruction.*/
   Operator op;
 
@@ -46,7 +50,7 @@ private:
   /**\brief Opérande dans le cas de l'assignation simple
     * d'un constante à une variable
     */
-  union
+ union
   { 
     bool bool_const_value;
     int int_const_value;
@@ -60,6 +64,13 @@ public:
     */
   CInstruction();
 
+  /**\brief Constructeur de l'instruction impliquant l'opérateur op
+    *et modifiant le type du symbol lsymbol en fonction des cast
+    *effectués */
+
+  CInstruction(Operator op, CSymbol* lsymbol,
+                CSymbol* rsymbol1, CSymbol* rsymbol2);
+
   /**\brief Constructeur de cast, renvoie l'instruction correcte
     * permettant de caster le symbole rsymbol en symbole lsymbol.
     * Si les deux symboles sont de même type alors l'opérateur
@@ -71,7 +82,9 @@ public:
     */
   CInstruction(CSymbol* lsymbol, CSymbol* rsymbol);
 
-  /**\brief ...
+  /**\brief Constructeur d'assignation d'une constante à une variable
+    *\param lvalue symbole de gauche.
+    *\param rvalue constante de droite
     */
   CInstruction(CSymbol* lvalue, float rvalue );
 
@@ -92,21 +105,54 @@ public:
       this->operand_2 = s2;
       this->operand_3 = s3;
       this->cast_type = type;
+
+      this->isvalid=true;
   }
 
+  /**\brief Accesseur
+    *\return CInstruction::op
+    */
   Operator getOperator() {return op;};
 
+  /**\brief Accesseur
+    *\return CInstruction::operand_1
+    */
   SymbolID getOperand_1() {return operand_1; };
 
+  /**\brief Accesseur
+    *\return CInstruction::operand_2
+    */
   SymbolID getOperand_2() {return operand_2; };
 
+  /**\brief Accesseur
+    *\return CInstruction::operand_3
+    */
   SymbolID getOperand_3() {return operand_3; };
 
+  /**\brief Accesseur
+    *\return CInstruction::cast_type
+    */
   CType getCastType() {return cast_type; };
 
+  /**\brief Accesseur
+    *\return CInstruction::bool_const_value
+    */
   bool getBoolConstValue() {return bool_const_value; };
+
+  /**\brief Accesseur
+    *\return CInstruction::int_const_value
+    */
   int getIntConstValue() {return int_const_value; };
+
+  /**\brief Accesseur
+    *\return CInstruction::float_const_value
+    */
   float getFloatConstValue() {return float_const_value; };
+
+  /**\brief Accesseur
+    *\return CInstruction::isvalid
+    */
+  bool isValid() {return this->isvalid; };
 };
 
 #endif/*INSTRUCTION_H*/

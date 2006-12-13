@@ -32,6 +32,8 @@ class CDeclarationQueue
 {
 private:
 
+  /**\brief Structure liant un SymbolID et un type CType.
+    */
   typedef struct _DECLARATION
   {
 
@@ -41,7 +43,10 @@ private:
       this->type = type;
     }
 
+    /**\brief Indice du symbole*/
     SymbolID id;
+
+    /**\brief Type du symbole*/
     CType type;
 
   }DECLARATION;
@@ -50,7 +55,9 @@ private:
 
 public:
 
-  /**\todo Documentation à faire. 
+  /**\brief Ajoute une déclaration dans la file des déclarations.
+    *\param id SymbolID du symbole à déclarer.
+    *\param type Type du symbole à déclarer.
     */
   void addDeclaration( SymbolID id, CType type );
 

@@ -14,6 +14,8 @@
 
 CInstruction::CInstruction()
 {
+  this->isvalid = false;
+
   return;
 }
 
@@ -22,7 +24,7 @@ CInstruction::CInstruction( CSymbol* lsymbol, CSymbol* rsymbol)
 
   if( rsymbol->getType() == lsymbol->getType() )
   {
-    warning = false;
+    this->isvalid = true;
 
     this->op = OP2_EQU;
     this->operand_1 = lsymbol->getID();
@@ -37,15 +39,11 @@ CInstruction::CInstruction( CSymbol* lsymbol, CSymbol* rsymbol)
   {
     // On convertit de R vers L avec pertes donc:
     // (int) = (double)
-    warning = true;
-  }
-  else
-  {
-    // On convertit de R vers L sans pertes donc : 
-    // (double) = (int)  (par exemple)
-    warning = false;
+    ///\todo Ajouter "Warning conversion avec pertes !"
   }
  
+  this->isvalid = true;
+
   this->op = OP3_CAST;
   this->operand_1 = lsymbol->getID();
   this->operand_2 = rsymbol->getID();
@@ -60,21 +58,25 @@ CInstruction::CInstruction( CSymbol* lvalue, float rvalue )
   switch(lvalue->getType().getTypeVal())
   {
     case T_BOOL:
+      this->isvalid=true;
       this->op = OP2_EQU_CONST_RVALUE_BOOL;
       this->bool_const_value = (rvalue != 0);
       break;
 
     case T_INT:
+      this->isvalid=true;
       this->op = OP2_EQU_CONST_RVALUE_INT;
       this->int_const_value = (int)rvalue;
       break;
 
     case T_FLOAT:
+      this->isvalid=true;
       this->op = OP2_EQU_CONST_RVALUE_FLOAT;
       this->float_const_value = rvalue;
       break;
 
     default:
+      this->isvalid=false;
       /**\todo Ajouter gestion d'erreur.*/
       break;
   }

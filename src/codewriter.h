@@ -23,6 +23,8 @@ class CCodeWriter
 {
 private:
 
+  /**\brief File descriptor sur le fichier de sortie
+    */
   FILE* foutput;
 
 public:

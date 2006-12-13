@@ -233,7 +233,7 @@ int process_assignment(int arg1, int arg3) {
                             CType( (TYPEVAL)T_INVALID , 0 ) 
                           );*/
  
-  instr = new CInstruction( (CSymbol*)arg1, (CSymbol*)arg3, cast_state );
+  instr = new CInstruction( (CSymbol*)arg1, (CSymbol*)arg3 );
 
   if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
   IQ_main->pushInstruction( instr );

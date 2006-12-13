@@ -40,16 +40,22 @@ public:
 
   ~CCodeWriter();
 
-  /**\brief Ecrit dans le fichier les instructions de déclaration.
-    *\param declarations Pile des déclarations à dépiler 
-    *pour remplir le fichier de sortie.
-    */
+  /**\brief Ecrit dans le fichier les instructions de déclaration. On aurait pu
+   * interdire toute écriture en cas d'erreur durant l'analyse du source, mais
+   * nous ne voulons pas nous priver de la lecture du code cible généré jusqu'à
+   * l'erreur.
+   *\param declarations Pile des déclarations à dépiler 
+   *pour remplir le fichier de sortie.
+   */
   int writeDeclarations( CDeclarationQueue* declarations );
 
-  /**\brief Ecrit dans le fichier les instructions. 
-    *\param instructions Pile des instructions à vider 
-    *pour remplir le fichier de sortie.
-    */
+  /**\brief Ecrit dans le fichier les instructions. On aurait pu
+   * interdire toute écriture en cas d'erreur durant l'analyse du source, mais
+   * nous ne voulons pas nous priver de la lecture du code cible généré jusqu'à
+   * l'erreur.
+   *\param instructions Pile des instructions à vider 
+   *pour remplir le fichier de sortie.
+   */
   int writeInstructions( CInstructionQueue* instructions );
 };
 

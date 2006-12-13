@@ -100,6 +100,20 @@ int process_float ( float val );
  */
 int process_bool ( int val ); 
 
+/** \brief Réalise une assignation d'un symbole à un autre.
+ * \param arg1 CSymbol* (casté en int) cible.
+ * \param arg3 CSymbol* (casté en int) source.
+ * \todo Implémenter la gestion de cast implicite si types source et cible
+ * différents, le reste fonctionne.
+ */
+int process_assignment(int arg1, int arg3);
+
+
+
+
+
+
+
 
 
 
@@ -107,7 +121,7 @@ int process_bool ( int val );
 
 
 /*a traiter:*/
-int process_assignment(int arg1, int arg3);
+int process_eql(int arg1, int arg3); 
 int process_while_end(int arg1, int arg2);
 int process_repeat_end(int arg1, int arg4);
 int process_while_begin();
@@ -119,7 +133,6 @@ int process_plus(int arg1, int arg3);
 int process_moins(int arg1, int arg3); 
 int process_star(int arg1, int arg3); 
 int process_div(int arg1, int arg3); 
-int process_eql(int arg1, int arg3); 
 int process_grt(int arg1, int arg3); 
 int process_low(int arg1, int arg3); 
 int process_neq(int arg1, int arg3); 

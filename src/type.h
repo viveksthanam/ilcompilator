@@ -58,7 +58,8 @@ public:
     this->typeval = T_INVALID;
     this->ref_level = -1;
   }
-
+  
+  /**\brief Constructeur qui créant membre à membre la classe*/
   CType(TYPEVAL typeval, int deref_level)
   {
     this->typeval = typeval;
@@ -71,6 +72,7 @@ public:
   /**\brief Accesseur retournant le niveau de référencement */
   int getRef() { return this->ref_level; };
 
+  /**\brief Retourne un booléen */
   bool canConvertTo( CType type )
   {
     if( this->ref_level != type.ref_level ) return false;
@@ -88,15 +90,22 @@ public:
     
   }
 
+  /**\brief Retourne un type de base compatible avec les
+    * deux type passés en paramètre.
+    *\param a Type de base
+    *\param b Type de base
+    *\return Un type compatible entre a et b.
+    */
+  TYPEVAL returnCompatibleBase( TYPEVAL a, TYPEVAL b )
+  {
+    if( (int)a > (int)b )
+      return a;
+    else
+      return b;
+  }
+ 
 };
 
-TYPEVAL returnCompatibleBase( TYPEVAL a, TYPEVAL b )
-{
-  if( (int)a > (int)b )
-    return a;
-  else
-    return b;
-}
-    
+   
 
 #endif/*TYPE_H*/

@@ -108,7 +108,13 @@ int process_bool ( int val );
  */
 int process_assignment(int arg1, int arg3);
 
-/** \brief Procède à une addition. 
+/** \brief Procède à une addition et renvoie un pointeur sur le symbole
+ * résultant de l'addition.
+ * \param arg1 CSymbol* casté en int, première opérande de l'addition.
+ * \param arg2 CSymbol* casté en int, seconde opérande de l'addition.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole résultat de l'addition. Le CSymbol est
+ * casté implicitement.
  */
 int process_plus(int arg1, int arg3); 
 

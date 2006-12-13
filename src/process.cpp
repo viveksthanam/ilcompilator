@@ -221,7 +221,7 @@ int process_assignment(int arg1, int arg3) {
   bool cast_state;
 
   if ( !(arg1) || !(arg3) )
-    debug_critical_exit("assignation avec (au moins) un symbole invalide sur deux ", sanitizer);
+    debug_critical_exit("assignation avec (au moins) un symbole invalide sur deux", sanitizer);
   
   debug_echoi("assigne à $1, situé à",arg1);
   debug_echoi("la donnée dans $3, située à",arg3); 
@@ -244,8 +244,25 @@ int process_assignment(int arg1, int arg3) {
 
 int process_plus(int arg1, int arg3) {
 
+  CSymbol* retval = NULL;
+  CInstruction* instr = NULL;
+  
+  if ( !(arg1) || !(arg3) )
+    debug_critical_exit("addition avec (au moins) un symbole invalide sur deux", sanitizer);
+  
   debug_echo("PLUS");
- 
+  debug_echoi("$1 à l'adresse:", (int)arg1);
+  debug_echoi("$3 à l'adresse:", (int)arg3);
+
+  //retval = CS_main->addSymbol( CStringID(), CType( T_FLOAT , 0 ) );
+
+  /*instr = new CInstruction( (Operator)OP3_ADD, 
+                            cible
+                            (SymbolID)( ((CSymbol*)arg1)->getID() ), 
+                            (SymbolID)( ((CSymbol*)arg3)->getID() ), 
+                            CType( (TYPEVAL)T_INVALID , 0 ) 
+                          );*/
+  
   return EXIT_SUCCESS;
 }
 

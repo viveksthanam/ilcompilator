@@ -35,7 +35,7 @@ CCodeWriter::CCodeWriter( char* filename )
     return;
   }
 
-  debug_echo("Instanciation d'un module CodeWriter. Production de code cible dans:");
+  debug_echo("Production de code cible dans:");
   debug_echo(filename);
 }
 

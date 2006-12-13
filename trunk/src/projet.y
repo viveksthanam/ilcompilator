@@ -73,6 +73,7 @@ delete CS_main;
 delete HT_main;
 delete DQ_main;
 delete IQ_main;
+delete CW_main;
 
 }
 
@@ -155,29 +156,27 @@ bloc : da prog fa { $$=$2; };
 da : DA           { process_context_open(); };
 fa : FA           { process_context_save(); };
 
-exp :  exp OR exp            { process_or($1,$3); }
-     | exp AND exp           { process_and($1,$3); }
-     | exp PLUS exp          { process_plus($1,$3); }
-     | exp MOINS exp         { process_moins($1,$3); }
-     | exp STAR exp          { process_star($1,$3); }
-     | exp DIV exp           { process_div($1,$3); }
-     | exp EQL exp           { process_eql($1,$3); }
-     | exp GRT exp           { process_grt($1,$3); }
-     | exp LOW exp           { process_low($1,$3); }
-     | exp NEQ exp           { process_neq($1,$3); }
-     | uop exp %prec MUNAIRE { process_uop($1,$2); }
-     | DP exp FP             { $$ = $2; }
-     | id                    { $$ = $1; }
-     | const                 { $$ = $1; }; 
+exp :  exp OR exp              { process_or($1,$3); }
+     | exp AND exp             { process_and($1,$3); }
+     | exp PLUS exp            { process_plus($1,$3); }
+     | exp MOINS exp           { process_moins($1,$3); }
+     | exp STAR exp            { process_star($1,$3); }
+     | exp DIV exp             { process_div($1,$3); }
+     | exp EQL exp             { process_eql($1,$3); }
+     | exp GRT exp             { process_grt($1,$3); }
+     | exp LOW exp             { process_low($1,$3); }
+     | exp NEQ exp             { process_neq($1,$3); }
+     | STAR exp %prec MUNAIRE  { process_uop_star($1,$2); }
+     | MOINS exp %prec MUNAIRE { process_uop_moins($1,$2); }
+     | NOT exp %prec MUNAIRE   { process_uop_not($1,$2); }
+     | DP exp FP               { $$ = $2; }
+     | id                      { $$ = $1; }
+     | const                   { $$ = $1; }; 
 
 const : NUM_I   { $$ = process_int( yyval_int ); }
         | NUM_F { $$ = process_float( yyval_float ); }
         | TRUE  { $$ = process_bool( DEF_TRUE ); }
         | FALSE { $$ = process_bool( DEF_FALSE ); };
-
-uop : STAR    { $$ = $1; }
-      | MOINS { $$ = $1; }
-      | NOT   { $$ = $1; };
 
 %%
   
@@ -187,32 +186,32 @@ int main( int argc, char** argv )
   about(); 
 	debug_set_level( &argc, argv );
 
-  debug_echo("instanciation de la HashTable principale");
+  debug_echo("instanciation d'un module HashTable");
 	HT_main = new CHashtable;
 
- 	debug_echo("instanciation de la ContextStack principale");
+ 	debug_echo("instanciation d'un module ContextStack");
 	CS_main = new CContextStack;
 
-	debug_echo("instanciation de la DeclarationQueue principale");
+	debug_echo("instanciation d'un module DeclarationQueue");
 	DQ_main = new CDeclarationQueue;
 
-  debug_echo("instanciation de la InstructionQueue principale");
+  debug_echo("instanciation d'un module InstructionQueue");
   IQ_main = new CInstructionQueue;
 
 	debug_echo("appel yyparse(), Ctrl+D pour arrêter la saisie");
 	yyparse();
 	debug_echo("yyparse() a terminé");
 		
-	debug_echo("instanciation du CodeWriter principal");
+	debug_echo("instanciation d'un module CodeWriter");
   CW_main = new CCodeWriter(NULL);
   
-	debug_echo("production des déclarations");
+	debug_echo("production des déclarations...");
   CW_main->writeDeclarations( DQ_main ); 
 
-  debug_echo("production des instructions");
+  debug_echo("production des instructions...");
   CW_main->writeInstructions( IQ_main );
 
-	debug_echo("libérations et fin...");
+	debug_echo("libération des ressources et fin...\nBye!");
 	sanitizer();
 
   return EXIT_SUCCESS;

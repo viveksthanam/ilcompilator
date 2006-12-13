@@ -88,6 +88,14 @@ public:
     
   }
 
+  CType operator , (const CType& type)
+  {
+    if( this->canConvertTo( type ) )
+      return (*this);
+    else
+      return type;
+  }
+
 };
 
 #endif/*TYPE_H*/

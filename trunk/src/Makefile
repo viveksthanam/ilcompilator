@@ -6,6 +6,9 @@ ALLEXEC= hashtable_test contextstack_test codewriter_test
 CFLAGS= -Wall -g
 LDFLAGS= -Wall -ll -g
 
+LEX=flex
+YACC=bison
+
 OBJECTS = y.tab.o lex.yy.o lex_process.o process.o $(OBJECTS_WITHOUT_LY)
 
 OBJECTS_WITHOUT_LY = hashtable.o debug.o contextstack.o declarationqueue.o instructionqueue.o instruction.o codewriter.o

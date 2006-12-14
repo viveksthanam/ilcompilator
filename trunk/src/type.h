@@ -1,10 +1,11 @@
 // vim: ts=2 tw=80
 
-/** \file 
- * \brief 
+/** \file  type.h
+ * \brief Fichier contenant la définition de la classe CType décrivant
+ *un type de variable dans le compilateur.
  * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
- * \version
- * \date 
+ * \version 
+ * \date 09/11/2006
  *
  */
 

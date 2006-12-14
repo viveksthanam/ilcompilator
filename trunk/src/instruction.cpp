@@ -57,7 +57,7 @@ CInstruction::CInstruction( Operator op, CSymbol* l,
     &&(op != OP3_OR)
     &&(op != OP3_EQL)
     &&(op != OP3_LOW)
-    &&(op != OP3_SUP) )
+    &&(op != OP3_GRT) )
   {
     this->isvalid = false;
   }

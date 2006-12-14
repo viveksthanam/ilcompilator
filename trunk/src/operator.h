@@ -30,21 +30,17 @@ typedef enum _Operator
   OP3_SUB,
   OP3_MUL,
   OP3_DIV,
-
   OP3_AND,
   OP3_OR,
-
   OP3_EQL,
+  OP3_NEQ,
   OP3_LOW,
-  OP3_SUP,
-  
+  OP3_GRT,
   OP2_EQU,
   OP2_EQU_CONST_RVALUE_BOOL,
   OP2_EQU_CONST_RVALUE_INT,
   OP2_EQU_CONST_RVALUE_FLOAT,
-  
   OP3_CAST,
-
   OP1_LABEL,
   OP1_GOTO,
   OP2_IF,

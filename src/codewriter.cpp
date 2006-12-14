@@ -161,6 +161,15 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
                    INSTRUCTION_SEPARATOR);
          break;
 
+       case OP2_NOT:
+         fprintf( foutput, string_operators[p_instr->getOperator()],
+                   INSTRUCTION_BASE_NAME,
+                   p_instr->getOperand_1(),
+                   INSTRUCTION_BASE_NAME,
+                   p_instr->getOperand_2(),
+                   INSTRUCTION_SEPARATOR);
+          break;
+
        case OP1_LABEL:
       
           fprintf( foutput, string_operators[p_instr->getOperator()],

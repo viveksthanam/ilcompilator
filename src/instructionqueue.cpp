@@ -9,6 +9,10 @@
  *
  */
 
+using namespace std;
+
+#include <iostream>
+
 #include "instructionqueue.h"
 
 CInstructionQueue::~CInstructionQueue()
@@ -32,7 +36,6 @@ CInstruction* CInstructionQueue::addInstruction( )
 
 void CInstructionQueue::pushInstruction( CInstruction* p_instr )
 {
-
   instructions.push( p_instr );
 
   return;

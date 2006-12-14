@@ -4,6 +4,7 @@
 
 // vim: ts=2 tw=80
 
+#include "operator.h"
 #include "contextstack.h"
 
 /** \file process.h
@@ -107,16 +108,35 @@ int process_bool ( int val );
  */
 int process_assignment(int arg1, int arg3);
 
+/** \brief Factorisation de code pour tous les traitements utilisant les
+ * opérateurs en OP3_*
+ * \param arg1 CSymbol* casté en int, première opérande de l'addition.
+ * \param arg3 CSymbol* casté en int, seconde opérande de l'addition.
+ * \param oprtr Opérateur en OP3_* à utiliser lors du traitement.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole résultat de l'addition. Ce CSymbol est
+ * casté implicitement si nécessaire.
+ * */
+int process_op3(int arg1, int arg3, Operator oprtr);
+
 /** \brief Procède à une addition et renvoie un pointeur sur le symbole
  * résultant de l'addition.
  * \param arg1 CSymbol* casté en int, première opérande de l'addition.
  * \param arg3 CSymbol* casté en int, seconde opérande de l'addition.
  * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
- * est actif), pointant sur le symbole résultat de l'addition. Le CSymbol est
- * casté implicitement.
+ * est actif), pointant sur le symbole résultat de l'addition. Ce CSymbol est
+ * casté implicitement si nécessaire.
  */
 int process_plus(int arg1, int arg3); 
 
+/** \brief Idem soustraction.
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole résultat. Ce CSymbol est
+ * casté implicitement si nécessaire.
+ */
+int process_moins(int arg1, int arg3); 
 
 
 
@@ -137,7 +157,6 @@ int process_exp_do_begin(int arg1);
 int process_repeat_begin();
 int process_or(int arg1, int arg3); 
 int process_and(int arg1, int arg3); 
-int process_moins(int arg1, int arg3); 
 int process_star(int arg1, int arg3); 
 int process_div(int arg1, int arg3); 
 int process_grt(int arg1, int arg3); 

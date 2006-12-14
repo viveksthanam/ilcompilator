@@ -246,8 +246,8 @@ int process_assignment(int arg1, int arg3) {
   return EXIT_SUCCESS;
 }
 
-int process_plus(int arg1, int arg3) {
-  
+int process_op3(int arg1, int arg3, Operator oprtr) {
+
   CType type_compatible; 
   CType type_arg1;
   CType type_arg3;
@@ -255,10 +255,10 @@ int process_plus(int arg1, int arg3) {
   CInstruction* instr = NULL;
   
   if ( !(arg1) || !(arg3) )
-    debug_critical_exit("addition avec (au moins) un symbole invalide sur deux", sanitizer);
+    debug_critical_exit("opération avec (au moins) un symbole invalide sur deux", sanitizer);
   
-  debug_echoi("addition: $1 à l'adresse:", (int)arg1);
-  debug_echoi("addition: $3 à l'adresse:", (int)arg3);
+  debug_echoi("opération: $1 à l'adresse:", (int)arg1);
+  debug_echoi("opération: $3 à l'adresse:", (int)arg3);
 
   //trouve le type de retour compatible avec ceux des arguments
   type_arg1 = ((CSymbol*)arg1)->getType();
@@ -267,13 +267,13 @@ int process_plus(int arg1, int arg3) {
 
   //cree le symbole de retour
   retval = CS_main->addSymbol( CStringID(), type_compatible ) ;
-  debug_echoi("symbole de retour pour addition créé à l'adresse:", (int)retval);
+  debug_echoi("symbole de retour pour l'opération créé à l'adresse:", (int)retval);
 	
   //creation declaration pour le symbole de retour
   DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)type_compatible.getTypeVal() , DEFAULT_REF_LVL) ); 
   debug_echo("déclaration du symbole de retour empilée");
 
-  instr = new CInstruction( OP3_ADD,
+  instr = new CInstruction( oprtr,
                             (CSymbol*) retval,
                             (CSymbol*) arg1,
                             (CSymbol*) arg3 
@@ -284,10 +284,63 @@ int process_plus(int arg1, int arg3) {
  
   //empilement
   IQ_main->pushInstruction( instr );
-  debug_echo("instruction d'addition valide et empilée");
+  debug_echo("instruction d'opération valide et empilée");
     
   return ((int)retval);
 }
+
+int process_plus(int arg1, int arg3) {
+
+  int pointeur = 0;
+  debug_echo("<process plus>");
+  pointeur = process_op3(arg1, arg3, OP3_ADD);
+  if (!pointeur) debug_critical_exit("échec de de process_plus",sanitizer); 
+  debug_echo("</process plus>");
+  return pointeur;
+    
+}
+
+int process_moins(int arg1, int arg3) {
+
+  int pointeur = 0;
+  debug_echo("<process moins>");
+  pointeur = process_op3(arg1, arg3, OP3_SUB);
+  if (!pointeur) debug_critical_exit("échec de de process_moins",sanitizer); 
+  debug_echo("</process moins>");
+  return pointeur;
+
+}
+
+int process_star(int arg1, int arg3) {
+
+  int pointeur = 0;
+  debug_echo("<process star>");
+  pointeur = process_op3(arg1, arg3, OP3_MUL);
+  if (!pointeur) debug_critical_exit("échec de de process_star",sanitizer); 
+  debug_echo("</process star>");
+  return pointeur;
+
+}
+
+int process_div(int arg1, int arg3) {
+
+  int pointeur = 0;
+  debug_echo("<process div>");
+  pointeur = process_op3(arg1, arg3, OP3_DIV);
+  if (!pointeur) debug_critical_exit("échec de de process_div",sanitizer); 
+  debug_echo("</process div>");
+  return pointeur;
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -358,24 +411,6 @@ int process_or(int arg1, int arg3) {
 int process_and(int arg1, int arg3) {
 
   debug_echo("and: exp AND exp");
-  return EXIT_SUCCESS;
-}
-
-int process_moins(int arg1, int arg3) {
-
-  debug_echo("moins: exp MOINS exp");
-  return EXIT_SUCCESS;
-}
-
-int process_star(int arg1, int arg3) {
-
-  debug_echo("star: exp STAR exp");
-  return EXIT_SUCCESS;
-}
-
-int process_div(int arg1, int arg3) {
-
-  debug_echo("div: exp DIV exp");
   return EXIT_SUCCESS;
 }
 

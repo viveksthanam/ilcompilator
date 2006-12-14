@@ -59,8 +59,8 @@ public:
     this->ref_level = -1;
   }
   
-  /**\brief Constructeur qui créant membre à membre la classe*/
-  CType(TYPEVAL typeval, int deref_level)
+  /**\brief Constructeur qui crée membre à membre la classe*/
+  CType(TYPEVAL typeval, int ref_level)
   {
     this->typeval = typeval;
     this->ref_level = ref_level;

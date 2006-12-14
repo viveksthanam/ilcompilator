@@ -33,7 +33,6 @@ CInstruction::CInstruction( CSymbol* lsymbol, CSymbol* rsymbol)
     return;
   }
 
-
   // Peut on convertir du rsymbol vers du lsymbol ?
   if( !rsymbol->getType().canConvertTo( lsymbol->getType() ) )
   {

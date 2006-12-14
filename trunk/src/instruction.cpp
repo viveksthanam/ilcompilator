@@ -19,6 +19,29 @@ CInstruction::CInstruction()
   return;
 }
 
+CInstruction::CInstruction( Operator op, CSymbol* l,
+                            CSymbol* r1, CSymbol* r2 )
+{
+
+  if( (op != OP3_ADD)
+    &&(op != OP3_SUB)
+    &&(op != OP3_MUL)
+    &&(op != OP3_DIV) )
+  {
+    this->isvalid = false;
+  }
+
+  this->op = op;
+
+  this->operand_1 = l->getID();
+  this->operand_2 = r1->getID();
+  this->operand_3 = r2->getID();
+
+  this->isvalid = true;
+
+  return;
+}
+
 CInstruction::CInstruction( CSymbol* lsymbol, CSymbol* rsymbol)
 {
 

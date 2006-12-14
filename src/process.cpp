@@ -109,8 +109,15 @@ int process_id ( int tinystrid, CContextStack* current_CS ) {
 
     retval = current_CS->getSymbolInContext( CStringID( tinystrid ) );
 
-    if ( !retval )  
-      debug_critical_exit( "Symbole non trouvé dans le contexte.", sanitizer );   
+    if ( !retval ) {
+    
+      debug_echo("Symbole non trouvé dans le contexte, recherche hors du contexte...");   
+      retval = current_CS->getSymbol( CStringID( tinystrid ) ); 
+      if ( !retval ) debug_critical_exit("symbole non trouvé dans la CS", sanitizer);
+      debug_echoi("Symbole trouvé hors du contexte à l'adresse:", (int)retval);
+      return ((int)retval);
+    }
+   
     else {
       debug_echoi( "Symbole trouvé dans le contexte à l'adresse:", (int)retval );  
       return ((int)retval);
@@ -294,6 +301,51 @@ int process_op3(int arg1, int arg3, Operator oprtr) {
   return ((int)retval);
 }
 
+int process_op3_bool(int arg1, int arg3, Operator oprtr) {
+
+  CType type_compatible; 
+  CType type_arg1;
+  CType type_arg3;
+  CSymbol* retval = NULL;
+  CInstruction* instr = NULL;
+  
+  if ( !(arg1) || !(arg3) )
+    debug_critical_exit("opération avec (au moins) un symbole invalide sur deux", sanitizer);
+  
+  debug_echoi("opération: $1 à l'adresse:", (int)arg1);
+  debug_echoi("opération: $3 à l'adresse:", (int)arg3);
+
+  //affichage des types
+  debug_echoi("Type de $1", ((CSymbol*)arg1)->getType().getTypeVal()); 
+  debug_echoi("Type de $3", ((CSymbol*)arg3)->getType().getTypeVal()); 
+ 
+  //gestion si symboles incompatibles
+  //Instruction(CSymbol* lsymbol, CSymbol* rsymbol);
+  
+  //cree le symbole de retour de type bool
+  retval = CS_main->addSymbol( CStringID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) ) ;
+  debug_echoi("symbole de retour pour l'opération booléenne créé à l'adresse:", (int)retval);
+	
+  //creation declaration pour le symbole booléen de retour
+  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) ); 
+  debug_echo("déclaration du symbole booléen de retour empilée");
+
+  instr = new CInstruction( oprtr,
+                            (CSymbol*) retval,
+                            (CSymbol*) arg1,
+                            (CSymbol*) arg3 
+                          );
+
+  if ( !instr->isValid() ) 
+    debug_critical_exit("le constructeur d'instruction employé ne correspond pas à l'opérateur booléen utilisé", sanitizer);
+ 
+  //empilement
+  IQ_main->pushInstruction( instr );
+  debug_echo("instruction d'opération booléenne valide et empilée");
+    
+  return ((int)retval);
+}
+
 int process_plus(int arg1, int arg3) {
 
   int pointeur = 0;
@@ -338,63 +390,76 @@ int process_div(int arg1, int arg3) {
 
 }
 
- int process_or(int arg1, int arg3) {
+ int process_bool_or(int arg1, int arg3) {
+  
+  int pointeur = 0;
+  debug_echo("<process or>");
+  pointeur = process_op3_bool(arg1, arg3, OP3_OR);
+  if (!pointeur) debug_critical_exit("échec de de process_bool_or",sanitizer); 
+  debug_echo("</process or>");
+  return pointeur;
 
-  debug_echo("or: exp OR exp");
-  return EXIT_SUCCESS;
 } 
 
-int process_and(int arg1, int arg3) {
+int process_bool_and(int arg1, int arg3) {
+ 
+  int pointeur = 0;
+  debug_echo("<process and>");
+  pointeur = process_op3_bool(arg1, arg3, OP3_AND);
+  if (!pointeur) debug_critical_exit("échec de de process_bool_and",sanitizer); 
+  debug_echo("</process and>");
+  return pointeur;
 
-  debug_echo("and: exp AND exp");
-  return EXIT_SUCCESS;
 }
 
-int process_eql(int arg1, int arg3) {
-
-  debug_echo("eql: exp EQL exp");
-  return EXIT_SUCCESS;
-}
-
-int process_grt(int arg1, int arg3) {
-
-  debug_echo("grt: exp GRT exp");
-  return EXIT_SUCCESS;
-}
-
-int process_low(int arg1, int arg3) {
-
-  debug_echo("low: exp LOW exp");
-  return EXIT_SUCCESS;
-}
-
-int process_neq(int arg1, int arg3) {
-
-  debug_echo("neq: exp NEQ exp");
-  return EXIT_SUCCESS;
-}
-/*
-  process_and 
-  OP3_AND
+int process_bool_eql(int arg1, int arg3) {
   
-  process_or
-  OP3_OR
+  int pointeur = 0;
+  debug_echo("<process eql>");
+  pointeur = process_op3_bool(arg1, arg3, OP3_EQL);
+  if (!pointeur) debug_critical_exit("échec de de process_bool_eql",sanitizer); 
+  debug_echo("</process eql>");
+  return pointeur;
 
-  process_eql
-  OP3_EQL,
+}
+
+int process_bool_grt(int arg1, int arg3) {
   
-  process_low
-  OP3_LOW
+  int pointeur = 0;
+  debug_echo("<process grt>");
+  pointeur = process_op3_bool(arg1, arg3, OP3_GRT);
+  if (!pointeur) debug_critical_exit("échec de de process_bool_grt",sanitizer); 
+  debug_echo("</process grt>");
+  return pointeur;
 
-  process_grt
-  OP3_SUP
+}
 
-  process_neq
-  OP3_NEQ
-*/
+int process_bool_low(int arg1, int arg3) {
+  
+  int pointeur = 0;
+  debug_echo("<process low>");
+  pointeur = process_op3_bool(arg1, arg3, OP3_LOW);
+  if (!pointeur) debug_critical_exit("échec de de process_bool_low",sanitizer); 
+  debug_echo("</process low>");
+  return pointeur;
+
+}
+
+int process_bool_neq(int arg1, int arg3) {
+  
+  int pointeur = 0;
+  debug_echo("<process neq>");
+  pointeur = process_op3_bool(arg1, arg3, OP3_NEQ);
+  if (!pointeur) debug_critical_exit("échec de de process_bool_neq",sanitizer); 
+  debug_echo("</process neq>");
+  return pointeur;
+
+}
 
 int process_if_then(int arg2, int arg4)
 {
+     return EXIT_SUCCESS;
+  
   cerr<<arg2<<","<<arg4<<endl;
 
   CType type(T_BOOL,0);
@@ -420,9 +485,28 @@ int process_if_then(int arg2, int arg4)
 
 int process_if_then_else(int arg2, int arg4, int arg6)
 {
-
-  return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

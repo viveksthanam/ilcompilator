@@ -67,7 +67,7 @@ int CCodeWriter::writeDeclarations( CDeclarationQueue* declarations )
 
     typeval = (int)( (declarations->front())->type.getTypeVal() );
 
-    fprintf(foutput, "%s %s%d%s",
+    fprintf(foutput, "%s %s %d %s",
             string_types[typeval],  // La chaine associée au type
             INSTRUCTION_BASE_NAME,  // Le nom de base
             id,                     // L'id

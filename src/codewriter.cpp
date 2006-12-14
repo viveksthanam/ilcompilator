@@ -57,7 +57,7 @@ int CCodeWriter::writeDeclarations( CDeclarationQueue* declarations )
 
   if(!declarations)
   {
-    debug_echo("Impossible de défiler la file des déclarations");
+    debug_critical("Impossible de défiler la file des déclarations");
     return 0;
   }
 
@@ -85,7 +85,7 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
 
   if(!instructions)
   {
-    debug_echo("Impossible de défiler la file des instructions");
+    debug_critical("Impossible de défiler la file des instructions");
     return 0;
   }
 

@@ -23,12 +23,13 @@ char* string_operators[OP0_INVALID] =
 "%s%d = %s%d * %s%d%s", //OP3_MUl
 "%s%d = %s%d / %s%d%s", //OP3_DIV
 
-"%s%d = %s%d && %s%d"   //OP3_AND
-"%s%d = %s%d || %s%d"   //OP3_OR
+"%s%d = %s%d && %s%d",   //OP3_AND
+"%s%d = %s%d || %s%d",   //OP3_OR
 
-"%s%d = %s%d == %s%d"   //OP3_EQL
-"%s%d = %s%d < %s%d"    //OP3_LOW
-"%s%d = %s%d > %s%d"    //OP3_SUP
+"%s%d = %s%d == %s%d",   //OP3_EQL
+"%s%d = %s%d != %s%d",   //OP3_NEQ
+"%s%d = %s%d < %s%d",    //OP3_LOW
+"%s%d = %s%d > %s%d",    //OP3_GRT
 
 "%s%d = %s%d%s",        //OP3_EQU
 "%s%d = %d%s",          //OP3_EQU_CONST_RVALUE_BOOL
@@ -39,8 +40,7 @@ char* string_operators[OP0_INVALID] =
 
 "%s%d:%s",                  //OP1_LABEL
 "goto %s%d%s",              //OP1_GOTO
-"if(%s%d) goto %s%d%s"      //OP2_IF
-"*******INVALID*******"     //OP0_INVALID
+"if(%s%d) goto %s%d%s",      //OP2_IF
 };
 
 #endif/*STRINGTABLE_H*/

@@ -4,8 +4,6 @@
 
 // vim: ts=2 tw=80
 
-/** \brief Requis par process_id().
- */
 #include "contextstack.h"
 
 /** \file process.h

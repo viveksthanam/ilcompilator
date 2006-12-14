@@ -38,6 +38,7 @@ int process_declaration(int arg1, int arg2);
  *   et on retourne un pointeur de type CSymbol* vers celui-ci, casté en int.
  *   \param current_CS Pointeur sur la ContextStack courante.
  *   \param tinystrid TinyStringID du symbole.
+ *   \todo vérifier que le symbole n'existe pas déja avant de le créer
  */
 int process_id ( int tinystrid, CContextStack* current_CS ); 
 

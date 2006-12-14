@@ -218,7 +218,6 @@ int process_bool ( int val ) {
 int process_assignment(int arg1, int arg3) {
   
   CInstruction* instr = NULL;
-  bool cast_state;
 
   if ( !(arg1) || !(arg3) )
     debug_critical_exit("assignation avec (au moins) un symbole invalide sur deux", sanitizer);
@@ -226,10 +225,12 @@ int process_assignment(int arg1, int arg3) {
   debug_echoi("assigne à $1, situé à",arg1);
   debug_echoi("la donnée dans $3, située à",arg3); 
   
+  /* debug avancé inutile car fonctionne au poil
   debug_echoi("type de $1", (int)(((CSymbol*)arg1)->getType()).getTypeVal() );
   debug_echoi("type de $3", (int)(((CSymbol*)arg3)->getType()).getTypeVal() );
   debug_echoi("ref lvl de $1", (int)(((CSymbol*)arg1)->getType()).getRef() );
   debug_echoi("ref lvl de $3", (int)(((CSymbol*)arg3)->getType()).getRef() );
+  */
 
   instr = new CInstruction( (CSymbol*)arg1, (CSymbol*)arg3 );
 
@@ -251,28 +252,32 @@ int process_plus(int arg1, int arg3) {
   if ( !(arg1) || !(arg3) )
     debug_critical_exit("addition avec (au moins) un symbole invalide sur deux", sanitizer);
   
+  debug_echoi("addition: $1 à l'adresse:", (int)arg1);
+  debug_echoi("addition: $3 à l'adresse:", (int)arg3);
+
   //trouve le type de retour compatible avec ceux des arguments
-  
   type_arg1 = ((CSymbol*)arg1)->getType();
   type_arg3 = ((CSymbol*)arg3)->getType();
   type_compatible = type_arg1.returnCompatible( type_arg3 ); 
 
+  //cree le symbole de retour
   retval = CS_main->addSymbol( CStringID(), type_compatible ) ;
-  debug_echo("Symbole ");
+  debug_echoi("symbole de retour pour addition créé à l'adresse:", (int)retval);
 		 
-  /*inst = new CInstruction ( OP2_ADD,
-                            (CSymbol*)arg1->getID(),
-                            (CSymbol*)arg3->getID(),
-                            NULL,
+  instr = new CInstruction( OP3_ADD,
+                            (CSymbol*) retval,
+                            (CSymbol*) arg1,
+                            (CSymbol*) arg3 
+                          );
 
-                            );*/
-  
-  
-  debug_echo("PLUS");
-  debug_echoi("$1 à l'adresse:", (int)arg1);
-  debug_echoi("$3 à l'adresse:", (int)arg3);
-  
-  return EXIT_SUCCESS;
+  if ( !instr->isValid() ) 
+    debug_critical_exit("le constructeur d'instruction employé ne correspond pas à l'opérateur utilisé", sanitizer);
+ 
+  //empilement
+  IQ_main->pushInstruction( instr );
+  debug_echo("instruction d'addition valide et empilée");
+    
+  return ((int)retval);
 }
 
 

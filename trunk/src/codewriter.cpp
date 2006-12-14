@@ -156,7 +156,9 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
                   INSTRUCTION_SEPARATOR);
           break;
     }                
-    
+
+    delete (instructions->front());
+
     instructions->pop();
   }
 

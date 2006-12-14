@@ -15,6 +15,7 @@
 #include "type.h"
 #include "hashtable.h"
 #include "contextstack.h"
+#include "label.h"
 
 /** \addtogroup YaccInitInstructions
 * Fonctions, variables et commandes du préprocesseur paramétrant Yacc.
@@ -54,6 +55,10 @@ CInstructionQueue* IQ_main = NULL;
 */
 CCodeWriter* CW_main = NULL; 
 
+/** \brief Idem LB_main
+*/
+CLabel* LB_main = NULL;
+
 /** \brief Variable globale conservant le type des ou de la dernière variable à 
  * déclarer, -1 voulant dire qu'il n'y a plus de variables à declarer pour
  * l'instruction courante.
@@ -74,6 +79,7 @@ delete HT_main;
 delete DQ_main;
 delete IQ_main;
 delete CW_main;
+delete LB_main;
 
 }
 
@@ -197,6 +203,8 @@ int main( int argc, char** argv )
 
   debug_echo("instanciation d'un module InstructionQueue");
   IQ_main = new CInstructionQueue;
+
+	LB_main = new CLabel;
 
 	debug_echo("appel yyparse(), Ctrl+D pour arrêter la saisie");
 	yyparse();

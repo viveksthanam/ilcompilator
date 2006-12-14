@@ -1,3 +1,14 @@
+//% vim: ts=2 tw=80
+
+/** \file contextstack.h
+ * \brief Fichier contenant le code chargé de tester le
+ *fonctionnement de CContextStack.
+ * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
+ * \version
+ * \date 11/12/2006
+ *
+ */
+
 #include <iostream>
 
 #include "contextstack.h"

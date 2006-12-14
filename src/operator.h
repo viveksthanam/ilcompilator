@@ -30,7 +30,7 @@ typedef enum _Operator
   OP3_SUB,
   OP3_MUL,
   OP3_DIV,
-
+  
   OP2_EQU,
   OP2_EQU_CONST_RVALUE_BOOL,
   OP2_EQU_CONST_RVALUE_INT,

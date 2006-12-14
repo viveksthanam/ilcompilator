@@ -1,3 +1,14 @@
+//% vim: ts=2 tw=80
+
+/** \file codewriter_test.cpp 
+ * \brief Fichier contenant le code chargé de tester le
+ *fonctionnement de CHashtable.
+ * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
+ * \version
+ * \date 08/12/2006
+ *
+ */
+
 #include <iostream>
 
 #include "hashtable.h"

@@ -93,8 +93,8 @@ int process_id ( int tinystrid, CContextStack* current_CS ) {
 
   CSymbol* retval = NULL;
 
-  if ( (!tinystrid) || (!current_CS) )
-    debug_critical_exit("TinyStringID vide ou pointeur sur CS nul", sanitizer );
+  if ( !current_CS )
+    debug_critical_exit("pointeur sur CS nul", sanitizer );
 
   //on se trouve dans les déclarations
   if ( current_decl_type != -1 ) {
@@ -241,12 +241,32 @@ int process_assignment(int arg1, int arg3) {
 }
 
 int process_plus(int arg1, int arg3) {
-
+  
+  CType type_compatible; 
+  CType type_arg1;
+  CType type_arg3;
   CSymbol* retval = NULL;
   CInstruction* instr = NULL;
   
   if ( !(arg1) || !(arg3) )
     debug_critical_exit("addition avec (au moins) un symbole invalide sur deux", sanitizer);
+  
+  //trouve le type de retour compatible avec ceux des arguments
+  
+  type_arg1 = ((CSymbol*)arg1)->getType();
+  type_arg3 = ((CSymbol*)arg3)->getType();
+  type_compatible = type_arg1.returnCompatible( type_arg3 ); 
+
+  retval = CS_main->addSymbol( CStringID(), type_compatible ) ;
+  debug_echo("Symbole ");
+		 
+  /*inst = new CInstruction ( OP2_ADD,
+                            (CSymbol*)arg1->getID(),
+                            (CSymbol*)arg3->getID(),
+                            NULL,
+
+                            );*/
+  
   
   debug_echo("PLUS");
   debug_echoi("$1 à l'adresse:", (int)arg1);

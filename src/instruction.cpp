@@ -37,9 +37,8 @@ CInstruction::CInstruction( CSymbol* lsymbol, CSymbol* rsymbol)
   // Peut on convertir du rsymbol vers du lsymbol ?
   if( !rsymbol->getType().canConvertTo( lsymbol->getType() ) )
   {
-    // On convertit de R vers L avec pertes donc:
-    // (int) = (double)
-    ///\todo Ajouter "Warning conversion avec pertes !"
+    // On convertit de R vers L avec pertes 
+    debug_critical("conversion implicite du symbole, avec perte de données");
   }
  
   this->isvalid = true;

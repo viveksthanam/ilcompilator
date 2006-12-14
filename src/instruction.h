@@ -77,8 +77,6 @@ public:
     * sera un OP2_EQU.
     *\param lsymbol symbole de gauche.
     *\param rsymbol symbole de droite.
-    *\param warning met le booleen à vrai si un perte de données
-    * résulte de l'opération.
     */
   CInstruction(CSymbol* lsymbol, CSymbol* rsymbol);
 

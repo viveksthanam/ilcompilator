@@ -37,7 +37,7 @@ int process_declaration(int arg1, int arg2) {
 	if (current_decl_type != -1) {
   
     //empilement du symbole sur la CS
-    retval = CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 , 0 ) );
+    retval = CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 , DEFAULT_REF_LVL ) );
 		
     if ( !retval ) {
 			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
@@ -47,7 +47,7 @@ int process_declaration(int arg1, int arg2) {
      debug_echoi( "Symbole créé à l'adresse:", (int)retval );
     
     //instruction de déclaration 
-    DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)arg1 , 0 ) ); 
+    DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)arg1 , DEFAULT_REF_LVL) ); 
     debug_echo("déclaration du symbole empilée");
 
 	}
@@ -141,7 +141,7 @@ int process_int ( int val ) {
   CSymbol* retval = NULL;
   CInstruction* instr = NULL;
 
-  retval = CS_main->addSymbol( CStringID(), CType( T_INT , 0 ) );
+  retval = CS_main->addSymbol( CStringID(), CType( T_INT , DEFAULT_REF_LVL) );
 		
     if ( !retval ) {
 			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
@@ -151,7 +151,7 @@ int process_int ( int val ) {
   debug_echoi( "Symbole INT créé à l'adresse:", (int)retval );
 
   //creation declaration + instruction affectation
-  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_INT , 0 ) ); 
+  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_INT , DEFAULT_REF_LVL) ); 
   debug_echo("déclaration du symbole empilée");
   
   instr = new CInstruction( retval, (float)val );
@@ -168,7 +168,7 @@ int process_float ( float val ) {
   CSymbol* retval = NULL;
   CInstruction* instr = NULL;
   
-  retval = CS_main->addSymbol( CStringID(), CType( T_FLOAT , 0 ) );
+  retval = CS_main->addSymbol( CStringID(), CType( T_FLOAT , DEFAULT_REF_LVL) );
 		
     if ( !retval ) {
 			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
@@ -178,7 +178,7 @@ int process_float ( float val ) {
   debug_echoi( "Symbole FLOAT créé à l'adresse:", (int)retval );
 
   //creation declaration + instruction affectation
-  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_FLOAT , 0 ) ); 
+  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_FLOAT , DEFAULT_REF_LVL) ); 
   debug_echo("déclaration du symbole empilée");
   
   instr = new CInstruction( retval, val );
@@ -194,7 +194,7 @@ int process_bool ( int val ) {
   CSymbol* retval = NULL;
   CInstruction* instr = NULL;
   
-  retval = CS_main->addSymbol( CStringID(), CType( T_BOOL , 0 ) );
+  retval = CS_main->addSymbol( CStringID(), CType( T_BOOL , DEFAULT_REF_LVL) );
 		
     if ( !retval ) {
 			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
@@ -204,7 +204,7 @@ int process_bool ( int val ) {
   debug_echoi( "Symbole BOOL créé à l'adresse:", (int)retval );
 
   //creation declaration + instruction affectation
-  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_BOOL , 0 ) ); 
+  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)T_BOOL , DEFAULT_REF_LVL) ); 
   debug_echo("déclaration du symbole empilée");
 
   instr = new CInstruction( retval, (float)val );
@@ -226,13 +226,11 @@ int process_assignment(int arg1, int arg3) {
   debug_echoi("assigne à $1, situé à",arg1);
   debug_echoi("la donnée dans $3, située à",arg3); 
   
-  /*instr = new CInstruction( (Operator)OP2_EQU, 
-                            (SymbolID)( ((CSymbol*)arg1)->getID() ), 
-                            (SymbolID)( ((CSymbol*)arg3)->getID() ), 
-                            INVALID_SYMBOL, 
-                            CType( (TYPEVAL)T_INVALID , 0 ) 
-                          );*/
- 
+  debug_echoi("type de $1", (int)(((CSymbol*)arg1)->getType()).getTypeVal() );
+  debug_echoi("type de $3", (int)(((CSymbol*)arg3)->getType()).getTypeVal() );
+  debug_echoi("ref lvl de $1", (int)(((CSymbol*)arg1)->getType()).getRef() );
+  debug_echoi("ref lvl de $3", (int)(((CSymbol*)arg3)->getType()).getRef() );
+
   instr = new CInstruction( (CSymbol*)arg1, (CSymbol*)arg3 );
 
   if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
@@ -253,18 +251,14 @@ int process_plus(int arg1, int arg3) {
   debug_echo("PLUS");
   debug_echoi("$1 à l'adresse:", (int)arg1);
   debug_echoi("$3 à l'adresse:", (int)arg3);
-
-  //retval = CS_main->addSymbol( CStringID(), CType( T_FLOAT , 0 ) );
-
-  /*instr = new CInstruction( (Operator)OP3_ADD, 
-                            cible
-                            (SymbolID)( ((CSymbol*)arg1)->getID() ), 
-                            (SymbolID)( ((CSymbol*)arg3)->getID() ), 
-                            CType( (TYPEVAL)T_INVALID , 0 ) 
-                          );*/
   
   return EXIT_SUCCESS;
 }
+
+
+
+
+
 
 
 

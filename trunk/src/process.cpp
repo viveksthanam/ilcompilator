@@ -9,6 +9,7 @@
 #include "contextstack.h"
 #include "stringid.h"
 #include "type.h"
+#include "label.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ extern int current_decl_type;
 extern CContextStack* CS_main;
 extern CDeclarationQueue* DQ_main;
 extern CInstructionQueue* IQ_main;
+extern CLabel* LB_main;
 
 extern void sanitizer (void);
 
@@ -396,16 +398,20 @@ int process_if_then(int arg1, int arg2)
   
   CType type(T_BOOL,0);
 
-//  CSymbol* symbol = CS_main->addSymbol( CStringID(),);
-/*
+  CSymbol* symbol = CS_main->addSymbol( CStringID(), type );
+
   CInstruction* p_instr =
     new CInstruction( OP2_NOT, symbol, (CSymbol*)arg1 );
-*/
-//  IQ_main->pushInstruction( p_instr );
-/*
+
+  // <2> = !<1>
+  IQ_main->pushInstruction( p_instr );
+
   p_instr = 
-    new CInstruction( OP2_IF, 
-*/
+    new CInstruction( OP2_IF, LB_main->get(), symbol);
+
+  // if <2> goto <label>
+  IQ_main->pushInstruction( p_instr ); 
+
   return EXIT_SUCCESS;
 }
 

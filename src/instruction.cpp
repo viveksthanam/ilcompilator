@@ -26,7 +26,12 @@ CInstruction::CInstruction( Operator op, CSymbol* l,
   if( (op != OP3_ADD)
     &&(op != OP3_SUB)
     &&(op != OP3_MUL)
-    &&(op != OP3_DIV) )
+    &&(op != OP3_DIV)
+    &&(op != OP3_AND)
+    &&(op != OP3_OR)
+    &&(op != OP3_EQL)
+    &&(op != OP3_LOW)
+    &&(op != OP3_SUP) )
   {
     this->isvalid = false;
   }

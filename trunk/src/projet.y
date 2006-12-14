@@ -133,10 +133,10 @@ type : INT         { $$ = process_type(T_INT); }
 inst_list : inst_list PV inst { }
             | inst            { };
 
-inst : affect { }
+inst : affect { debug_echo("affect"); }
        | cond { debug_echo("cond"); }
        | loop { debug_echo("loop"); }
-       | bloc { };
+       | bloc { debug_echo("bloc"); };
 
 affect : id EQ exp { $$ = process_assignment($1,$3); };
 
@@ -211,7 +211,7 @@ int main( int argc, char** argv )
   debug_echo("production des instructions...");
   CW_main->writeInstructions( IQ_main );
 
-	debug_echo("libération des ressources et fin...\nBye!");
+	debug_echo("libération des ressources...");
 	sanitizer();
 
   return EXIT_SUCCESS;

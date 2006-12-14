@@ -226,7 +226,10 @@ int process_assignment(int arg1, int arg3) {
 
   if ( !(arg1) || !(arg3) )
     debug_critical_exit("assignation avec (au moins) un symbole invalide sur deux", sanitizer);
-  
+ 
+  if ( current_decl_type != -1 )
+    debug_critical_exit("tentative d'assignation durant une phase de déclaration", sanitizer);
+
   debug_echoi("assigne à $1, situé à",arg1);
   debug_echoi("la donnée dans $3, située à",arg3); 
   
@@ -333,7 +336,60 @@ int process_div(int arg1, int arg3) {
 
 }
 
+ int process_or(int arg1, int arg3) {
 
+  debug_echo("or: exp OR exp");
+  return EXIT_SUCCESS;
+} 
+
+int process_and(int arg1, int arg3) {
+
+  debug_echo("and: exp AND exp");
+  return EXIT_SUCCESS;
+}
+
+int process_eql(int arg1, int arg3) {
+
+  debug_echo("eql: exp EQL exp");
+  return EXIT_SUCCESS;
+}
+
+int process_grt(int arg1, int arg3) {
+
+  debug_echo("grt: exp GRT exp");
+  return EXIT_SUCCESS;
+}
+
+int process_low(int arg1, int arg3) {
+
+  debug_echo("low: exp LOW exp");
+  return EXIT_SUCCESS;
+}
+
+int process_neq(int arg1, int arg3) {
+
+  debug_echo("neq: exp NEQ exp");
+  return EXIT_SUCCESS;
+}
+/*
+  process_and 
+  OP3_AND
+  
+  process_or
+  OP3_OR
+
+  process_eql
+  OP3_EQL,
+  
+  process_low
+  OP3_LOW
+
+  process_grt
+  OP3_SUP
+
+  process_neq
+  OP3_NEQ
+*/
 
 
 
@@ -398,43 +454,6 @@ int process_exp_do_begin(int arg1) {
 int process_repeat_begin() {
 
   debug_echo("repeat_begin: REPEAT");
-  return EXIT_SUCCESS;
-}
-
-
-int process_or(int arg1, int arg3) {
-
-  debug_echo("or: exp OR exp");
-  return EXIT_SUCCESS;
-} 
-
-int process_and(int arg1, int arg3) {
-
-  debug_echo("and: exp AND exp");
-  return EXIT_SUCCESS;
-}
-
-int process_eql(int arg1, int arg3) {
-
-  debug_echo("eql: exp EQL exp");
-  return EXIT_SUCCESS;
-}
-
-int process_grt(int arg1, int arg3) {
-
-  debug_echo("grt: exp GRT exp");
-  return EXIT_SUCCESS;
-}
-
-int process_low(int arg1, int arg3) {
-
-  debug_echo("low: exp LOW exp");
-  return EXIT_SUCCESS;
-}
-
-int process_neq(int arg1, int arg3) {
-
-  debug_echo("neq: exp NEQ exp");
   return EXIT_SUCCESS;
 }
  

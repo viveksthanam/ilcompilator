@@ -97,6 +97,17 @@ public:
           &&(this->ref_level == type.ref_level));
     
   }
+
+  /**\brief Retourne le type compatible entre les deux types.
+    *\todo Changer ce mfê$$$ de commentaire.
+    */
+  const CType returnCompatible( const CType type )
+  {
+    if( this->typeval > type.typeval )
+      return *this;
+    else
+      return type;
+  }
  
 };
 

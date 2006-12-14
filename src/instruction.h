@@ -64,10 +64,9 @@ public:
     */
   CInstruction();
 
-  /**\brief Constructeur de l'instruction impliquant l'opérateur op
-    *et modifiant le type du symbol lsymbol en fonction des cast
-    *effectués */
-
+  /**\brief Constructeur de l'instruction impliquant un opérateur op
+    *à 3 opérande du type : lsymbol (op) rsymbol1 (op) rsymbol2
+    */
   CInstruction(Operator op, CSymbol* lsymbol,
                 CSymbol* rsymbol1, CSymbol* rsymbol2);
 

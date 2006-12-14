@@ -19,6 +19,9 @@
 /** \brief Définit le niveau maximum de référencement.*/
 #define MAX_REFERENCE_LEVEL 128
 
+/** \brief Niveau de référencement par défaut */
+#define DEFAULT_REF_LVL 0  
+
 /** \brief Nom par défault du fichier de sortie.*/
 #define DEFAULT_OUTPUT_FILENAME "output.3a"
 

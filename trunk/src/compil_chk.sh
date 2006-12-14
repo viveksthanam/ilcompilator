@@ -9,6 +9,5 @@ echo compilation de output.3a.c avec gcc -Wall...
 gcc -Wall output.3a.c -o output
 echo execution du binaire généré: ./output...
 ./output
-rm -f output.3a.c > /dev/null
 echo Bye!
 

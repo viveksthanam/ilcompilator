@@ -276,6 +276,7 @@ int process_op3(int arg1, int arg3, Operator oprtr) {
   type_arg1 = ((CSymbol*)arg1)->getType();
   type_arg3 = ((CSymbol*)arg3)->getType();
   type_compatible = type_arg1.returnCompatible( type_arg3 ); 
+  debug_echoi("type de retour compatible trouvé:", type_compatible.getTypeVal());
 
   //cree le symbole de retour
   retval = CS_main->addSymbol( CStringID(), type_compatible ) ;
@@ -306,6 +307,8 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
   CType type_compatible; 
   CType type_arg1;
   CType type_arg3;
+  int arg1_type_val = -1;
+  int arg3_type_val = -1;
   CSymbol* retval = NULL;
   CInstruction* instr = NULL;
   
@@ -315,11 +318,24 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
   debug_echoi("opération: $1 à l'adresse:", (int)arg1);
   debug_echoi("opération: $3 à l'adresse:", (int)arg3);
 
-  //affichage des types
-  debug_echoi("Type de $1", ((CSymbol*)arg1)->getType().getTypeVal()); 
-  debug_echoi("Type de $3", ((CSymbol*)arg3)->getType().getTypeVal()); 
+  //gestion des types des arguments
+  arg1_type_val = ((CSymbol*)arg1)->getType().getTypeVal();
+  arg3_type_val = ((CSymbol*)arg3)->getType().getTypeVal();
  
   //gestion si symboles incompatibles
+  if ( arg1_type_val != (TYPEVAL)T_BOOL ) {
+
+    debug_echoi("$1 n'est pas de type BOOL, $1 est de type:", arg1_type_val);
+    debug_echo("traitement a implementer!!!");
+
+  }
+  if ( arg3_type_val != (TYPEVAL)T_BOOL ) {
+
+    debug_echoi("$3 n'est pas de type BOOL, $3 est de type:", arg3_type_val);
+    debug_echo("traitement a implementer!!!");
+
+  }
+
   //Instruction(CSymbol* lsymbol, CSymbol* rsymbol);
   
   //cree le symbole de retour de type bool

@@ -155,7 +155,12 @@ int process_int ( int val ) {
   debug_echo("déclaration du symbole empilée");
   
   instr = new CInstruction( retval, (float)val );
-  if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
+
+  if (!instr)
+  {
+    debug_critical_exit("échec de la création d'instruction", sanitizer);
+  }
+
   IQ_main->pushInstruction( instr );
   debug_echo("instruction d'affectation empilée");
 

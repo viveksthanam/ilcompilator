@@ -45,6 +45,10 @@ typedef enum _Operator
   
   OP3_CAST,
 
+  OP1_LABEL,
+  OP1_GOTO,
+  OP2_IF,
+
   OP0_INVALID //Définit l'opérateur invalide et est utilisé
               //  pour mesurer la taille de l'énum.
 

@@ -263,7 +263,11 @@ int process_plus(int arg1, int arg3) {
   //cree le symbole de retour
   retval = CS_main->addSymbol( CStringID(), type_compatible ) ;
   debug_echoi("symbole de retour pour addition créé à l'adresse:", (int)retval);
-		 
+	
+  //creation declaration pour le symbole de retour
+  DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)type_compatible.getTypeVal() , DEFAULT_REF_LVL) ); 
+  debug_echo("déclaration du symbole de retour empilée");
+
   instr = new CInstruction( OP3_ADD,
                             (CSymbol*) retval,
                             (CSymbol*) arg1,

@@ -11,6 +11,14 @@
 #ifndef TYPE_H
 #define TYPE_H
 
+/**\brief Retourne un type de base compatible avec les
+  * deux type passés en paramètre.
+  *\param a Type de base
+  *\param b Type de base
+  *\return Un type compatible entre a et b.
+  */
+#define COMPATIBLEBASE( a, b ) ( ((int)(a) > (int)(b))?a:b )
+
 /**\brief typedef enum listant les différents types de base.
   *
   *\warning La position du type dans l'enumerate est importante
@@ -88,20 +96,6 @@ public:
     return ((this->typeval == type.typeval)
           &&(this->ref_level == type.ref_level));
     
-  }
-
-  /**\brief Retourne un type de base compatible avec les
-    * deux type passés en paramètre.
-    *\param a Type de base
-    *\param b Type de base
-    *\return Un type compatible entre a et b.
-    */
-  TYPEVAL returnCompatibleBase( TYPEVAL a, TYPEVAL b )
-  {
-    if( (int)a > (int)b )
-      return a;
-    else
-      return b;
   }
  
 };

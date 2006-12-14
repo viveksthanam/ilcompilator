@@ -11,7 +11,7 @@ YACC=bison
 
 OBJECTS = y.tab.o lex.yy.o lex_process.o process.o $(OBJECTS_WITHOUT_LY)
 
-OBJECTS_WITHOUT_LY = hashtable.o debug.o contextstack.o declarationqueue.o instructionqueue.o instruction.o codewriter.o
+OBJECTS_WITHOUT_LY = hashtable.o debug.o contextstack.o declarationqueue.o instructionqueue.o instruction.o codewriter.o label.o
 
 all: $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXEC)

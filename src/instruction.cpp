@@ -45,6 +45,26 @@ CInstruction::CInstruction( Operator op, int n, CSymbol* ps )
   return;
 }
 
+/**\brief Constructeur de l'instruction impliquant un opérateur op
+  *à 2 opérandes du type : lsymbol (op) rsymbol
+  */
+CInstruction::CInstruction( Operator op, CSymbol* lsymbol, CSymbol* rsymbol)
+{
+
+  if( (op != OP2_NOT) ) this->isvalid = false;
+
+  this->op = op;
+
+  this->operand_1 = lsymbol->getID();
+  this->operand_2 = rsymbol->getID();
+
+  this->isvalid = true;
+
+  return;
+
+}
+
+
 CInstruction::CInstruction( Operator op, CSymbol* l,
                             CSymbol* r1, CSymbol* r2 )
 {

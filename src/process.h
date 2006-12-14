@@ -138,8 +138,9 @@ int process_plus(int arg1, int arg3);
  */
 int process_moins(int arg1, int arg3); 
 
+int process_if_then(int arg1, int arg2);
 
-
+int process_if_then_else(int arg1, int arg2);
 
 
 

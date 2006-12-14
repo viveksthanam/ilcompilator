@@ -93,6 +93,15 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
   {
     p_instr = instructions->front();
 
+    cerr<<"CW op="<<p_instr->getOperator()
+        <<" op1="<<p_instr->getOperand_1()
+        <<" op2="<<p_instr->getOperand_2()
+        <<" op3="<<p_instr->getOperand_3()
+        <<" cast="<<p_instr->getCastType().getTypeVal()
+        <<","<<p_instr->getCastType().getRef()
+        <<" label="<<p_instr->getLabel()
+        <<endl;
+
     // Gestion des cas spéciaux
     switch( p_instr->getOperator() ) 
     {
@@ -142,6 +151,32 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
                   p_instr->getOperand_1(),
                   p_instr->getFloatConstValue(),
                   INSTRUCTION_SEPARATOR);
+         break;
+
+       case OP1_GOTO:
+      
+          fprintf( foutput, string_operators[p_instr->getOperator()],
+                   INSTRUCTION_LABEL_NAME,
+                   p_instr->getLabel(),
+                   INSTRUCTION_SEPARATOR);
+         break;
+
+       case OP1_LABEL:
+      
+          fprintf( foutput, string_operators[p_instr->getOperator()],
+                   INSTRUCTION_LABEL_NAME,
+                   p_instr->getLabel(),
+                   INSTRUCTION_SEPARATOR);
+         break;
+
+       case OP2_IF:
+      
+          fprintf( foutput, string_operators[p_instr->getOperator()],
+                   INSTRUCTION_BASE_NAME,
+                   p_instr->getOperand_1(),
+                   INSTRUCTION_LABEL_NAME,
+                   p_instr->getLabel(),
+                   INSTRUCTION_SEPARATOR);
          break;
 
        default:

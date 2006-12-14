@@ -37,9 +37,10 @@ char* string_operators[OP0_INVALID] =
 
 "%s%d = (%s)%s%d%s",    //OP3_CAST
 
-"%s%d:",                  //OP1_LABEL
-"goto %s%d",              //OP1_GOTO
-"if(%s%d) goto %s%d"      //OP2_IF
+"%s%d:%s",                  //OP1_LABEL
+"goto %s%d%s",              //OP1_GOTO
+"if(%s%d) goto %s%d%s"      //OP2_IF
+"*******INVALID*******"     //OP0_INVALID
 };
 
 #endif/*STRINGTABLE_H*/

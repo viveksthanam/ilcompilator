@@ -166,6 +166,13 @@ public:
     *\return CInstruction::isvalid
     */
   bool isValid() {return this->isvalid; };
+
+  /**\brief Accesseur
+    *\return CInstruction::islabel
+    */
+  bool getLabel() {return this->label; };
+
+
 };
 
 #endif/*INSTRUCTION_H*/

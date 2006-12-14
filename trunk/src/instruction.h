@@ -80,8 +80,13 @@ public:
     */
   CInstruction( Operator op, int n, CSymbol* ps );
 
+ /**\brief Constructeur de l'instruction impliquant un opérateur op
+    *à 2 opérandes du type : lsymbol (op) rsymbol
+    */
+  CInstruction( Operator op, CSymbol* lsymbol, CSymbol* rsymbol);
+
   /**\brief Constructeur de l'instruction impliquant un opérateur op
-    *à 3 opérande du type : lsymbol (op) rsymbol1 (op) rsymbol2
+    *à 3 opérandes du type : lsymbol (op) rsymbol1 (op) rsymbol2
     */
   CInstruction( Operator op, CSymbol* lsymbol,
                 CSymbol* rsymbol1, CSymbol* rsymbol2);

@@ -46,6 +46,10 @@ private:
     * du cast.
     */
   CType cast_type;
+
+  /**\brief Numéro du label
+    */
+  int label;
   
   /**\brief Opérande dans le cas de l'assignation simple
     * d'un constante à une variable
@@ -64,10 +68,22 @@ public:
     */
   CInstruction();
 
+  /**\brief Constructeur de l'opérateur label ou goto
+    *\param n Numéro du label.
+    */
+  CInstruction( Operator op, int n );
+
+  /**\brief Constructeur de l'opérateur de type if impliquant
+    *un symbole (condition) et un numéro de label.
+    *\param n  Numéro de label
+    *\param ps CSymbol* pointant vers la condition de l'opérateur.
+    */
+  CInstruction( Operator op, int n, CSymbol* ps );
+
   /**\brief Constructeur de l'instruction impliquant un opérateur op
     *à 3 opérande du type : lsymbol (op) rsymbol1 (op) rsymbol2
     */
-  CInstruction(Operator op, CSymbol* lsymbol,
+  CInstruction( Operator op, CSymbol* lsymbol,
                 CSymbol* rsymbol1, CSymbol* rsymbol2);
 
   /**\brief Constructeur de cast, renvoie l'instruction correcte

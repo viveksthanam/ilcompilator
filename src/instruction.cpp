@@ -19,6 +19,32 @@ CInstruction::CInstruction()
   return;
 }
 
+CInstruction::CInstruction( Operator op, int n )
+{
+
+  this->isvalid = true;
+
+  this->op = op;
+
+  this->label = n;
+
+  return;
+}
+
+CInstruction::CInstruction( Operator op, int n, CSymbol* ps )
+{
+
+  this->isvalid = true;
+
+  this->op = op;
+  
+  this->label = n;
+
+  this->operand_1 = ps->getID();
+
+  return;
+}
+
 CInstruction::CInstruction( Operator op, CSymbol* l,
                             CSymbol* r1, CSymbol* r2 )
 {

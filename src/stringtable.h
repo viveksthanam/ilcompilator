@@ -35,7 +35,11 @@ char* string_operators[OP0_INVALID] =
 "%s%d = %d%s",          //OP3_EQU_CONST_RVALUE_INT
 "%s%d = %f%s",          //OP3_EQU_CONST_RVALUE_FLOAT
 
-"%s%d = (%s)%s%d%s"     //OP3_CAST
+"%s%d = (%s)%s%d%s",    //OP3_CAST
+
+"%s%d:",                  //OP1_LABEL
+"goto %s%d",              //OP1_GOTO
+"if(%s%d) goto %s%d"      //OP2_IF
 };
 
 #endif/*STRINGTABLE_H*/

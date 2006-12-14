@@ -393,19 +393,22 @@ int process_neq(int arg1, int arg3) {
   OP3_NEQ
 */
 
-int process_if_then(int arg1, int arg2)
+int process_if_then(int arg2, int arg4)
 {
-  
+  cerr<<arg2<<","<<arg4<<endl;
+
   CType type(T_BOOL,0);
 
   CSymbol* symbol = CS_main->addSymbol( CStringID(), type );
 
   CInstruction* p_instr =
-    new CInstruction( OP2_NOT, symbol, (CSymbol*)arg1 );
+    new CInstruction( OP2_NOT, symbol, (CSymbol*)arg2 );
 
   // <2> = !<1>
+  DQ_main->addDeclaration( symbol->getID(), symbol->getType() );
   IQ_main->pushInstruction( p_instr );
 
+  
   p_instr = 
     new CInstruction( OP2_IF, LB_main->get(), symbol);
 
@@ -415,7 +418,7 @@ int process_if_then(int arg1, int arg2)
   return EXIT_SUCCESS;
 }
 
-int process_if_then_else(int arg1, int arg2)
+int process_if_then_else(int arg2, int arg4, int arg6)
 {
 
   return EXIT_SUCCESS;

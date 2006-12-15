@@ -29,7 +29,8 @@
 
 #define INSTRUCTION_LABEL_NAME "label"
 
-#define INSTRUCTION_SEPARATOR ";\n"
+#define INSTRUCTION_EOL "\n"
+#define INSTRUCTION_SEPARATOR ";"INSTRUCTION_EOL
 
 /** \brief Paramètre déclenchant le mode debug.
  */

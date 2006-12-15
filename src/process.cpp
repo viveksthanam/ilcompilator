@@ -326,13 +326,13 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
   if ( arg1_type_val != (TYPEVAL)T_BOOL ) {
 
     debug_echoi("$1 n'est pas de type BOOL, $1 est de type:", arg1_type_val);
-    debug_echo("traitement a implementer!");
+    debug_echo("traitement en cours d'implementation!");
 
   }
   if ( arg3_type_val != (TYPEVAL)T_BOOL ) {
 
     debug_echoi("$3 n'est pas de type BOOL, $3 est de type:", arg3_type_val);
-    debug_echo("traitement a implementer!");
+    debug_echo("traitement en cours d'implementation!");
 
   }
 

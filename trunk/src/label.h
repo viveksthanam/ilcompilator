@@ -11,16 +11,36 @@
 #ifndef LABEL_H
 #define LABEL_H
 
+#include <stack>
+
+using namespace std;
+
 class CLabel
 {
 private:
   int n;
 
+  typedef struct _COUPLE
+  {
+    _COUPLE(int a, int b)
+    {
+      label_then = a;
+      label_else = b;
+    }
+
+    int label_then;
+    int label_else;
+  }COUPLE;
+
+  stack<COUPLE> labels;
+
 public:
 
   CLabel();
-  int get();
-  void inc();
+  void push();
+  void pop();
+  int getThen();
+  int getElse();
 };
 
 #endif/*LABEL_H*/

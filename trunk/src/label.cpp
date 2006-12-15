@@ -13,14 +13,28 @@
 CLabel::CLabel()
 {
   this->n=0;
+  
 }
 
-int CLabel::get()
+void CLabel::push()
 {
-  return this->n;
+  n += 2;
+
+  labels.push( COUPLE( n, n+1 ) );
 }
 
-void CLabel::inc()
+void CLabel::pop()
 {
-  (this->n)++;
+  labels.pop();
 }
+
+int CLabel::getThen()
+{
+  return (labels.top()).label_then;
+}
+
+int CLabel::getElse()
+{
+  return (labels.top()).label_else;
+}
+

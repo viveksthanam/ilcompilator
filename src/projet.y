@@ -146,8 +146,12 @@ inst : affect { debug_echo("affect"); }
 
 affect : id EQ exp { $$ = process_assignment($1,$3); };
 
-cond : IF exp THEN inst             { process_if_then($2,$4); }
-       | IF exp THEN inst ELSE inst { process_if_then_else($2,$4,$6); };
+cond : IF cond_exp THEN inst { process_then(); } ;
+       | IF cond_exp THEN inst else inst { process_fin_else(); };
+
+cond_exp: exp { process_if($1); };
+
+else:  ELSE { process_else(); }; 
 
 loop : while exp_do inst       { process_while_end($1,$2); }
        | repeat inst UNTIL exp { process_repeat_end($1,$4); };

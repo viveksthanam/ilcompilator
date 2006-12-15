@@ -9,6 +9,10 @@
  *
  */
 
+using namespace std;
+
+#include <iostream>
+
 #include "debug.h"
 #include "instruction.h"
 
@@ -28,6 +32,8 @@ CInstruction::CInstruction( Operator op, int n )
 
   this->label = n;
 
+  cerr<<"-------->"<<n<<endl;
+  
   return;
 }
 

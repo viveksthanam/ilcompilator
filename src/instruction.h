@@ -173,10 +173,9 @@ public:
   bool isValid() {return this->isvalid; };
 
   /**\brief Accesseur
-    *\return CInstruction::islabel
+    *\return CInstruction::label
     */
-  bool getLabel() {return this->label; };
-
+  int getLabel() {return this->label; };
 
 };
 

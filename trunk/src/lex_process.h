@@ -19,7 +19,7 @@
 */
 
 /** \brief lex_process_getTinyStringID nous donne une version 'compacte' d'une
- * instance de CStringID, puisque nous ne pouvons pas encore remonter des entiers et
+ * instance de CStringID, puisque nous ne remontons pas des entiers et
  * des structures. 
  * \param my_HT Pointeur sur notre table de hash.
  * \param str Correspond à yytext ayant 'matché' un ID.

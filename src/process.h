@@ -63,9 +63,6 @@ int process_context_save();
 /** \brief Appel sur match d'un NUM_I. Procède à la déclaration d'un symbole, à
  * la production d'une instruction (affectation de val au symbole créé) et
  * retourne le pointeur sur le symbole associé.
- * \warning Pas de vérification de type pour le moment, donc le C réalise un
- * cast, qui (si la valeur a été corrompue depuis le strtoi ou strtol) peut
- * conduire à une perte d'information.
  * \todo Prévoir le passage d'information au SymbolManager pour pointer les symboles
  * non réutilisables dans le contexte courant.
  * \param val Entier remonté le Lex par yyval_int
@@ -76,9 +73,6 @@ int process_int ( int val );
 /** \brief Appel sur match d'un NUM_F. Procède à la déclaration d'un symbole, à
  * la production d'une instruction (affectation de val au symbole créé) et
  * retourne le pointeur sur le symbole associé.
- * \warning Pas de vérification de type pour le moment, donc le C réalise un
- * cast, qui (si la valeur a été corrompue depuis le strtoi ou strtol) peut
- * conduire à une perte d'information.
  * \todo Prévoir le passage d'information au SymbolManager pour pointer les symboles
  * non réutilisables dans le contexte courant. 
  * \param val Entier remonté le Lex par yyval_float
@@ -86,13 +80,9 @@ int process_int ( int val );
  */
 int process_float ( float val ); 
 
-
 /** \brief Appel sur match d'un TRUE ou FALSE. Procède à la déclaration d'un symbole, à
  * la production d'une instruction (affectation de val au symbole créé) et
  * retourne le pointeur sur le symbole associé.
- * \warning Pas de vérification de type pour le moment, donc le C réalise un
- * cast, qui (si la valeur a été corrompue depuis le strtoi ou strtol) peut
- * conduire à une perte d'information. 
  * \todo Prévoir le passage d'information au SymbolManager pour pointer les symboles
  * non réutilisables dans le contexte courant. 
  * \param val Entier remonté le Lex (DEF_TRUE ou DEF_FALSE) 
@@ -103,8 +93,6 @@ int process_bool ( int val );
 /** \brief Réalise une assignation d'un symbole à un autre.
  * \param arg1 CSymbol* (casté en int) cible.
  * \param arg3 CSymbol* (casté en int) source.
- * \todo Implémenter la gestion de cast implicite si types source et cible
- * différents, le reste fonctionne.
  */
 int process_assignment(int arg1, int arg3);
 
@@ -114,17 +102,27 @@ int process_assignment(int arg1, int arg3);
  * \param arg3 CSymbol* casté en int, seconde opérande de l'addition.
  * \param oprtr Opérateur en OP3_* à utiliser lors du traitement.
  * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
- * est actif), pointant sur le symbole résultat de l'addition. Ce CSymbol est
+ * est actif), pointant sur le symbole résultat. Ce Symbole de retour est
  * casté implicitement si nécessaire.
  * */
 int process_op3(int arg1, int arg3, Operator oprtr);
+
+/** \brief Factorisation de code pour tous les traitements utilisant les
+ * opérateurs booléens en OP3_*. Les arguments sont castés en bool si nécessaire.
+ * \param arg1 CSymbol* casté en int, première opérande de l'addition.
+ * \param arg3 CSymbol* casté en int, seconde opérande de l'addition.
+ * \param oprtr Opérateur en OP3_* à utiliser lors du traitement booléen.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat.  
+ * */
+int process_op3_bool(int arg1, int arg3, Operator oprtr);
 
 /** \brief Procède à une addition et renvoie un pointeur sur le symbole
  * résultant de l'addition.
  * \param arg1 CSymbol* casté en int, première opérande de l'addition.
  * \param arg3 CSymbol* casté en int, seconde opérande de l'addition.
  * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
- * est actif), pointant sur le symbole résultat de l'addition. Ce CSymbol est
+ * est actif), pointant sur le symbole résultat de l'addition. Ce Symbol est
  * casté implicitement si nécessaire.
  */
 int process_plus(int arg1, int arg3); 
@@ -133,33 +131,85 @@ int process_plus(int arg1, int arg3);
  * \param arg1 CSymbol* casté en int, première opérande.
  * \param arg3 CSymbol* casté en int, seconde opérande.
  * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
- * est actif), pointant sur le symbole résultat. Ce CSymbol est
+ * est actif), pointant sur le symbole résultat. Ce Symbol est
  * casté implicitement si nécessaire.
  */
 int process_moins(int arg1, int arg3); 
 
-int process_and(int arg1, int arg3); 
-
+/** \brief Idem multiplication.
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole résultat. Ce Symbol est
+ * casté implicitement si nécessaire.
+ */
 int process_star(int arg1, int arg3); 
 
+/** \brief Idem division.
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole résultat. Ce Symbol est
+ * casté implicitement si nécessaire.
+ */
 int process_div(int arg1, int arg3); 
 
+/** \brief Idem Est-Egal (booléen)
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat. Les arguments sont
+ * castés si nécessaire. 
+ */
 int process_bool_eql(int arg1, int arg3); 
 
-int process_bool_or(int arg1, int arg3); 
-
+/** \brief Idem Et (booléen)
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat. Les arguments sont
+ * castés si nécessaire. 
+ */
 int process_bool_and(int arg1, int arg3); 
 
+/** \brief Idem Ou (booléen)
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat. Les arguments sont
+ * castés si nécessaire. 
+ */
 int process_bool_or(int arg1, int arg3); 
 
+/** \brief Idem Est-Supérieur (booléen)
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat. Les arguments sont
+ * castés si nécessaire. 
+ */
 int process_bool_grt(int arg1, int arg3); 
 
+/** \brief Idem Est-Inferieur (booléen)
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat. Les arguments sont
+ * castés si nécessaire. 
+ */
 int process_bool_low(int arg1, int arg3); 
 
+/** \brief Idem Est-Différent (booléen)
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat. Les arguments sont
+ * castés si nécessaire. 
+ */
 int process_bool_neq(int arg1, int arg3); 
 
 
-
+// a commenter ;)
 int process_if(int arg1);
 
 int process_then();
@@ -169,10 +219,22 @@ int process_else();
 int process_fin_else();
 
 int process_while_end(int arg1, int arg2);
+
 int process_repeat_end(int arg1, int arg4);
+
 int process_while_begin();
+
 int process_exp_do_begin(int arg1);
+
 int process_repeat_begin();
+
+
+
+
+
+
+
+
 
 
 

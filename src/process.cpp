@@ -37,7 +37,14 @@ int process_declaration(int arg1, int arg2) {
   //debug_echo("declaration: type id_aff_list PV");
 
 	if (current_decl_type != -1) {
+    
+    debug_echo("<déclaration>");
   
+    //vérification que le StringID n'est pas déjà 
+    //présent dans le contexte courant
+    if ( CS_main->getSymbolInContext( CStringID(arg2) ) ) 
+      debug_critical_exit("StringID déjà rencontrée dans le contexte courant", sanitizer);
+
     //empilement du symbole sur la CS
     retval = CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 , DEFAULT_REF_LVL ) );
 		
@@ -51,7 +58,6 @@ int process_declaration(int arg1, int arg2) {
     //instruction de déclaration 
     DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)arg1 , DEFAULT_REF_LVL) ); 
     debug_echo("déclaration du symbole empilée");
-
 	}
 	else {
 		debug_critical("debut de déclaration inattendue");
@@ -65,7 +71,7 @@ int process_declaration(int arg1, int arg2) {
 int process_declaration_end() {
 
 	if (current_decl_type != -1) {
-		debug_echo("Fin de déclaration, repositionne current_decl_type à -1");	
+		debug_echo("</déclaration>");	
 	  current_decl_type = -1;
   }
 	else { 
@@ -97,7 +103,7 @@ int process_id ( int tinystrid, CContextStack* current_CS ) {
 
   if ( !current_CS )
     debug_critical_exit("pointeur sur CS nul", sanitizer );
-
+  
   //on se trouve dans les déclarations
   if ( current_decl_type != -1 ) {
     debug_echoi("ID, son TinyStringID vaut:", tinystrid);
@@ -311,7 +317,12 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
   int arg3_type_val = -1;
   CSymbol* retval = NULL;
   CInstruction* instr = NULL;
-  
+  // en cas d'arg1 ou arg3 non booléens
+  CSymbol* arg1bool = NULL;
+  CInstruction* arg1boolcast_instr = NULL;
+  CSymbol* arg3bool = NULL;
+  CInstruction* arg3boolcast_instr = NULL;
+
   if ( !(arg1) || !(arg3) )
     debug_critical_exit("opération avec (au moins) un symbole invalide sur deux", sanitizer);
   
@@ -324,19 +335,40 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
  
   //gestion si symboles incompatibles
   if ( arg1_type_val != (TYPEVAL)T_BOOL ) {
-
+    //some more code...   
+    debug_echo("<cast de $1 en bool>");
     debug_echoi("$1 n'est pas de type BOOL, $1 est de type:", arg1_type_val);
-    debug_echo("traitement en cours d'implementation!");
-
+    arg1bool = CS_main->addSymbol( CStringID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) ) ; 
+    debug_echoi("Symbole destiné à recevoir le cast en booléen de $1 créé à l'adresse:",(int)arg1bool);
+    DQ_main->addDeclaration( arg1bool->getID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) ); 
+    debug_echo("déclaration du symbole booléen du cast de $1 empilée");
+    arg1boolcast_instr = new CInstruction ( (CSymbol*)arg1bool, (CSymbol*)arg1 );
+    if ( !arg1boolcast_instr->isValid() ) 
+    debug_critical_exit("le constructeur d'instruction du cast de $1 a échoué ", sanitizer);
+    IQ_main->pushInstruction( arg1boolcast_instr );
+    debug_echo("instruction d'opération booléenne sur $1 valide et empilée");
+    arg1 = (int)arg1bool;
+    debug_echo("</cast de $1 en bool>");
+ 
   }
+ 
   if ( arg3_type_val != (TYPEVAL)T_BOOL ) {
-
+    //some more code... 
+    debug_echo("<cast de $3 en bool>"); 
     debug_echoi("$3 n'est pas de type BOOL, $3 est de type:", arg3_type_val);
-    debug_echo("traitement en cours d'implementation!");
-
+    arg3bool = CS_main->addSymbol( CStringID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) );
+    debug_echoi("Symbole destiné à recevoir le cast en booléen de $3 créé à l'adresse:",(int)arg3bool);   
+    DQ_main->addDeclaration( arg3bool->getID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) ); 
+    debug_echo("déclaration du symbole booléen du cast de $3 empilée");
+    arg3boolcast_instr = new CInstruction ( (CSymbol*)arg3bool, (CSymbol*)arg3 );
+    if ( !arg3boolcast_instr->isValid() ) 
+    debug_critical_exit("le constructeur d'instruction du cast de $3 a échoué ", sanitizer);
+    IQ_main->pushInstruction( arg3boolcast_instr );
+    debug_echo("instruction d'opération booléenne sur $3 valide et empilée");
+    arg3 = (int)arg3bool;  
+    debug_echo("</cast de $3 en bool>");
+  
   }
-
-  //Instruction(CSymbol* lsymbol, CSymbol* rsymbol);
   
   //cree le symbole de retour de type bool
   retval = CS_main->addSymbol( CStringID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) ) ;
@@ -474,6 +506,7 @@ int process_bool_neq(int arg1, int arg3) {
 
 int process_if(int arg1)
 {
+
   LB_main->push();
 
   CType type(T_BOOL,0);
@@ -495,10 +528,12 @@ int process_if(int arg1)
 
 
   return EXIT_SUCCESS;
+
 }
 
 int process_then()
 {
+
   CInstruction* p_instr = 
     new CInstruction( OP1_LABEL, LB_main->getThen());
 
@@ -508,10 +543,12 @@ int process_then()
   LB_main->pop();
 
   return EXIT_SUCCESS;
+
 }
 
 int process_else()
 {
+
   CInstruction* p_instr = 
     new CInstruction( OP1_GOTO, LB_main->getElse() );
 
@@ -525,10 +562,12 @@ int process_else()
   IQ_main->pushInstruction( p_instr ); 
 
   return EXIT_SUCCESS;
+
 }
 
 int process_fin_else()
 {
+
   CInstruction* p_instr = 
     new CInstruction( OP1_LABEL, LB_main->getElse());
 
@@ -538,18 +577,21 @@ int process_fin_else()
   LB_main->pop();
 
   return EXIT_SUCCESS;
+
 };
 
 int process_while_end(int arg1, int arg2) {
 
   debug_echo("while_end: while exp_do inst");
   return EXIT_SUCCESS;
+
 }
 
 int process_repeat_end(int arg1, int arg4) {
 
   debug_echo("repeat_end: repeat inst UNTIL exp");
   return EXIT_SUCCESS;
+
 }
 
 int process_while_begin() {
@@ -565,18 +607,21 @@ int process_while_begin() {
   IQ_main->pushInstruction( p_instr ); 
 
   return EXIT_SUCCESS;
+
 }
 
 int process_exp_do_begin(int arg1) {
 
   debug_echo("exp_do_begin: exp DO");
   return EXIT_SUCCESS;
+
 }
 
 int process_repeat_begin() {
 
   debug_echo("repeat_begin: REPEAT");
   return EXIT_SUCCESS;
+
 }
  
 

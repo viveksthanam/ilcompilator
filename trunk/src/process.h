@@ -209,44 +209,55 @@ int process_bool_low(int arg1, int arg3);
 int process_bool_neq(int arg1, int arg3); 
 
 
-/** \brief Réalise les instructions nécésaires a la création de la tête
+/** \brief Réalise les instructions nécessaires à la création de la tête
  *d'un bloc if...then ou if...then...else...
  * \param arg1 CSymbol* casté en int, condition du bloc.
  */
 int process_if(int arg1);
 
-/** \brief Réalise les instructions nécésaires a la création du bloc then
+/** \brief Réalise les instructions nécessaires à la création du bloc then
  *d'un bloc if...then ou if...then...else...
  */
 int process_then();
 
-/** \brief Réalise les instructions nécésaires a la création du bloc else
+/** \brief Réalise les instructions nécessaires à la création du bloc else
  *d'un bloc if...then ou if...then...else...
  */
 int process_else();
 
-/** \brief Réalise les instructions nécésaires a la création de la fin du bloc
- *
+/** \brief Réalise les instructions nécessaires à la création de la fin du bloc
  *d'un bloc if...then ou if...then...else...
  */
 int process_fin_else();
 
+/** \brief Réalise les instructions nécessaires à la création de la fin du bloc
+ *d'un while...do...
+ *\param arg1 CSymbol* casté en int de la variable condition
+ *récupéré de la fonction process
+ */
 int process_while_end(int arg1);
+
+/** \brief Réalise les instructions nécessaires à la création de la fin du bloc
+ *d'un while...do...
+ *\param arg4 CSymbol* casté en int de la variable condition
+ */
 int process_repeat_end(int arg4);
 
-int process_while_begin();
-
-int process_exp_do_begin(int arg1);
-
+/**\brief Réalise les instructions nécessaires à la création du début du bloc
+  *d'un repeat...until...
+  */
 int process_repeat_begin();
 
+/**\brief Réalise les instructions nécessaires à la création du début du bloc
+  *d'un while...do...
+  */
+int process_while_begin();
 
-
-
-
-
-
-
+/** \brief Fonction ne réalisant rien si ce n'est $$ = $1
+  * \param arg1 CSymbol* casté en int
+  * \return le symbol arg1 passé en paramètre
+  */
+int process_exp_do_begin(int arg1);
 
 
 

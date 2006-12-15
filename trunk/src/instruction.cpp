@@ -32,8 +32,6 @@ CInstruction::CInstruction( Operator op, int n )
 
   this->label = n;
 
-  cerr<<"-------->"<<n<<endl;
-  
   return;
 }
 

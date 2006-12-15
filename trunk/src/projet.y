@@ -153,7 +153,7 @@ cond_exp: exp { process_if($1); };
 
 else:  ELSE { process_else(); }; 
 
-loop : while exp_do inst       { process_while_end($1); }
+loop : while exp_do inst       { process_while_end($2); }
        | repeat inst UNTIL exp { process_repeat_end($4); };
 
 while: WHILE { process_while_begin(); };

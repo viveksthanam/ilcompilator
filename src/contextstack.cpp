@@ -132,6 +132,7 @@ void CContextStack::saveContext(void)
 
 void CContextStack::restoreContext(void)
 {
+
   symbols.resize( size_stack.top() );
 
   size_stack.pop();

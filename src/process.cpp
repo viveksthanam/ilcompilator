@@ -146,7 +146,7 @@ int process_context_open() {
 int process_context_save() {
 
   debug_echo("contexte sauvé");
-  CS_main->saveContext();
+  CS_main->restoreContext();
 
   return EXIT_SUCCESS;
 }
@@ -584,10 +584,13 @@ int process_while_end(int arg1) {
 
   debug_echo("while_end: while exp_do inst");
 
-  CSymbol* symbol = CS_main->getSymbol( CStringID(arg1) );
+  cerr<<arg1<<endl;
+
+//  CSymbol* symbol =
+//    CS_main->getSymbol( CStringID(arg1) );
 
   CInstruction* p_instr = 
-    new CInstruction( OP2_IF, LB_main->getThen(), symbol);
+    new CInstruction( OP2_IF, LB_main->getThen(), (CSymbol*)arg1);
 
   // if <2> goto <label>
   IQ_main->pushInstruction( p_instr ); 
@@ -632,6 +635,8 @@ int process_while_begin() {
 }
 
 int process_exp_do_begin(int arg1) {
+
+  cerr<<arg1<<endl;
 
   debug_echo("exp_do_begin: exp DO");
   return arg1;

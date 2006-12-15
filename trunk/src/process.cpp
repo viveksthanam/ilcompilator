@@ -580,16 +580,37 @@ int process_fin_else()
 
 };
 
-int process_while_end(int arg1, int arg2) {
+int process_while_end(int arg1) {
 
   debug_echo("while_end: while exp_do inst");
+
+  CSymbol* symbol = CS_main->getSymbol( CStringID(arg1) );
+
+  CInstruction* p_instr = 
+    new CInstruction( OP2_IF, LB_main->getThen(), symbol);
+
+  // if <2> goto <label>
+  IQ_main->pushInstruction( p_instr ); 
+
+  LB_main->pop();
+
   return EXIT_SUCCESS;
 
 }
 
-int process_repeat_end(int arg1, int arg4) {
+int process_repeat_end(int arg4) {
 
   debug_echo("repeat_end: repeat inst UNTIL exp");
+
+  //...
+  CInstruction* p_instr = 
+    new CInstruction( OP2_IF, LB_main->getThen(), (CSymbol*)arg4 );
+
+  // if <2> goto <label>
+  IQ_main->pushInstruction( p_instr ); 
+
+  LB_main->pop();
+
   return EXIT_SUCCESS;
 
 }
@@ -613,13 +634,22 @@ int process_while_begin() {
 int process_exp_do_begin(int arg1) {
 
   debug_echo("exp_do_begin: exp DO");
-  return EXIT_SUCCESS;
+  return arg1;
 
 }
 
 int process_repeat_begin() {
 
   debug_echo("repeat_begin: REPEAT");
+
+  LB_main->push();
+
+  CInstruction* p_instr = 
+    new CInstruction( OP1_LABEL, LB_main->getThen() );
+
+  // label:
+  IQ_main->pushInstruction( p_instr ); 
+
   return EXIT_SUCCESS;
 
 }

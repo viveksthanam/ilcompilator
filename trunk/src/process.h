@@ -209,18 +209,30 @@ int process_bool_low(int arg1, int arg3);
 int process_bool_neq(int arg1, int arg3); 
 
 
-// a commenter ;)
+/** \brief Réalise les instructions nécésaires a la création de la tête
+ *d'un bloc if...then ou if...then...else...
+ * \param arg1 CSymbol* casté en int, condition du bloc.
+ */
 int process_if(int arg1);
 
+/** \brief Réalise les instructions nécésaires a la création du bloc then
+ *d'un bloc if...then ou if...then...else...
+ */
 int process_then();
 
+/** \brief Réalise les instructions nécésaires a la création du bloc else
+ *d'un bloc if...then ou if...then...else...
+ */
 int process_else();
 
+/** \brief Réalise les instructions nécésaires a la création de la fin du bloc
+ *
+ *d'un bloc if...then ou if...then...else...
+ */
 int process_fin_else();
 
-int process_while_end(int arg1, int arg2);
-
-int process_repeat_end(int arg1, int arg4);
+int process_while_end(int arg1);
+int process_repeat_end(int arg4);
 
 int process_while_begin();
 

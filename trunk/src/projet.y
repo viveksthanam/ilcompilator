@@ -146,19 +146,19 @@ inst : affect { debug_echo("affect"); }
 
 affect : id EQ exp { $$ = process_assignment($1,$3); };
 
-cond : IF cond_exp THEN inst { process_then(); } ;
+cond : IF cond_exp THEN inst { process_then(); } 
        | IF cond_exp THEN inst else inst { process_fin_else(); };
 
 cond_exp: exp { process_if($1); };
 
 else:  ELSE { process_else(); }; 
 
-loop : while exp_do inst       { process_while_end($1,$2); }
-       | repeat inst UNTIL exp { process_repeat_end($1,$4); };
+loop : while exp_do inst       { process_while_end($1); }
+       | repeat inst UNTIL exp { process_repeat_end($4); };
 
 while: WHILE { process_while_begin(); };
 
-exp_do: exp DO { process_exp_do_begin($1); };
+exp_do: exp DO { $$ = process_exp_do_begin($1); };
 
 repeat: REPEAT { process_repeat_begin(); };
 

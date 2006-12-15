@@ -47,7 +47,7 @@ lex.yy.o: lex.yy.c
 	$(CC) -c lex.yy.c
 
 clean: 
-	rm -f $(EXEC) $(ALLEXEC) y.output y.tab.h y.tab.c lex.yy.c *.o
+	rm -f $(EXEC) $(ALLEXEC) y.output y.tab.h y.tab.c lex.yy.c output output.3a output.3a.c projet.output projet.tab.c *.o
 
 distclean: 
 	rm -f y.output y.tab.h y.tab.c lex.yy.c *.o

@@ -104,6 +104,12 @@ public:
     */
   const CType returnCompatible( const CType type )
   {
+    if( !((this->ref_level == 0) && (type.ref_level == 0)) )
+      if( this->ref_level > type.ref_level )
+        return *this;
+     else
+        return type;
+
     if( this->typeval > type.typeval )
       return *this;
     else

@@ -1,0 +1,17 @@
+int variable1,resultat;
+bool variable2;
+
+variable1 = 5;
+variable2 = false;
+
+resultat = variable1 * variable2;
+
+{
+
+int variable1;
+variable1 = 42;
+
+resultat = variable1 + variable2;
+
+};
+

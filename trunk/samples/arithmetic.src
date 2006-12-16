@@ -1,0 +1,11 @@
+float pi,rayon,overdose;
+int quantite;
+bool resultat;
+
+pi = 3.1415927;
+rayon = 0.25;
+quantite = 300;
+overdose = 500.000;
+
+resultat = ((pi * rayon * rayon) * quantite) > overdose; 
+

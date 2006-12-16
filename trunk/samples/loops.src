@@ -1,0 +1,15 @@
+int compteur,limite;
+float somme,dS;
+
+
+compteur = 0;
+limite = 10000;
+somme = 0;
+
+while compteur < limite do
+{
+
+	dS = 1 + ();
+	somme = somme + dS;
+
+};

@@ -184,9 +184,10 @@ exp :  exp OR exp              { $$ = process_bool_or($1,$3); }
      | exp LOW exp             { $$ = process_bool_low($1,$3); }
      | exp NEQ exp             { $$ = process_bool_neq($1,$3); }
 
-     | STAR exp %prec MUNAIRE  { $$ = process_uop_star($1,$2); }
-     | MOINS exp %prec MUNAIRE { $$ = process_uop_moins($1,$2); }
-     | NOT exp %prec MUNAIRE   { $$ = process_uop_not($1,$2); }
+     | STAR exp %prec MUNAIRE  			{ $$ = process_uop_star($1,$2); }
+     | MOINS exp %prec MUNAIRE 			{ $$ = process_uop_moins($1,$2); }
+     | NOT exp %prec MUNAIRE   			{ $$ = process_uop_not($1,$2); }
+		 | DP type FP ID %prec MUNAIRE { debug_echo("cast"); }
 
      | DP exp FP               { $$ = $2; }
      | id                      { $$ = $1; }

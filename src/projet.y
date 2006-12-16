@@ -126,10 +126,8 @@ decl_list : decl_list decl { }
 
 decl : type id_aff_list PV { process_declaration_end(); } ; 
 
-id_aff_list : id_aff_list VIR id_aff
-	{ $$ = process_declaration(current_decl_type,$3,ref_level); } 
-              | id_aff 
-	{ $$ = process_declaration(current_decl_type,$1,ref_level); }
+id_aff_list : id_aff_list VIR id_aff { $$ = process_declaration(current_decl_type,$3,ref_level); } 
+              | id_aff 							 { $$ = process_declaration(current_decl_type,$1,ref_level); }
 
 id_aff : id       { $$ = $1; }
          | affect { $$ = $1; };

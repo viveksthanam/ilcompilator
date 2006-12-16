@@ -1,15 +1,32 @@
 int compteur,limite;
-float somme,dS;
+float somme;
 
+float x;
+float h;
+float fxi;
+float fxi1;
+
+float PI;
 
 compteur = 0;
-limite = 10000;
+limite = 10000000;
 somme = 0;
+
+x=0;
+h = 1.0/(float)limite;
+
+fxi1 = 4.0/(1.0 + x*x);
 
 while compteur < limite do
 {
+	fxi = fxi1;
+	
+	fxi1 = 4.0/(1.0 + (x+h)*(x+h) );
 
-	dS = 1 + ();
-	somme = somme + dS;
+	somme = somme + ( fxi + fxi1 );
 
+	x = x + h;
+	compteur = compteur + 1;
 };
+
+PI = (somme*h)/2.0;

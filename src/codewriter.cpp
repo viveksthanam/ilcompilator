@@ -107,15 +107,6 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
   {
     p_instr = instructions->front();
 
-    cerr<<"CW op="<<p_instr->getOperator()
-        <<" op1="<<p_instr->getOperand_1()
-        <<" op2="<<p_instr->getOperand_2()
-        <<" op3="<<p_instr->getOperand_3()
-        <<" cast="<<p_instr->getCastType().getTypeVal()
-        <<","<<p_instr->getCastType().getRef()
-        <<" label="<<p_instr->getLabel()
-        <<endl;
-
     // Gestion des cas spéciaux
     switch( p_instr->getOperator() ) 
     {

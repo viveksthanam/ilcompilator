@@ -22,7 +22,7 @@ extern char** argv;
 
 void about (void) {
   printf("ilCompilator - compilé le \
-"__DATE__"\n<brossill@enseirb.fr><lerouxj@enseirb.fr>\n");
+"__DATE__" à "__TIME__"\n<brossill@enseirb.fr><lerouxj@enseirb.fr>\n");
   return;
 }
 

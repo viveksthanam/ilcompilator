@@ -1,7 +1,7 @@
 # vim: noexpandtab
 
 CC= g++
-EXEC= compilo
+EXEC= compil
 ALLEXEC= hashtable_test contextstack_test codewriter_test
 CFLAGS= -Wall -g
 LDFLAGS= -Wall -ll -g
@@ -14,7 +14,8 @@ OBJECTS = y.tab.o lex.yy.o lex_process.o process.o $(OBJECTS_WITHOUT_LY)
 OBJECTS_WITHOUT_LY = hashtable.o debug.o contextstack.o declarationqueue.o instructionqueue.o instruction.o codewriter.o label.o
 
 all: $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXEC)
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $(EXEC);
+	cp ./$(EXEC) ../bin
 
 contextstack_test: $(OBJECTS_WITHOUT_LY) contextstack_test.cpp
 	$(CC) -g contextstack_test.cpp $(OBJECTS_WITHOUT_LY) -o contextstack_test

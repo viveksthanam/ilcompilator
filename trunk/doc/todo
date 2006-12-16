@@ -1,24 +1,23 @@
 bon projet: 
 
 le langage source:
-mecanisme de declaration locale (principe pile-accolade)
-typage minimum (int bool float)
-verification de type associee (addition bool float impossible)
-structures de controle (au moins if et while)
-expressions arbitrairement complexes (3*x+(4/y))
+mecanisme de declaration locale (principe pile-accolade) Done!
+typage minimum (int bool float) Done !
+verification de type associee (addition bool float impossible) Done!
+structures de controle (au moins if et while) Done! 
+expressions arbitrairement complexes (3*x+(4/y)) Done!
 
 code cible:
-3 @ (pas de declaration locale, instructions a 3@, goto pour les branch)
+3 @ (pas de declaration locale, instructions a 3@, goto pour les branch) Done!
 
-jeu de test:
-simple
+jeu de test: Todo...
+simple 
 un pour chaque fonctionnalite
 commentaire du resultat a chaque fois
 
 tres bon projet (trucs a creuser):
-declaration/manipulation/typage pointeurs
-production de code online (a definir)
-evaluation paresseuse des bool
-techniques optimisation (boucles inutiles, etc)
-autre (le contacter)
+declaration/manipulation/typage pointeurs Done!
+production de code online (a definir)...
+evaluation paresseuse des bool Todo ...
+techniques optimisation (boucles inutiles, etc) ...
 

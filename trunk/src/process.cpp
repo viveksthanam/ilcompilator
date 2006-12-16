@@ -709,46 +709,6 @@ int process_repeat_begin() {
 
 
 
-
-
-
-
-int process_ref(int type)
-{
-  if ( -1 == current_decl_type ) {
-    debug_echoi( "Référencement du symbole:", type );
-    current_decl_type = type;
-    return (type);
-  }
-  else {
-    debug_critical("type inattendu");
-    return EXIT_FAILURE;
-  }
-
-  return EXIT_SUCCESS;
-}
-
-int process_deref()
-{
-
-
-  return EXIT_SUCCESS;
-}
-
-/*A traiter:*/
-
-int process_uop_moins(int arg1, int arg2) {
-
-  debug_echo("MOINS exp %prec MUNAIRE");
-  return EXIT_SUCCESS;
-}
-
-int process_uop_not(int arg1, int arg2) {
-
-  debug_echo("NOT exp %prec MUNAIRE");
-  return EXIT_SUCCESS;
-}
-
 int process_uop_star(int arg1, int arg2) {
 
   debug_echo("STAR exp %prec MUNAIRE");
@@ -774,4 +734,22 @@ int process_uop_star(int arg1, int arg2) {
   return (int)symbol;
 }
 
+
+
+
+
+
+/*A traiter:*/
+
+int process_uop_moins(int arg1, int arg2) {
+
+  debug_echo("MOINS exp %prec MUNAIRE");
+  return EXIT_SUCCESS;
+}
+
+int process_uop_not(int arg1, int arg2) {
+
+  debug_echo("NOT exp %prec MUNAIRE");
+  return EXIT_SUCCESS;
+}
 /* fin process.cpp */

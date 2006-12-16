@@ -735,7 +735,28 @@ int process_uop_star(int arg1, int arg2) {
 }
 
 
+int process_uop_cast(int arg1, int arg4, int ref_level)
+{
+  CType type( (TYPEVAL)arg1, ref_level);
 
+  if( (ref_level == 0)  && (((CSymbol*)arg4)->getType().getRef() == 0))
+    if( !(((CSymbol*)arg4)->getType().canConvertTo( type )) )
+    {
+      debug_critical("Pertes de données lors du cast.");
+    }
+
+  CSymbol* symbol = CS_main->addSymbol( CStringID(),
+                                        type );
+
+  CInstruction* p_instr = 
+    new CInstruction( symbol, (CSymbol*)arg4);
+ 
+  // <1> = (<3>)<2>
+  DQ_main->addDeclaration( symbol->getID(), symbol->getType() );
+  IQ_main->pushInstruction( p_instr );
+  
+  return (int)symbol;
+} 
 
 
 

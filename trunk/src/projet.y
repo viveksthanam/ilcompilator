@@ -187,11 +187,18 @@ exp :  exp OR exp              { $$ = process_bool_or($1,$3); }
      | STAR exp %prec MUNAIRE  			{ $$ = process_uop_star($1,$2); }
      | MOINS exp %prec MUNAIRE 			{ $$ = process_uop_moins($1,$2); }
      | NOT exp %prec MUNAIRE   			{ $$ = process_uop_not($1,$2); }
-		 | DP type FP ID %prec MUNAIRE { debug_echo("cast"); }
+		 | DP type_cast FP exp %prec MUNAIRE
+		 { $$ = process_uop_cast($2,$4,ref_level); }
 
      | DP exp FP               { $$ = $2; }
      | id                      { $$ = $1; }
      | const                   { $$ = $1; }; 
+
+type_cast : INT    { ref_level=0; $$=T_INT; }
+       | FLOAT     { ref_level=0; $$=T_FLOAT; } 
+       | BOOL      { ref_level=0; $$=T_BOOL; }
+       | type_cast STAR { ref_level++; };
+
 
 const : NUM_I   { $$ = process_int( yyval_int ); }
         | NUM_F { $$ = process_float( yyval_float ); }

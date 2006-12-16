@@ -27,7 +27,8 @@
 * \return addSymbol() retourne un CSymbol*, mais ce n'est pas utile pour le moment,
 * cela sert juste a tester s'il y a eu erreur d'allocation (NULL). 
 */
-int process_declaration(int arg1, int arg2);
+int process_declaration(int arg1, int arg2, int ref_level);
+
 /** \brief Lorsque un ID est matché, process_id a deux comportements possibles: 
  * - soit on se trouve dans une zone de déclaration et on retourne simplement le
  *   TinyStringID passé en paramètre (et calculé dans Lex), afin de procéder à 
@@ -259,7 +260,9 @@ int process_while_begin();
   */
 int process_exp_do_begin(int arg1);
 
+int process_ref(int type);
 
+int process_deref();
 
 /*a traiter:*/
 int process_uop_star(int arg1, int arg2);

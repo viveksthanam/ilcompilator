@@ -30,7 +30,7 @@ extern void sanitizer (void);
 * \date 07/12/2007
 */
 
-int process_declaration(int arg1, int arg2) {
+int process_declaration(int arg1, int arg2, int ref_level) {
 
    CSymbol* retval = NULL;
 
@@ -46,7 +46,7 @@ int process_declaration(int arg1, int arg2) {
       debug_critical_exit("StringID déjà rencontrée dans le contexte courant", sanitizer);
 
     //empilement du symbole sur la CS
-    retval = CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 , DEFAULT_REF_LVL ) );
+    retval = CS_main->addSymbol( CStringID( arg2 ), CType( (TYPEVAL)arg1 ,ref_level ) );
 		
     if ( !retval ) {
 			debug_critical("l'allocation du symbole a échoué, pas d'empilement sur la CS");
@@ -54,9 +54,10 @@ int process_declaration(int arg1, int arg2) {
 		}
 	  
      debug_echoi( "Symbole créé à l'adresse:", (int)retval );
+     debug_echoi( "RefLevel:",ref_level);
     
     //instruction de déclaration 
-    DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)arg1 , DEFAULT_REF_LVL) ); 
+    DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)arg1 , ref_level) ); 
     debug_echo("déclaration du symbole empilée");
 	}
 	else {
@@ -584,11 +585,6 @@ int process_while_end(int arg1) {
 
   debug_echo("while_end: while exp_do inst");
 
-  cerr<<arg1<<endl;
-
-//  CSymbol* symbol =
-//    CS_main->getSymbol( CStringID(arg1) );
-
   CInstruction* p_instr = 
     new CInstruction( OP2_IF, LB_main->getThen(), (CSymbol*)arg1);
 
@@ -669,14 +665,27 @@ int process_repeat_begin() {
 
 
 
+int process_ref(int type)
+{
+  if ( -1 == current_decl_type ) {
+    debug_echoi( "Référencement du symbole:", type );
+    current_decl_type = type;
+    return (type);
+  }
+  else {
+    debug_critical("type inattendu");
+    return EXIT_FAILURE;
+  }
+
+  return EXIT_SUCCESS;
+}
+
+int process_deref()
+{
 
 
-
-
-
-
-
-
+  return EXIT_SUCCESS;
+}
 
 /*A traiter:*/
 
@@ -695,7 +704,26 @@ int process_uop_not(int arg1, int arg2) {
 int process_uop_star(int arg1, int arg2) {
 
   debug_echo("STAR exp %prec MUNAIRE");
-  return EXIT_SUCCESS;
+
+  cerr<<"------------------"<<arg1<<","<<arg2<<endl;
+ 
+  int ref_level = ((CSymbol*)arg2)->getType().getRef();
+  TYPEVAL typeval = ((CSymbol*)arg2)->getType().getTypeVal();
+
+  if( ref_level == 0 )
+    debug_critical("impossible de déréférencer la variable");
+
+  CSymbol* symbol = CS_main->addSymbol( CStringID(),
+                                       CType( typeval, ref_level-1));
+
+  CInstruction* p_instr =
+    new CInstruction( OP2_STAR, symbol, (CSymbol*)arg2 );
+
+  // <2> = *<1>
+  DQ_main->addDeclaration( symbol->getID(), symbol->getType() );
+  IQ_main->pushInstruction( p_instr );
+ 
+  return (int)symbol;
 }
 
 /* fin process.cpp */

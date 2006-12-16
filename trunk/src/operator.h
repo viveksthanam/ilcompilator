@@ -51,6 +51,8 @@ typedef enum _Operator
   OP1_GOTO,
   OP2_IF,
 
+  OP2_STAR,
+
   OP0_INVALID //Définit l'opérateur invalide et est utilisé
               //  pour mesurer la taille de l'énum.
 

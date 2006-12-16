@@ -54,7 +54,7 @@ int process_declaration(int arg1, int arg2, int ref_level) {
 		}
 	  
      debug_echoi( "Symbole créé à l'adresse:", (int)retval );
-     debug_echoi( "RefLevel:",ref_level);
+     debug_echoi( "Niveau de référencement:",ref_level);
     
     //instruction de déclaration 
     DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)arg1 , ref_level) ); 

@@ -125,6 +125,7 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
                   INSTRUCTION_BASE_NAME,
                   p_instr->getOperand_1(),
                   string_types[p_instr->getCastType().getTypeVal()],
+                  getStarsFromRefLevel(p_instr->getCastType().getRef()).c_str(),
                   INSTRUCTION_BASE_NAME,
                   p_instr->getOperand_2(),
                   INSTRUCTION_SEPARATOR);

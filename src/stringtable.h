@@ -38,7 +38,7 @@ char* string_operators[OP0_INVALID] =
 "%s%d = %d%s",          //OP3_EQU_CONST_RVALUE_INT
 "%s%d = %f%s",          //OP3_EQU_CONST_RVALUE_FLOAT
 
-"%s%d = (%s)%s%d%s",    //OP3_CAST
+"%s%d = (%s%s)%s%d%s",    //OP3_CAST
 
 "%s%d:%s",                  //OP1_LABEL
 "goto %s%d%s",              //OP1_GOTO

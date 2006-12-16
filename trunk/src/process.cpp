@@ -272,9 +272,12 @@ int process_op3(int arg1, int arg3, Operator oprtr) {
   CType type_arg3;
   CSymbol* retval = NULL;
   CInstruction* instr = NULL;
+
+  bool a,b;
   
   if ( !(arg1) || !(arg3) )
-    debug_critical_exit("opération avec (au moins) un symbole invalide sur deux", sanitizer);
+    debug_critical_exit(
+      "opération avec (au moins) un symbole invalide sur deux", sanitizer);
   
   debug_echoi("opération: $1 à l'adresse:", (int)arg1);
   debug_echoi("opération: $3 à l'adresse:", (int)arg3);
@@ -282,6 +285,51 @@ int process_op3(int arg1, int arg3, Operator oprtr) {
   //trouve le type de retour compatible avec ceux des arguments
   type_arg1 = ((CSymbol*)arg1)->getType();
   type_arg3 = ((CSymbol*)arg3)->getType();
+
+  // Mes deux opérandes sont elles des pointeurs ?
+  if( (type_arg1.getRef() > 0) && (type_arg3.getRef() > 0) )
+  {
+    // L'opération est elle autre chose qu'une soustraction OU/ET les opérandes
+    // sont elles de type différents ?
+    if( (oprtr != OP3_SUB)
+      || (type_arg1.getTypeVal() != type_arg3.getTypeVal()) ) 
+      debug_critical_exit("Opération invalide sur un pointeur",sanitizer);
+  }
+  else
+  {
+    // Résumé de l'épisode : A ce point on sait que les opérandes ne sont
+    // toutes les deux des pointeurs.
+
+    // Il y a t'il une opérande qui soit un pointeur ?
+    // (on stocke laquelle des deux est le pointeur en question grâce à
+    // a et b)
+    if( (a=(type_arg1.getRef() > 0)) || (b=(type_arg3.getRef() > 0)) )
+    {
+      // L'opération est elle autre que l'addition ou la soustraction ?
+      if( oprtr != OP3_ADD && oprtr != OP3_OR )
+        debug_critical_exit("Opération invalide sur un pointeur",sanitizer);
+      
+      // Un petit hack ici pour exprimer de manière compacte :
+      // L'opérande qui n'est pas un pointeur est elle du type INT ?
+      if( !( ( b && (type_arg1.getTypeVal() == T_INT))
+          || ( a && (type_arg3.getTypeVal() == T_INT)) ) )
+      {
+      
+        // L'opération est elle l'addition ?
+        if( oprtr == OP3_ADD )
+          debug_critical_exit("L'addition d'un pointeur est uniquement authorisée\
+avec un entier",sanitizer);
+        else
+          debug_critical_exit("La soustraction d'un pointeur est uniquement\
+authorisée avec un entier",sanitizer);
+
+      }
+
+    }
+
+  }
+
+
   type_compatible = type_arg1.returnCompatible( type_arg3 ); 
   debug_echoi("type de retour compatible trouvé:", type_compatible.getTypeVal());
 

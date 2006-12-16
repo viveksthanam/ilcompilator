@@ -382,6 +382,7 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
   arg1_type_val = ((CSymbol*)arg1)->getType().getTypeVal();
   arg3_type_val = ((CSymbol*)arg3)->getType().getTypeVal();
  
+  /*
   //gestion si symboles incompatibles
   if ( arg1_type_val != (TYPEVAL)T_BOOL ) {
     //some more code...   
@@ -416,9 +417,9 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
     debug_echo("instruction d'opération booléenne sur $3 valide et empilée");
     arg3 = (int)arg3bool;  
     debug_echo("</cast de $3 en bool>");
-  
+
   }
-  
+  */  
   //cree le symbole de retour de type bool
   retval = CS_main->addSymbol( CStringID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) ) ;
   debug_echoi("symbole de retour pour l'opération booléenne créé à l'adresse:", (int)retval);

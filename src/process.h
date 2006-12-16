@@ -260,12 +260,11 @@ int process_while_begin();
   */
 int process_exp_do_begin(int arg1);
 
-int process_ref(int type);
+int process_uop_star(int arg1, int arg2);
 
-int process_deref();
+int process_uop_cast(int arg1, int arg4, int ref_level);
 
 /*a traiter:*/
-int process_uop_star(int arg1, int arg2);
 int process_uop_not(int arg1, int arg2);
 int process_uop_moins(int arg1, int arg2);
 /** @} */

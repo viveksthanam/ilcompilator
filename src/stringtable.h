@@ -43,6 +43,7 @@ char* string_operators[OP0_INVALID] =
 "%s%d:%s",                  //OP1_LABEL
 "goto %s%d%s",              //OP1_GOTO
 "if(%s%d) goto %s%d%s",      //OP2_IF
+"%s%d = *%s%d%s"         //OP2_STAR
 };
 
 #endif/*STRINGTABLE_H*/

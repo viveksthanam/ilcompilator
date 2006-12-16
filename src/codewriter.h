@@ -16,6 +16,10 @@
 #include "instructionqueue.h"
 #include "declarationqueue.h"
 
+#include <string>
+
+using namespace std;
+
 /**\brief Classe chargée d'écrire le code 3@ et de manipuler le
   * fichier de sortie.
   */
@@ -26,6 +30,8 @@ private:
   /**\brief File descriptor sur le fichier de sortie
     */
   FILE* foutput;
+
+  string getStarsFromRefLevel(int ref_level);
 
 public:
 

@@ -50,10 +50,23 @@ CCodeWriter::~CCodeWriter()
   debug_echo("Fin de l'écriture du code de sortie.");
 }
 
+string CCodeWriter::getStarsFromRefLevel( int ref_level )
+{
+  string str;
+  int i;
+
+  for(i=0;i<ref_level;i++)
+    str += "*";
+
+  return str;
+}
+
+
 int CCodeWriter::writeDeclarations( CDeclarationQueue* declarations )
 {
   int id;
   int typeval;
+  int ref_level;
 
   if(!declarations)
   {
@@ -64,11 +77,12 @@ int CCodeWriter::writeDeclarations( CDeclarationQueue* declarations )
   while( !(declarations->empty()) )
   {
     id = (int)( (declarations->front())->id );
-
     typeval = (int)( (declarations->front())->type.getTypeVal() );
+    ref_level = (int)( (declarations->front())->type.getRef() );
 
-    fprintf(foutput, "%s %s%d%s",
+    fprintf(foutput, "%s %s%s%d%s",
             string_types[typeval],  // La chaine associée au type
+            getStarsFromRefLevel(ref_level).c_str(), // Les étoiles
             INSTRUCTION_BASE_NAME,  // Le nom de base
             id,                     // L'id
             INSTRUCTION_SEPARATOR); // Le séparateur d'instructions
@@ -187,6 +201,18 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
                    p_instr->getLabel(),
                    INSTRUCTION_SEPARATOR);
          break;
+
+       case OP2_STAR:
+
+          fprintf( foutput, string_operators[p_instr->getOperator()],
+                   INSTRUCTION_BASE_NAME,
+                   p_instr->getOperand_1(),
+                   INSTRUCTION_BASE_NAME,
+                   p_instr->getOperand_2(),
+                   INSTRUCTION_SEPARATOR);
+
+
+          break;
 
        default:
 

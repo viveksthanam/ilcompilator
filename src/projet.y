@@ -70,6 +70,9 @@ int current_decl_type = -1;
 */
 extern int debug_level;
 
+
+int ref_level = 0;
+
 /** \brief Libère les ressources utilisées par nos piles.
  */
 void sanitizer (void) {
@@ -123,18 +126,20 @@ decl_list : decl_list decl { }
 
 decl : type id_aff_list PV { process_declaration_end(); } ; 
 
-id_aff_list : id_aff_list VIR id_aff { $$ = process_declaration(current_decl_type,$3); } 
-              | id_aff               { $$ = process_declaration(current_decl_type,$1); }
+id_aff_list : id_aff_list VIR id_aff
+	{ $$ = process_declaration(current_decl_type,$3,ref_level); } 
+              | id_aff 
+	{ $$ = process_declaration(current_decl_type,$1,ref_level); }
 
 id_aff : id       { $$ = $1; }
          | affect { $$ = $1; };
 
 id : ID { $$ = process_id($1,CS_main); };
 
-type : INT         { $$ = process_type(T_INT); }
-       | FLOAT     { $$ = process_type(T_FLOAT); } 
-       | BOOL      { $$ = process_type(T_BOOL); }
-       | type STAR { };
+type : INT         { ref_level = 0; $$ = process_type(T_INT); }
+       | FLOAT     { ref_level = 0; $$ = process_type(T_FLOAT); } 
+       | BOOL      { ref_level = 0; $$ = process_type(T_BOOL); }
+       | type STAR { ref_level++; };
 
 inst_list : inst_list PV inst { }
             | inst            { };
@@ -176,9 +181,11 @@ exp :  exp OR exp              { $$ = process_bool_or($1,$3); }
      | exp GRT exp             { $$ = process_bool_grt($1,$3); }
      | exp LOW exp             { $$ = process_bool_low($1,$3); }
      | exp NEQ exp             { $$ = process_bool_neq($1,$3); }
-     | STAR exp %prec MUNAIRE  { process_uop_star($1,$2); }
-     | MOINS exp %prec MUNAIRE { process_uop_moins($1,$2); }
-     | NOT exp %prec MUNAIRE   { process_uop_not($1,$2); }
+
+     | STAR exp %prec MUNAIRE  { $$ = process_uop_star($1,$2); }
+     | MOINS exp %prec MUNAIRE { $$ = process_uop_moins($1,$2); }
+     | NOT exp %prec MUNAIRE   { $$ = process_uop_not($1,$2); }
+
      | DP exp FP               { $$ = $2; }
      | id                      { $$ = $1; }
      | const                   { $$ = $1; }; 

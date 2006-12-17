@@ -32,6 +32,7 @@ char* string_operators[OP0_INVALID] =
 "%s%d = %s%d > %s%d%s",    //OP3_GRT
 
 "%s%d = !%s%d%s",         //OP2_NOT
+"%s%d = -%s%d%s",         //OP2_NEG
 
 "%s%d = %s%d%s",        //OP3_EQU
 "%s%d = %d%s",          //OP3_EQU_CONST_RVALUE_BOOL

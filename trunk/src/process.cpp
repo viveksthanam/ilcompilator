@@ -695,7 +695,7 @@ int process_repeat_begin() {
 
 }
 
-int process_uop_star(int arg1, int arg2) {
+int process_uop_star(int arg2) {
 
   int ref_level = ((CSymbol*)arg2)->getType().getRef();
   TYPEVAL typeval = ((CSymbol*)arg2)->getType().getTypeVal();
@@ -741,17 +741,47 @@ int process_uop_cast(int arg1, int arg4, int ref_level)
 
 } 
 
-/*A traiter:*/
-
-int process_uop_moins(int arg1, int arg2) {
+int process_uop_moins(int arg2) {
 
   debug_echo("MOINS exp %prec MUNAIRE");
-  return EXIT_SUCCESS;
+
+  if( ((CSymbol*)arg2)->getType().getRef() != 0 )
+  { 
+    debug_critical_exit("Opération interdite sur les pointeurs.",sanitizer);
+  }
+
+  LB_main->push();
+
+  CSymbol* symbol = CS_main->addSymbol( CStringID(),
+              ((CSymbol*)arg2)->getType() );
+
+  CInstruction* p_instr =
+    new CInstruction( OP2_NOT, symbol, (CSymbol*)arg2 );
+
+  // <2> = !<1>
+  DQ_main->addDeclaration( symbol->getID(), symbol->getType() );
+  IQ_main->pushInstruction( p_instr );
+
+  return (int)symbol;
 }
 
-int process_uop_not(int arg1, int arg2) {
+int process_uop_not(int arg2) {
 
   debug_echo("NOT exp %prec MUNAIRE");
-  return EXIT_SUCCESS;
+
+  LB_main->push();
+
+  CType type(T_BOOL,0);
+
+  CSymbol* symbol = CS_main->addSymbol( CStringID(), type );
+
+  CInstruction* p_instr =
+    new CInstruction( OP2_NOT, symbol, (CSymbol*)arg2 );
+
+  // <2> = !<1>
+  DQ_main->addDeclaration( symbol->getID(), symbol->getType() );
+  IQ_main->pushInstruction( p_instr );
+
+  return (int)symbol;
 }
 /* fin process.cpp */

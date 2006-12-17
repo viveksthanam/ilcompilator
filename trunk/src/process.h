@@ -257,15 +257,30 @@ int process_while_begin();
   */
 int process_exp_do_begin(int arg1);
 
-/** \todo JD :P */
-int process_uop_star(int arg1, int arg2);
+/** \brief Fonction réalisant l'opération de déréférencement
+  * \param arg2 CSymbol* casté en int argument de droite.
+  * \return CSymbol* du symbol crée par l'opération.
+  */
+int process_uop_star(int arg2);
 
-/** \todo JD :P */
+/** \brief Fonction réalisant l'opération de cast.
+  * \param arg1 TYPEVAL du type du cast.
+  * \param arg4 CSymbol* casté en int du symbole à caster.
+  * \return CSymbol* crée par l'opération
+  */
 int process_uop_cast(int arg1, int arg4, int ref_level);
 
-/*A traiter:*/
-int process_uop_not(int arg1, int arg2);
-int process_uop_moins(int arg1, int arg2);
+/** \brief Fonction réalisant l'opération de négation logique
+  * \param arg2 CSymbol* casté en int argument de droite.
+  * \return CSymbol* du symbole crée par l'opération.
+  */
+int process_uop_not(int arg2);
+
+/** \brief Fonction réalisant l'opération opposé.
+  * \param arg2 CSymbol* casté en int argument de droite.
+  * \return CSymbol* du symbole crée par l'opération.
+  */
+int process_uop_moins(int arg2);
 
 /** @} */
 

@@ -39,6 +39,7 @@ typedef enum _Operator
   OP3_LOW,
   OP3_GRT,
   OP2_NOT,
+  OP2_NEG,
 
   OP2_EQU,
   OP2_EQU_CONST_RVALUE_BOOL,

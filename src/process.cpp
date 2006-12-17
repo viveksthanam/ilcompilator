@@ -278,8 +278,7 @@ int process_op3(int arg1, int arg3, Operator oprtr) {
   bool a,b;
   
   if ( !(arg1) || !(arg3) )
-    debug_critical_exit(
-      "opération avec (au moins) un symbole invalide sur deux", sanitizer);
+    debug_critical_exit("opération avec (au moins) un symbole invalide sur deux", sanitizer);
   
   debug_echoi("opération: $1 à l'adresse:", (int)arg1);
   debug_echoi("opération: $3 à l'adresse:", (int)arg3);
@@ -333,15 +332,15 @@ autorisée avec un entier",sanitizer);
 
 
   type_compatible = type_arg1.returnCompatible( type_arg3 ); 
-  debug_echoi("type de retour compatible trouvé:", type_compatible.getTypeVal());
+  debug_echoi("Type de retour compatible trouvé:", type_compatible.getTypeVal());
 
   //cree le symbole de retour
   retval = CS_main->addSymbol( CStringID(), type_compatible ) ;
-  debug_echoi("symbole de retour pour l'opération créé à l'adresse:", (int)retval);
+  debug_echoi("Symbole de retour pour l'opération créé à l'adresse:", (int)retval);
 	
   //creation declaration pour le symbole de retour
   DQ_main->addDeclaration( retval->getID(), CType( (TYPEVAL)type_compatible.getTypeVal() , DEFAULT_REF_LVL) ); 
-  debug_echo("déclaration du symbole de retour empilée");
+  debug_echo("Déclaration du symbole de retour empilée");
 
   instr = new CInstruction( oprtr,
                             (CSymbol*) retval,
@@ -451,7 +450,7 @@ int process_plus(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process plus>");
   pointeur = process_op3(arg1, arg3, OP3_ADD);
-  if (!pointeur) debug_critical_exit("échec de de process_plus",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_plus",sanitizer); 
   debug_echo("</process plus>");
   return pointeur;
     
@@ -462,7 +461,7 @@ int process_moins(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process moins>");
   pointeur = process_op3(arg1, arg3, OP3_SUB);
-  if (!pointeur) debug_critical_exit("échec de de process_moins",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_moins",sanitizer); 
   debug_echo("</process moins>");
   return pointeur;
 
@@ -473,7 +472,7 @@ int process_star(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process star>");
   pointeur = process_op3(arg1, arg3, OP3_MUL);
-  if (!pointeur) debug_critical_exit("échec de de process_star",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_star",sanitizer); 
   debug_echo("</process star>");
   return pointeur;
 
@@ -484,7 +483,7 @@ int process_div(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process div>");
   pointeur = process_op3(arg1, arg3, OP3_DIV);
-  if (!pointeur) debug_critical_exit("échec de de process_div",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_div",sanitizer); 
   debug_echo("</process div>");
   return pointeur;
 
@@ -495,7 +494,7 @@ int process_div(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process or>");
   pointeur = process_op3_bool(arg1, arg3, OP3_OR);
-  if (!pointeur) debug_critical_exit("échec de de process_bool_or",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_bool_or",sanitizer); 
   debug_echo("</process or>");
   return pointeur;
 
@@ -506,7 +505,7 @@ int process_bool_and(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process and>");
   pointeur = process_op3_bool(arg1, arg3, OP3_AND);
-  if (!pointeur) debug_critical_exit("échec de de process_bool_and",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_bool_and",sanitizer); 
   debug_echo("</process and>");
   return pointeur;
 
@@ -517,7 +516,7 @@ int process_bool_eql(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process eql>");
   pointeur = process_op3_bool(arg1, arg3, OP3_EQL);
-  if (!pointeur) debug_critical_exit("échec de de process_bool_eql",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_bool_eql",sanitizer); 
   debug_echo("</process eql>");
   return pointeur;
 
@@ -528,7 +527,7 @@ int process_grt(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process grt>");
   pointeur = process_op3(arg1, arg3, OP3_GRT);
-  if (!pointeur) debug_critical_exit("échec de de process_bool_grt",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_bool_grt",sanitizer); 
   debug_echo("</process grt>");
   return pointeur;
 
@@ -539,7 +538,7 @@ int process_low(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process low>");
   pointeur = process_op3(arg1, arg3, OP3_LOW);
-  if (!pointeur) debug_critical_exit("échec de de process_bool_low",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_bool_low",sanitizer); 
   debug_echo("</process low>");
   return pointeur;
 
@@ -550,7 +549,7 @@ int process_bool_neq(int arg1, int arg3) {
   int pointeur = 0;
   debug_echo("<process neq>");
   pointeur = process_op3_bool(arg1, arg3, OP3_NEQ);
-  if (!pointeur) debug_critical_exit("échec de de process_bool_neq",sanitizer); 
+  if (!pointeur) debug_critical_exit("échec de process_bool_neq",sanitizer); 
   debug_echo("</process neq>");
   return pointeur;
 
@@ -634,8 +633,6 @@ int process_fin_else()
 
 int process_while_end(int arg1) {
 
-  debug_echo("while_end: while exp_do inst");
-
   CInstruction* p_instr = 
     new CInstruction( OP2_IF, LB_main->getThen(), (CSymbol*)arg1);
 
@@ -650,9 +647,6 @@ int process_while_end(int arg1) {
 
 int process_repeat_end(int arg4) {
 
-  debug_echo("repeat_end: repeat inst UNTIL exp");
-
-  //...
   CInstruction* p_instr = 
     new CInstruction( OP2_IF, LB_main->getThen(), (CSymbol*)arg4 );
 
@@ -666,8 +660,6 @@ int process_repeat_end(int arg4) {
 }
 
 int process_while_begin() {
-
-  debug_echo("while_begin: WHILE");
 
   LB_main->push();
 
@@ -683,16 +675,13 @@ int process_while_begin() {
 
 int process_exp_do_begin(int arg1) {
 
-  cerr<<arg1<<endl;
+  //cerr<<arg1<<endl;
 
-  debug_echo("exp_do_begin: exp DO");
   return arg1;
 
 }
 
 int process_repeat_begin() {
-
-  debug_echo("repeat_begin: REPEAT");
 
   LB_main->push();
 
@@ -708,8 +697,6 @@ int process_repeat_begin() {
 
 int process_uop_star(int arg1, int arg2) {
 
-  debug_echo("STAR exp %prec MUNAIRE");
- 
   int ref_level = ((CSymbol*)arg2)->getType().getRef();
   TYPEVAL typeval = ((CSymbol*)arg2)->getType().getTypeVal();
 

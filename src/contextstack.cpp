@@ -10,6 +10,7 @@
  *
  */
 
+#include "debug.h"
 #include "contextstack.h"
 
 CContextStack::CContextStack()

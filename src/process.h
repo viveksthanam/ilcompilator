@@ -22,6 +22,7 @@
 * un symbole et empile un pointeur vers celui-ci sur la CS courante.
 * \param arg1 Type de symbole à déclarer.
 * \param arg2 TinyStringID identifiant le symbole.
+* \param ref_level niveau de référencement du symbole.
 * \return addSymbol() retourne un CSymbol*, mais ce n'est pas utile pour le moment,
 * cela sert juste a tester s'il y a eu erreur d'allocation (NULL). 
 */
@@ -36,7 +37,6 @@ int process_declaration(int arg1, int arg2, int ref_level);
  *   et on retourne un pointeur de type CSymbol* vers celui-ci, casté en int.
  *   \param current_CS Pointeur sur la ContextStack courante.
  *   \param tinystrid TinyStringID du symbole.
- *   \todo vérifier que le symbole n'existe pas déja avant de le créer
  */
 int process_id ( int tinystrid, CContextStack* current_CS ); 
 

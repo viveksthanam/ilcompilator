@@ -38,8 +38,11 @@ CSymbol* CContextStack::addSymbol( CStringID sid, CType type )
 
   this->n++;
 
-  /** \todo Ajouter une gestion d'erreur */
-  if(!p_symbol) return NULL;
+  /** \todo Ajouter une gestion d'erreur en plus de l'affichage. */
+  if(!p_symbol) {
+    debug_critical("La création du symbole a échoué, retourne une adresse de symbole NULL.");  
+    return NULL;
+  }
   
   pushSymbol( p_symbol );
 

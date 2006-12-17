@@ -70,6 +70,7 @@ public:
 
   /**\brief Constructeur de l'opérateur label ou goto
     *\param n Numéro du label.
+    *\param op Opérateur.
     */
   CInstruction( Operator op, int n );
 
@@ -77,6 +78,7 @@ public:
     *un symbole (condition) et un numéro de label.
     *\param n  Numéro de label
     *\param ps CSymbol* pointant vers la condition de l'opérateur.
+    *\param op Opérateur.
     */
   CInstruction( Operator op, int n, CSymbol* ps );
 

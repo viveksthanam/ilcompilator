@@ -1,4 +1,4 @@
-ilCompilator - compilé le Dec 16 2006
+ilCompilator - compilé le Dec 17 2006 à 14:32:43
 <brossill@enseirb.fr><lerouxj@enseirb.fr>
 debug_echo: instanciation d'un module HashTable
 debug_echo: instanciation d'un module ContextStack
@@ -17,7 +17,6 @@ debug_echoi: Symbole créé à l'adresse:, paramètre: 134604512
 debug_echoi: Niveau de référencement:, paramètre: 0
 debug_echo: déclaration du symbole empilée
 debug_echo: </déclaration>
-
 debug_echoi: Type du symbole:, paramètre: 0
 debug_echoi: ID, son TinyStringID vaut:, paramètre: 61
 debug_echo: <déclaration>
@@ -25,10 +24,7 @@ debug_echoi: Symbole créé à l'adresse:, paramètre: 134605152
 debug_echoi: Niveau de référencement:, paramètre: 0
 debug_echo: déclaration du symbole empilée
 debug_echo: </déclaration>
-
-
-debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre:
-134604424
+debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre: 134604424
 debug_echoi: tentative de conversion strtoi sur NUM_I, paramètre: 5
 debug_echoi: Symbole INT créé à l'adresse:, paramètre: 134605232
 debug_echo: déclaration du symbole empilée
@@ -36,43 +32,29 @@ debug_echo: instruction d'affectation empilée
 debug_echoi: assigne à $1, situé à, paramètre: 134604424
 debug_echoi: la donnée dans $3, située à, paramètre: 134605232
 debug_echo: instruction d'assignement empilée
-debug_echo: affect
-
-debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre:
-134605152
+debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre: 134605152
 debug_echoi: Symbole BOOL créé à l'adresse:, paramètre: 134605336
 debug_echo: déclaration du symbole empilée
 debug_echo: instruction d'affectation empilée
 debug_echoi: assigne à $1, situé à, paramètre: 134605152
 debug_echoi: la donnée dans $3, située à, paramètre: 134605336
 debug_echo: instruction d'assignement empilée
-debug_echo: affect
-
-
-debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre:
-134604512
-debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre:
-134604424
-debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre:
-134605152
+debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre: 134604512
+debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre: 134604424
+debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre: 134605152
 debug_echo: <process star>
 debug_echoi: opération: $1 à l'adresse:, paramètre: 134604424
 debug_echoi: opération: $3 à l'adresse:, paramètre: 134605152
 debug_echoi: type de retour compatible trouvé:, paramètre: 1
-debug_echoi: symbole de retour pour l'opération créé à l'adresse:,
-paramètre: 134605176
+debug_echoi: symbole de retour pour l'opération créé à l'adresse:, paramètre:
+134605176
 debug_echo: déclaration du symbole de retour empilée
 debug_echo: instruction d'opération valide et empilée
 debug_echo: </process star>
 debug_echoi: assigne à $1, situé à, paramètre: 134604512
 debug_echoi: la donnée dans $3, située à, paramètre: 134605176
 debug_echo: instruction d'assignement empilée
-debug_echo: affect
-
-
 debug_echo: contexte ouvert
-
-
 debug_echoi: Type du symbole:, paramètre: 1
 debug_echoi: ID, son TinyStringID vaut:, paramètre: 52
 debug_echo: <déclaration>
@@ -80,9 +62,7 @@ debug_echoi: Symbole créé à l'adresse:, paramètre: 134605560
 debug_echoi: Niveau de référencement:, paramètre: 0
 debug_echo: déclaration du symbole empilée
 debug_echo: </déclaration>
-
-debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre:
-134605560
+debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre: 134605560
 debug_echoi: tentative de conversion strtoi sur NUM_I, paramètre: 42
 debug_echoi: Symbole INT créé à l'adresse:, paramètre: 134605584
 debug_echo: déclaration du symbole empilée
@@ -90,38 +70,32 @@ debug_echo: instruction d'affectation empilée
 debug_echoi: assigne à $1, situé à, paramètre: 134605560
 debug_echoi: la donnée dans $3, située à, paramètre: 134605584
 debug_echo: instruction d'assignement empilée
-debug_echo: affect
-
-
-debug_echo: Symbole non trouvé dans le contexte, recherche hors du
-contexte...
-debug_echoi: Symbole trouvé hors du contexte à l'adresse:,
-paramètre: 134604512
-debug_echoi: Symbole trouvé dans le contexte à l'adresse:,
-paramètre: 134605560
-debug_echo: Symbole non trouvé dans le contexte, recherche hors du
-contexte...
-debug_echoi: Symbole trouvé hors du contexte à l'adresse:,
-paramètre: 134605152
+debug_echo: Symbole non trouvé dans le contexte, recherche hors du contexte...
+debug_echoi: Symbole trouvé hors du contexte à l'adresse:, paramètre: 134604512
+debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre: 134605560
+debug_echo: Symbole non trouvé dans le contexte, recherche hors du contexte...
+debug_echoi: Symbole trouvé hors du contexte à l'adresse:, paramètre: 134605152
 debug_echo: <process plus>
 debug_echoi: opération: $1 à l'adresse:, paramètre: 134605560
 debug_echoi: opération: $3 à l'adresse:, paramètre: 134605152
 debug_echoi: type de retour compatible trouvé:, paramètre: 1
-debug_echoi: symbole de retour pour l'opération créé à l'adresse:,
-paramètre: 134606216
+debug_echoi: symbole de retour pour l'opération créé à l'adresse:, paramètre:
+134606216
 debug_echo: déclaration du symbole de retour empilée
 debug_echo: instruction d'opération valide et empilée
 debug_echo: </process plus>
 debug_echoi: assigne à $1, situé à, paramètre: 134604512
 debug_echoi: la donnée dans $3, située à, paramètre: 134606216
 debug_echo: instruction d'assignement empilée
-debug_echo: affect
-
-
 debug_echo: contexte sauvé
-debug_echo: bloc
-
-
+debug_echoi: Symbole trouvé dans le contexte à l'adresse:, paramètre: 134604424
+debug_echoi: tentative de conversion strtoi sur NUM_I, paramètre: 789
+debug_echoi: Symbole INT créé à l'adresse:, paramètre: 134606352
+debug_echo: déclaration du symbole empilée
+debug_echo: instruction d'affectation empilée
+debug_echoi: assigne à $1, situé à, paramètre: 134604424
+debug_echoi: la donnée dans $3, située à, paramètre: 134606352
+debug_echo: instruction d'assignement empilée
 debug_echo: yyparse() a terminé
 debug_echo: instanciation d'un module CodeWriter
 debug_echo: Production de code cible dans:
@@ -130,3 +104,4 @@ debug_echo: production des déclarations...
 debug_echo: production des instructions...
 debug_echo: libération des ressources...
 debug_echo: Fin de l'écriture du code de sortie.
+

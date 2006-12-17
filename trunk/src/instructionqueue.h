@@ -12,11 +12,10 @@
 #ifndef INSTRUCTIONQUEUE_H
 #define INSTRUCTIONQUEUE_H
 
-#include "configuration.h"
-
-#include "instruction.h"
-
 #include <queue>
+
+#include "configuration.h"
+#include "instruction.h"
 
 using namespace std;
 

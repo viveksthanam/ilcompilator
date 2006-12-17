@@ -1,7 +1,7 @@
 //% vim: ts=2 tw=80
 
 /** \file lex_process.cpp 
- * \brief Corps des fonctions utilisées uniquement dans projet.l.
+ * \brief Corps des fonctions appelées dans projet.l.
  * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
  * \version
  * \date 08/12/2006
@@ -9,6 +9,7 @@
  */
 
 #include <stdlib.h>
+
 #include "hashtable.h"
 #include "lex_process.h"
 #include "stringid.h"

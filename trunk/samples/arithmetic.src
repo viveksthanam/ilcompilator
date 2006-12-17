@@ -1,5 +1,8 @@
+/* Pi, rayon des pizzas, surface maximale de pizzas ingérable */
 float pi,rayon,overdose;
+/* nombre courant de pizzas */
 int quantite;
+
 bool resultat;
 
 pi = 3.1415927;
@@ -7,5 +10,6 @@ rayon = 0.25;
 quantite = 300;
 overdose = 500.000;
 
+/* peut on ingérer une telle surface de pizza ? */ 
 resultat = ((pi * rayon * rayon) * quantite) > overdose; 
 

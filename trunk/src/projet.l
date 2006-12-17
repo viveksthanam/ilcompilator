@@ -6,7 +6,7 @@
 #include "y.tab.h"
 
 /** \addtogroup LexInitInstructions
-* Fonctions, variables et commandes du préprocesseur paramétrant Lex.
+* Fonctions, variables et commandes paramétrant Lex.
 * @{
 */
 
@@ -87,4 +87,5 @@ int yylex_destroy (void)
 			       									 return(ID);}
 [0-9]+(".")[0-9]*            { yyval_float = lex_process_atof(yytext); return(NUM_F);}
 [0-9]*			     						 { yyval_int = lex_process_atoi(yytext); return(NUM_I);}
-
+"/*"[^}\n]*"*/"							 { /*mange les commentaires 'à la C'*/ }
+[ \t\n]+										 { /*mange les espaces*/ }

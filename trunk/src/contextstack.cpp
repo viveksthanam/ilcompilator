@@ -3,7 +3,7 @@
 /** \file contextstack.cpp
  * \brief Implémente la classe CContextStack qui contiendra
  * les différents symboles et ajoutera une information
- * sur le context du dit symbole.
+ * sur le context dudit symbole.
  * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
  * \version 
  * \date 07/12/2006

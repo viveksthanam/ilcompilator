@@ -18,7 +18,7 @@
 #include "label.h"
 
 /** \addtogroup YaccInitInstructions
-* Fonctions, variables et commandes du préprocesseur paramétrant Yacc.
+* Fonctions, variables et commandes paramétrant Yacc.
 * @{
 */
 
@@ -70,10 +70,10 @@ int current_decl_type = -1;
 */
 extern int debug_level;
 
-
+/** \brief Initialisation du niveau de référencement. */
 int ref_level = 0;
 
-/** \brief Libère les ressources utilisées par nos piles.
+/** \brief Libère les ressources utilisées par nos instances.
  */
 void sanitizer (void) {
 
@@ -118,10 +118,10 @@ delete LB_main;
 
 prog : decl_list inst_list pv ; 
 
-pv : PV { } 
+pv : PV  
      | ;
 
-decl_list : decl_list decl { } 
+decl_list : decl_list decl  
             | ;
 
 decl : type id_aff_list PV { process_declaration_end(); } ; 
@@ -142,13 +142,13 @@ type : INT         { ref_level = 0; $$ = process_type(T_INT); }
        | BOOL      { ref_level = 0; $$ = process_type(T_BOOL); }
        | type STAR { ref_level++; };
 
-inst_list : inst_list PV inst { }
-            | inst            { };
+inst_list : inst_list PV inst 
+            | inst;
 
-inst : affect { debug_echo("affect"); }
-       | cond { debug_echo("cond"); }
-       | loop { debug_echo("loop"); }
-       | bloc { debug_echo("bloc"); };
+inst : affect { }
+       | cond { }
+       | loop { }
+       | bloc { };
 
 affect : id EQ exp { $$ = process_assignment($1,$3); };
 
@@ -180,8 +180,8 @@ exp :  exp OR exp              { $$ = process_bool_or($1,$3); }
      | exp STAR exp            { $$ = process_star($1,$3); }
      | exp DIV exp             { $$ = process_div($1,$3); }
      | exp EQL exp             { $$ = process_bool_eql($1,$3); }
-     | exp GRT exp             { $$ = process_bool_grt($1,$3); }
-     | exp LOW exp             { $$ = process_bool_low($1,$3); }
+     | exp GRT exp             { $$ = process_grt($1,$3); }
+     | exp LOW exp             { $$ = process_low($1,$3); }
      | exp NEQ exp             { $$ = process_bool_neq($1,$3); }
 
      | STAR exp %prec MUNAIRE  			{ $$ = process_uop_star($1,$2); }
@@ -225,6 +225,7 @@ int main( int argc, char** argv )
   debug_echo("instanciation d'un module InstructionQueue");
   IQ_main = new CInstructionQueue;
 
+	debug_echo("instanciation d'un module Label");
 	LB_main = new CLabel;
 
 	debug_echo("appel yyparse(), Ctrl+D pour arrêter la saisie");

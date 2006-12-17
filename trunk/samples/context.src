@@ -4,14 +4,21 @@ bool variable2;
 variable1 = 5;
 variable2 = false;
 
+/* variable2 sera convertie implicitement, sans perte */
 resultat = variable1 * variable2;
 
+/* nouveau contexte */
 {
 
+/* variable1 locale au contexte */
 int variable1;
 variable1 = 42;
 
+/* opération avec variable locale au contexte et variable du contexte inférieur */
 resultat = variable1 + variable2;
 
 };
+
+/* contexte dépilé, on retrouve variable1 du contexte initial */
+variable1 = 789;
 

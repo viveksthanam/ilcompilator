@@ -1,7 +1,7 @@
 //% vim: ts=2 tw=80
 
 /** \file lex_process.h
- * \brief Header des (quelques) fonctions de traitement utilisées dans projet.l.
+ * \brief Header des fonctions de traitement utilisées dans projet.l.
  * \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
  * \version
  * \date 08/12/2006
@@ -14,7 +14,7 @@
 /** \addtogroup LexProcessingFunctions
 * Header des fonctions appelées dans le fichier Lex. Celles-ci formatent les
 * valeurs yyvalue, yytext, yylval_float (etc) qui servent dans l'interface avec
-* Yacc. Convention de nommage des fonctions : [lex_process][utilisation]().
+* Yacc.
 * @{
 */
 

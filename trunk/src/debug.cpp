@@ -1,16 +1,3 @@
-/*fonctions de debug*/
-using namespace std;
-#include <iostream>
-#include <cstdlib>
-#include "debug.h"
-#include "configuration.h"
-#include "hashtable.h"
-#include "contextstack.h"
-
-int debug_level = 0;
-extern int argc;
-extern char** argv;
-
 //% vim: ts=2 tw=80
 
 /** \file debug.cpp
@@ -19,6 +6,20 @@ extern char** argv;
 * \version
 * \date 07/12/2007
 */
+
+using namespace std;
+
+#include <iostream>
+#include <cstdlib>
+
+#include "debug.h"
+#include "configuration.h"
+#include "hashtable.h"
+#include "contextstack.h"
+
+int debug_level = 0;
+extern int argc;
+extern char** argv;
 
 void about (void) {
   printf("ilCompilator - compilé le \

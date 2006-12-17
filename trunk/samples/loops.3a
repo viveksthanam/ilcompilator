@@ -18,7 +18,7 @@ float var16;
 float var17;
 float var18;
 float var19;
-bool var20;
+int var20;
 float var21;
 float var22;
 float var23;

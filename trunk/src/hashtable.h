@@ -13,10 +13,11 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-#include "hashtable.h"
-#include "stringid.h"
 #include <string>
 #include <vector>
+
+#include "hashtable.h"
+#include "stringid.h"
 
 using namespace std;
 

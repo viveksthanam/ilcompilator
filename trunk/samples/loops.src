@@ -1,18 +1,25 @@
+/* Calcul itératif de Pi */
+
+/* compteur et nombre maximal d'itérations */
 int compteur,limite;
+
+/* résultat intermédiaire */
 float somme;
 
+/* variables temporaires */
 float x;
 float h;
 float fxi;
 float fxi1;
 
+/* variable résultat final */
 float PI;
 
 compteur = 0;
 limite = 10000000;
 somme = 0;
 
-x=0;
+x = 0;
 h = 1.0/(float)limite;
 
 fxi1 = 4.0/(1.0 + x*x);
@@ -29,4 +36,7 @@ while compteur < limite do
 	compteur = compteur + 1;
 };
 
+/* voilà! :o) */
 PI = (somme*h)/2.0;
+
+

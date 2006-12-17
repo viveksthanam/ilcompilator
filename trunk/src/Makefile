@@ -3,8 +3,8 @@
 CC= g++
 EXEC= compil
 ALLEXEC= hashtable_test contextstack_test codewriter_test
-CFLAGS= -Wall -g
-LDFLAGS= -Wall -ll -g
+CFLAGS= -Wall -g 
+LDFLAGS= -Wall -ll -g 
 
 LEX=flex
 YACC=bison

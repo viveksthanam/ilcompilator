@@ -1,9 +1,3 @@
-/* protos des fonctions de debug */
-#ifndef DEBUG_HEADER
-#define DEBUG_HEADER
-
-#define DEBUG(str) fprintf(stderr,"%s:%d in %s(), info: %s\n",__FILE__, __LINE__, __FUNCTION__, str)
-
 // vim: ts=2 tw=80
 
 /** \file debug.h
@@ -12,6 +6,11 @@
  * \version
  * \date 07/12/2007
  */
+
+#ifndef DEBUG_HEADER
+#define DEBUG_HEADER
+
+#define DEBUG(str) fprintf(stderr,"%s:%d in %s(), info: %s\n",__FILE__, __LINE__, __FUNCTION__, str)
 
 /** \brief Positionne le niveau de debug debug_level.
  */

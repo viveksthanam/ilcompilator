@@ -15,10 +15,8 @@
 using namespace std;
 
 #include "codewriter.h"
-
 #include "configuration.h"
 #include "stringtable.h"
-
 #include "debug.h"
 
 CCodeWriter::CCodeWriter( char* filename )
@@ -30,7 +28,7 @@ CCodeWriter::CCodeWriter( char* filename )
 
   if( !foutput )
   {
-    /**\todo Ajouter gestion d'erreur */
+    /**\todo Faut il ajouter une gestion d'erreur ou simplement quitter ? */
     debug_critical_exit("Impossible d'écrire le fichier de sortie.",NULL);
     return;
   }
@@ -70,7 +68,7 @@ int CCodeWriter::writeDeclarations( CDeclarationQueue* declarations )
 
   if(!declarations)
   {
-    debug_critical("Impossible de défiler la file des déclarations");
+    debug_critical("Impossible de défiler la file des déclarations.");
     return 0;
   }
 
@@ -99,7 +97,7 @@ int CCodeWriter::writeInstructions( CInstructionQueue* instructions )
 
   if(!instructions)
   {
-    debug_critical("Impossible de défiler la file des instructions");
+    debug_critical("Impossible de défiler la file des instructions.");
     return 0;
   }
 

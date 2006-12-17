@@ -1,7 +1,16 @@
 /*code des routines de traitement*/
 //% vim: ts=2 tw=80
+
+/** \file process.cpp
+* \brief Corps des fonctions de traitement de projet.y.
+* \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
+* \version
+* \date 07/12/2007
+*/
+
 #include <iostream>
 #include <cstdlib>
+
 #include "process.h"
 #include "debug.h"
 #include "declarationqueue.h"
@@ -22,13 +31,6 @@ extern CInstructionQueue* IQ_main;
 extern CLabel* LB_main;
 
 extern void sanitizer (void);
-
-/** \file process.cpp
-* \brief Corps des fonctions de traitement
-* \author <brossill@enseirb.fr> <lerouxj@enseirb.fr>
-* \version
-* \date 07/12/2007
-*/
 
 int process_declaration(int arg1, int arg2, int ref_level) {
 
@@ -317,11 +319,11 @@ int process_op3(int arg1, int arg3, Operator oprtr) {
       
         // L'opération est elle l'addition ?
         if( oprtr == OP3_ADD )
-          debug_critical_exit("L'addition d'un pointeur est uniquement authorisée\
+          debug_critical_exit("L'addition d'un pointeur est uniquement autorisée\
 avec un entier",sanitizer);
         else
           debug_critical_exit("La soustraction d'un pointeur est uniquement\
-authorisée avec un entier",sanitizer);
+autorisée avec un entier",sanitizer);
 
       }
 
@@ -382,7 +384,7 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
   arg1_type_val = ((CSymbol*)arg1)->getType().getTypeVal();
   arg3_type_val = ((CSymbol*)arg3)->getType().getTypeVal();
  
-  /*
+  
   //gestion si symboles incompatibles
   if ( arg1_type_val != (TYPEVAL)T_BOOL ) {
     //some more code...   
@@ -419,7 +421,7 @@ int process_op3_bool(int arg1, int arg3, Operator oprtr) {
     debug_echo("</cast de $3 en bool>");
 
   }
-  */  
+    
   //cree le symbole de retour de type bool
   retval = CS_main->addSymbol( CStringID(), CType( (TYPEVAL)T_BOOL, DEFAULT_REF_LVL) ) ;
   debug_echoi("symbole de retour pour l'opération booléenne créé à l'adresse:", (int)retval);
@@ -521,22 +523,22 @@ int process_bool_eql(int arg1, int arg3) {
 
 }
 
-int process_bool_grt(int arg1, int arg3) {
+int process_grt(int arg1, int arg3) {
   
   int pointeur = 0;
   debug_echo("<process grt>");
-  pointeur = process_op3_bool(arg1, arg3, OP3_GRT);
+  pointeur = process_op3(arg1, arg3, OP3_GRT);
   if (!pointeur) debug_critical_exit("échec de de process_bool_grt",sanitizer); 
   debug_echo("</process grt>");
   return pointeur;
 
 }
 
-int process_bool_low(int arg1, int arg3) {
+int process_low(int arg1, int arg3) {
   
   int pointeur = 0;
   debug_echo("<process low>");
-  pointeur = process_op3_bool(arg1, arg3, OP3_LOW);
+  pointeur = process_op3(arg1, arg3, OP3_LOW);
   if (!pointeur) debug_critical_exit("échec de de process_bool_low",sanitizer); 
   debug_echo("</process low>");
   return pointeur;
@@ -703,18 +705,10 @@ int process_repeat_begin() {
   return EXIT_SUCCESS;
 
 }
- 
-
-
-
-
-
 
 int process_uop_star(int arg1, int arg2) {
 
   debug_echo("STAR exp %prec MUNAIRE");
-
-  cerr<<"------------------"<<arg1<<","<<arg2<<endl;
  
   int ref_level = ((CSymbol*)arg2)->getType().getRef();
   TYPEVAL typeval = ((CSymbol*)arg2)->getType().getTypeVal();
@@ -757,9 +751,8 @@ int process_uop_cast(int arg1, int arg4, int ref_level)
   IQ_main->pushInstruction( p_instr );
   
   return (int)symbol;
+
 } 
-
-
 
 /*A traiter:*/
 

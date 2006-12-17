@@ -1,3 +1,5 @@
-int* pdebut;
-int taille;
+int* debutTableau;
+int tailleTableau, somme;
+
+
 

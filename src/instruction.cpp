@@ -153,7 +153,6 @@ CInstruction::CInstruction( CSymbol* lvalue, float rvalue )
 
     default:
       this->isvalid=false;
-      /**\todo Ajouter gestion d'erreur.*/
       break;
   }
 

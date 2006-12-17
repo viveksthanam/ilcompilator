@@ -12,12 +12,11 @@
 #ifndef DECLARATIONQUEUE_H
 #define DECLARATIONQUEUE_H
 
+#include <queue>
+
 #include "configuration.h"
 #include "symbol.h"
 #include "type.h"
-
-
-#include <queue>
 
 using namespace std;
 

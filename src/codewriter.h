@@ -13,10 +13,10 @@
 #ifndef CODEWRITER_H
 #define CODEWRITER_H
 
+#include <string>
+
 #include "instructionqueue.h"
 #include "declarationqueue.h"
-
-#include <string>
 
 using namespace std;
 
@@ -27,7 +27,7 @@ class CCodeWriter
 {
 private:
 
-  /**\brief File descriptor sur le fichier de sortie
+  /**\brief File descriptor sur le fichier de sortie.
     */
   FILE* foutput;
 
@@ -52,8 +52,7 @@ public:
    * interdire toute écriture en cas d'erreur durant l'analyse du source, mais
    * nous ne voulons pas nous priver de la lecture du code cible généré jusqu'à
    * l'erreur.
-   *\param declarations Pile des déclarations à dépiler 
-   *pour remplir le fichier de sortie.
+   *\param declarations Pile des déclarations à dépiler, pour remplir le fichier de sortie.
    */
   int writeDeclarations( CDeclarationQueue* declarations );
 
@@ -61,8 +60,7 @@ public:
    * interdire toute écriture en cas d'erreur durant l'analyse du source, mais
    * nous ne voulons pas nous priver de la lecture du code cible généré jusqu'à
    * l'erreur.
-   *\param instructions Pile des instructions à vider 
-   *pour remplir le fichier de sortie.
+   *\param instructions Pile des instructions à vider pour remplir le fichier de sortie.
    */
   int writeInstructions( CInstructionQueue* instructions );
 };

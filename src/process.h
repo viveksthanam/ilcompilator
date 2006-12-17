@@ -1,11 +1,4 @@
-/* protos des fonctions de traitement */
-#ifndef PROCESS_HEADER
-#define PROCESS_HEADER
-
 // vim: ts=2 tw=80
-
-#include "operator.h"
-#include "contextstack.h"
 
 /** \file process.h
 * \brief Header des fonctions de traitement
@@ -14,9 +7,14 @@
 * \date 07/12/2007
 */
 
+#ifndef PROCESS_HEADER
+#define PROCESS_HEADER
+
+#include "operator.h"
+#include "contextstack.h"
+
 /** \addtogroup ProcessingFunctions
-* Appel lors d'un 'match' sur un token dans Yacc. Convention de nommage des
-* fonctions: process_[nom du token].
+* Appel lors d'un 'match' sur un token dans Yacc.
 * @{
 */
 
@@ -155,6 +153,24 @@ int process_star(int arg1, int arg3);
  */
 int process_div(int arg1, int arg3); 
 
+/** \brief Idem Supérieur 
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat. Les arguments sont
+ * castés si nécessaire. 
+ */
+int process_grt(int arg1, int arg3); 
+
+/** \brief Idem Inferieur
+ * \param arg1 CSymbol* casté en int, première opérande.
+ * \param arg3 CSymbol* casté en int, seconde opérande.
+ * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
+ * est actif), pointant sur le symbole booléen résultat. Les arguments sont
+ * castés si nécessaire. 
+ */
+int process_low(int arg1, int arg3); 
+
 /** \brief Idem Est-Egal (booléen)
  * \param arg1 CSymbol* casté en int, première opérande.
  * \param arg3 CSymbol* casté en int, seconde opérande.
@@ -182,24 +198,6 @@ int process_bool_and(int arg1, int arg3);
  */
 int process_bool_or(int arg1, int arg3); 
 
-/** \brief Idem Est-Supérieur (booléen)
- * \param arg1 CSymbol* casté en int, première opérande.
- * \param arg3 CSymbol* casté en int, seconde opérande.
- * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
- * est actif), pointant sur le symbole booléen résultat. Les arguments sont
- * castés si nécessaire. 
- */
-int process_bool_grt(int arg1, int arg3); 
-
-/** \brief Idem Est-Inferieur (booléen)
- * \param arg1 CSymbol* casté en int, première opérande.
- * \param arg3 CSymbol* casté en int, seconde opérande.
- * \return CSymbol* a priori distinct des paramètres (sauf si le SymbolManager
- * est actif), pointant sur le symbole booléen résultat. Les arguments sont
- * castés si nécessaire. 
- */
-int process_bool_low(int arg1, int arg3); 
-
 /** \brief Idem Est-Différent (booléen)
  * \param arg1 CSymbol* casté en int, première opérande.
  * \param arg3 CSymbol* casté en int, seconde opérande.
@@ -208,7 +206,6 @@ int process_bool_low(int arg1, int arg3);
  * castés si nécessaire. 
  */
 int process_bool_neq(int arg1, int arg3); 
-
 
 /** \brief Réalise les instructions nécessaires à la création de la tête
  *d'un bloc if...then ou if...then...else...
@@ -260,13 +257,16 @@ int process_while_begin();
   */
 int process_exp_do_begin(int arg1);
 
+/** \todo JD :P */
 int process_uop_star(int arg1, int arg2);
 
+/** \todo JD :P */
 int process_uop_cast(int arg1, int arg4, int ref_level);
 
-/*a traiter:*/
+/*A traiter:*/
 int process_uop_not(int arg1, int arg2);
 int process_uop_moins(int arg1, int arg2);
+
 /** @} */
 
 #endif /*process.h*/

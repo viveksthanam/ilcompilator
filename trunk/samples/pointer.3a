@@ -1,0 +1,24 @@
+int *var0;
+int *var1;
+int var2;
+int var3;
+int var4;
+int var5;
+int var6;
+int var7;
+int var8;
+int var9;
+int var10;
+var5 = 0;
+var0 = (int*)var5;
+var1 = var0;
+var6 = 0;
+var4 = var6;
+label2:
+var7 = var4 < var2;
+var8 = var4 * var4;
+*var1 = var8;
+var9 = 1;
+var10 = var1 + var9;
+var1 = var10;
+if(var7) goto label2;

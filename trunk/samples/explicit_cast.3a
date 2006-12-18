@@ -1,0 +1,14 @@
+int var0;
+bool var1;
+float var2;
+int var3;
+float var4;
+int var5;
+bool var6;
+var2 = 2350.566895;
+var3 = (int)var2;
+var0 = var3;
+var4 = 24678.234375;
+var5 = (int)var4;
+var6 = (bool)var5;
+var1 = var6;

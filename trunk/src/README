@@ -1,0 +1,7 @@
+Développé avec:
+-GNU Flex 2.5.33 (compatibilité Lex normalement assurée)
+-GNU Bison 2.3 (idem Yacc)
+-g++ 4.1.2 20060928 (prerelease) 
+sur noyau linux 2.6.17-10, architecture i686.
+
+make clean && make pour compiler.

@@ -95,6 +95,14 @@ int process_bool ( int val );
  */
 int process_assignment(int arg1, int arg3);
 
+
+/** \brief Réalise une assignation d'une référence à un symbole.
+ * \param arg1 CSymbol* (casté en int) cible.
+ * \param arg3 CSymbol* (casté en int) source.
+ */
+int process_refassignment(int arg1, int arg3);
+
+
 /** \brief Factorisation de code pour tous les traitements utilisant les
  * opérateurs en OP3_*
  * \param arg1 CSymbol* casté en int, première opérande de l'addition.

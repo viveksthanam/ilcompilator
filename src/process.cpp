@@ -266,6 +266,42 @@ int process_assignment(int arg1, int arg3) {
   return EXIT_SUCCESS;
 }
 
+
+int process_refassignment(int arg1, int arg3)
+{ 
+  CInstruction* instr = NULL;
+
+  if ( !(arg1) || !(arg3) )
+    debug_critical_exit("assignation avec (au moins) un symbole invalide sur deux", sanitizer);
+ 
+  if( ((CSymbol*)arg1)->getType().getRef() == 0 )
+  {
+    debug_critical_exit("assignation avec déréférencement sur une constante.", sanitizer);
+  }
+
+  if ( current_decl_type != -1 )
+    debug_critical_exit("tentative d'assignation durant une phase de déclaration", sanitizer);
+
+  debug_echoi("assigne à $1, situé à",arg1);
+  debug_echoi("la donnée dans $3, située à",arg3); 
+  
+  /* debug avancé inutile car fonctionne au poil
+  debug_echoi("type de $1", (int)(((CSymbol*)arg1)->getType()).getTypeVal() );
+  debug_echoi("type de $3", (int)(((CSymbol*)arg3)->getType()).getTypeVal() );
+  debug_echoi("ref lvl de $1", (int)(((CSymbol*)arg1)->getType()).getRef() );
+  debug_echoi("ref lvl de $3", (int)(((CSymbol*)arg3)->getType()).getRef() );
+  */
+
+  instr = new CInstruction( OP2_REF_EQU, (CSymbol*)arg1, (CSymbol*)arg3 );
+
+  if (!instr) debug_critical_exit("échec de la création d'instruction", sanitizer);
+  IQ_main->pushInstruction( instr );
+  debug_echo("instruction d'assignement empilée");
+    
+  return EXIT_SUCCESS;
+}
+
+
 int process_op3(int arg1, int arg3, Operator oprtr) {
 
   CType type_compatible; 

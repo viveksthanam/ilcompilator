@@ -34,10 +34,11 @@ char* string_operators[OP0_INVALID] =
 "%s%d = !%s%d%s",         //OP2_NOT
 "%s%d = -%s%d%s",         //OP2_NEG
 
-"%s%d = %s%d%s",        //OP3_EQU
-"%s%d = %d%s",          //OP3_EQU_CONST_RVALUE_BOOL
-"%s%d = %d%s",          //OP3_EQU_CONST_RVALUE_INT
-"%s%d = %f%s",          //OP3_EQU_CONST_RVALUE_FLOAT
+"%s%d = %s%d%s",        //OP2_EQU
+"*%s%d = %s%d%s",       //OP2_REF_EQU
+"%s%d = %d%s",          //OP2_EQU_CONST_RVALUE_BOOL
+"%s%d = %d%s",          //OP2_EQU_CONST_RVALUE_INT
+"%s%d = %f%s",          //OP2_EQU_CONST_RVALUE_FLOAT
 
 "%s%d = (%s%s)%s%d%s",    //OP3_CAST
 

@@ -1,7 +1,30 @@
-/* Exemple de manipulation de pointeurs */
+/* Exemple sur les pointeurs  */
+/* Attention : n'effectue     */
+/* aucune gestion de mémoire. */
 
-int* debutTableau;
-int tailleTableau, somme;
+int* pDebutTableau;
+int* pElement;
 
+int taille, somme;
 
+int i;
+
+/* On fixe le point de départ du tableau */
+/* dans la mémoire                       */
+pDebutTableau = 0;
+
+/* On fixe pElement au debut du tableau */
+pElement = pDebutTableau;
+
+i=0;
+
+while i < taille do
+{
+	/* On assigne la valeur à l'element pointé*/
+	/* par pElement */
+	*pElement = i*i;
+
+	/* Avance d'une case */
+	pElement = pElement + 1;
+};
 

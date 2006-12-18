@@ -146,11 +146,14 @@ inst_list : inst_list PV inst
             | inst;
 
 inst : affect { }
+			 | ref_affect {}
        | cond { }
        | loop { }
        | bloc { };
 
 affect : id EQ exp { $$ = process_assignment($1,$3); };
+
+ref_affect : STAR exp EQ exp { $$ = process_refassignment($2,$4); };
 
 cond : IF cond_exp THEN inst { process_then(); } 
        | IF cond_exp THEN inst else inst { process_fin_else(); };

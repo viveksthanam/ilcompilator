@@ -55,8 +55,6 @@ CInstruction::CInstruction( Operator op, int n, CSymbol* ps )
 CInstruction::CInstruction( Operator op, CSymbol* lsymbol, CSymbol* rsymbol)
 {
 
-  if( (op != OP2_NOT) ) this->isvalid = false;
-
   this->op = op;
 
   this->operand_1 = lsymbol->getID();

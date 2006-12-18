@@ -1,15 +1,27 @@
+/* Exemple de calculs arithmétiques (expressions complexes), avec plusieurs*/
+/* types de variables et un test (if) 																		 */
+
 /* Pi, rayon des pizzas, surface maximale de pizzas ingérable */
 float pi,rayon,overdose;
+
 /* nombre courant de pizzas */
 int quantite;
 
-bool resultat;
+/* surface courante de pizzas */
+float resultat;
+
+/* pronostic vital */
+bool vie;
 
 pi = 3.1415927;
 rayon = 0.25;
 quantite = 300;
 overdose = 500.000;
+vie = true;
 
-/* peut on ingérer une telle surface de pizza ? */ 
-resultat = ((pi * rayon * rayon) * quantite) > overdose; 
+resultat = ((pi * rayon * rayon) * quantite); 
+
+/* peut on ingérer une telle surface de pizza ? */
+if ( resultat > overdose ) then
+vie = false;
 

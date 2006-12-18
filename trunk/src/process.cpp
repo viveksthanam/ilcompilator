@@ -39,8 +39,6 @@ int process_declaration(int arg1, int arg2, int ref_level) {
   //debug_echo("declaration: type id_aff_list PV");
 
 	if (current_decl_type != -1) {
-    
-    debug_echo("<déclaration>");
   
     //vérification que le StringID n'est pas déjà 
     //présent dans le contexte courant
@@ -89,6 +87,7 @@ int process_declaration_end() {
 int process_type ( int type ) {
 
   if ( -1 == current_decl_type ) {
+    debug_echo("<déclaration>");
     debug_echoi( "Type du symbole:", type );
     current_decl_type = type;
     return (type);

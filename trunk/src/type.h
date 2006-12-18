@@ -100,7 +100,6 @@ public:
   }
 
   /**\brief Retourne le type compatible entre les deux types.
-    *\todo Changer ce mfê$$$ de commentaire.
     */
   const CType returnCompatible( const CType type )
   {

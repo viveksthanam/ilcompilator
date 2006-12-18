@@ -1,3 +1,5 @@
+/* Exemple de manipulation de pointeurs */
+
 int* debutTableau;
 int tailleTableau, somme;
 

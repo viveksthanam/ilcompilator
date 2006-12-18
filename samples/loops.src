@@ -1,4 +1,4 @@
-/* Calcul itératif de Pi */
+/* Calcul itératif de Pi, utilisation d'une boucle */
 
 /* compteur et nombre maximal d'itérations */
 int compteur,limite;

@@ -266,6 +266,7 @@ int process_uop_star(int arg2);
 /** \brief Fonction réalisant l'opération de cast.
   * \param arg1 TYPEVAL du type du cast.
   * \param arg4 CSymbol* casté en int du symbole à caster.
+  * \param ref_level Niveau de référencement du symbole.
   * \return CSymbol* crée par l'opération
   */
 int process_uop_cast(int arg1, int arg4, int ref_level);

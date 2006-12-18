@@ -1,3 +1,5 @@
+/* Exemple de fonctionnement des contextes et des portées de déclaration */
+
 int variable1,resultat;
 bool variable2;
 

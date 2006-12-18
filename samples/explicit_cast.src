@@ -1,0 +1,14 @@
+/* Exemple de cast explicite de variables */
+
+int un;
+bool deux;
+
+/* cast simple */
+un = (int) 2350.567;
+
+/* cast multiple */
+deux = (bool) (int) 24678.234;
+
+/* on observera dans le fichier cible (.3a) que les casts implicites */
+/* n'ont pas lieu, puisque rendus inutiles par les casts explicites  */
+/* de l'utilisateur																									 */

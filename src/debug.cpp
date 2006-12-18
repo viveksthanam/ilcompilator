@@ -37,14 +37,14 @@ void debug_set_level (int* argc, char** argv) {
 
 void debug_critical( char* str ) {
 
-  cerr << "debug_critical: " << str << endl;
+  cerr << "WARNING, Guru Meditation: " << str << endl;
   return;
 
 }
 
 void debug_critical_exit( char* str, void(*sanitizer)(void)  ) {
   
-  cerr << "debug_critical_exit: " << str << endl;
+  cerr << "ERROR, Guru Meditation: " << str << endl;
   if(sanitizer) sanitizer();
   exit(EXIT_FAILURE);
   return; // inutile, mais bon tant pis ..
